@@ -28,26 +28,14 @@ repositories {
 dependencies {
     val mc = sc.current.version
 
-    /**
-     * Fetches only the required Fabric API modules to not waste time downloading all of them for each version.
-     * @see <a href="https://github.com/FabricMC/fabric">List of Fabric API modules</a>
-     */
-    fun fapi(vararg modules: String) {
-        for (it in modules) modImplementation(fabricApi.module(it, prop("deps.fabric_api")))
-    }
-
     minecraft("com.mojang:minecraft:$mc")
     // Applies Mojang Mappings on obfuscated versions
     loomx.applyMojangMappings()
 
     // Use `mod{dependency type}` even on 26.1+ - loom-back-compat converts them
     modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric_loader")}")
-    fapi(
-        "fabric-api-base", "fabric-lifecycle-events-v1", "fabric-networking-api-v1", "fabric-registry-sync-v0",
-        "fabric-key-binding-api-v1", "fabric-rendering-v1", "fabric-screen-handler-api-v1",
-        "fabric-transfer-api-v1", "fabric-item-group-api-v1", "fabric-events-interaction-v0",
-        "fabric-entity-events-v1", "fabric-object-builder-api-v1", "fabric-resource-loader-v0"
-    )
+    // The full Fabric API, so its version also wins over the one Forge Config API Port depends on
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric_api")}")
 
     // NeoForge style config (ModConfigSpec) on Fabric
     modImplementation("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${prop("deps.forgeconfigapiport")}")
@@ -59,7 +47,6 @@ dependencies {
     // Recipe viewers
     modCompileOnly("mezz.jei:jei-$mc-common-api-intermediary:${prop("deps.jei")}") { isTransitive = false }
     modCompileOnly("mezz.jei:jei-$mc-fabric-api:${prop("deps.jei")}")
-    modRuntimeOnly("mezz.jei:jei-$mc-fabric:${prop("deps.jei")}")
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${prop("deps.rei")}")
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${prop("deps.rei")}")
     modCompileOnly("dev.emi:emi-fabric:${prop("deps.emi")}:api")
