@@ -30,24 +30,30 @@ dependencies {
 
     // Use `mod{dependency type}` even on 26.1+ - loom-back-compat converts them
     modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric_loader")}")
-    // The full Fabric API, so its version also wins over the one Forge Config API Port depends on
+    // The full Fabric API
     modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric_api")}")
 
     // Nullability annotations used by the shared code
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")
     compileOnly("org.jetbrains:annotations:24.1.0")
 
-    // Recipe viewers
-    modCompileOnly("mezz.jei:jei-$mc-common-api-intermediary:${prop("deps.jei")}") { isTransitive = false }
-    modCompileOnly("mezz.jei:jei-$mc-fabric-api:${prop("deps.jei")}")
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${prop("deps.rei")}")
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${prop("deps.rei")}")
-    modCompileOnly("dev.emi:emi-fabric:${prop("deps.emi")}:api")
-    modRuntimeOnly("dev.emi:emi-fabric:${prop("deps.emi")}")
+    // Recipe viewers (compile-only, so the dev environment is not tied to their own dependencies)
+    fun optional(key: String, add: (String) -> Unit) = sc.properties.getOrNull<String>(key)?.let(add)
+    optional("deps.jei") {
+        modCompileOnly("mezz.jei:jei-$mc-common-api-intermediary:$it") { isTransitive = false }
+        modCompileOnly("mezz.jei:jei-$mc-fabric-api:$it")
+    }
+    optional("deps.rei") {
+        modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:$it")
+        modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:$it")
+    }
+    optional("deps.emi") {
+        modCompileOnly("dev.emi:emi-fabric:$it:api")
+        modRuntimeOnly("dev.emi:emi-fabric:$it")
+    }
 }
 
 loom {
-    fabricModJsonPath = rootProject.file("src/main/resources/fabric.mod.json")
 
     decompilerOptions.named("vineflower") {
         options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas - useful for mixins
@@ -76,6 +82,21 @@ java {
     }
 }
 
+/** Recipe viewer entrypoints, listed only for the viewers this version builds a plugin for. */
+fun extraEntrypoints(): String {
+    val entries = mutableListOf<String>()
+    if (sc.properties.getOrNull<String>("deps.jei") != null) {
+        entries += """"jei_mod_plugin": ["nadiendev.constructionwand.integrations.jei.ConstructionWandJeiPlugin"]"""
+    }
+    if (sc.properties.getOrNull<String>("deps.emi") != null) {
+        entries += """"emi": ["nadiendev.constructionwand.integrations.emi.ConstructionWandEmiPlugin"]"""
+    }
+    if (sc.properties.getOrNull<String>("deps.rei") != null) {
+        entries += """"rei_client": ["nadiendev.constructionwand.integrations.rei.ConstructionWandReiPlugin"]"""
+    }
+    return entries.joinToString("") { ",\n        $it" }
+}
+
 tasks {
     processResources {
         fun MutableMap<String, String>.register(key: String, value: String) {
@@ -93,14 +114,16 @@ tasks {
             register("minecraft_version", prop("mod.mc_compat"))
             register("fabric_loader_version", Regex("\\d+\\.\\d+").find(prop("deps.fabric_loader"))!!.value)
             register("java_version", requiredJava.majorVersion)
+            register("extra_entrypoints", extraEntrypoints())
         }
 
         filesMatching("fabric.mod.json") { expand(props) }
+        filesMatching("pack.mcmeta") { expand("pack_format" to prop("mod.pack_format")) }
 
         val mixinJava = "JAVA_${requiredJava.majorVersion}"
         filesMatching("*.mixins.json") { expand("java" to mixinJava) }
 
-        exclude("META-INF/neoforge.mods.toml", "META-INF/mods.toml")
+        exclude("META-INF/neoforge.mods.toml")
     }
 
     // Includes the license file in the built mod

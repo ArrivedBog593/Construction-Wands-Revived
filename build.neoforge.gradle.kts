@@ -41,41 +41,43 @@ dependencies {
     /** Adds the dependency only if the version declares a version for [key]. */
     fun optional(key: String, add: (String) -> Unit) = sc.properties.getOrNull<String>(key)?.let(add)
 
+    // Optional mods are only put on the dev runtime for versions that declare matching builds (deps.runtime)
+    val runtimeMods = sc.properties.getOrNull<String>("deps.runtime") == "true"
+    fun runtime(notation: String) = if (runtimeMods) runtimeOnly(notation) else compileOnly(notation)
+    fun runtimeAndCompile(notation: String) = if (runtimeMods) implementation(notation) else compileOnly(notation)
+
     // Recipe viewers
     optional("deps.jei") {
         compileOnly("mezz.jei:jei-$mc-common-api:$it")
         compileOnly("mezz.jei:jei-$mc-neoforge-api:$it")
-        runtimeOnly("mezz.jei:jei-$mc-neoforge:$it")
+        if (runtimeMods) runtimeOnly("mezz.jei:jei-$mc-neoforge:$it")
     }
     optional("deps.rei") {
         compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:$it")
         compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:$it")
-        runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:$it")
+        if (runtimeMods) runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:$it")
     }
     optional("deps.emi") {
         compileOnly("dev.emi:emi-neoforge:$it:api")
-        runtimeOnly("dev.emi:emi-neoforge:$it")
+        if (runtimeMods) runtimeOnly("dev.emi:emi-neoforge:$it")
     }
 
     // Storage mod integrations
-    optional("deps.ae2") {
-        compileOnly("org.appliedenergistics:appliedenergistics2:$it")
-        implementation("org.appliedenergistics:appliedenergistics2:$it")
-    }
-    optional("deps.guideme") { implementation("org.appliedenergistics:guideme:$it") }
-    optional("deps.refinedstorage") { implementation("com.refinedmods.refinedstorage:refinedstorage-neoforge:$it") }
-    optional("deps.refinedstorage_curios") { implementation("curse.maven:refined-storage-curios-integration-1230729:$it") }
-    optional("deps.sophisticatedbackpacks") { implementation("curse.maven:sophisticated-backpacks-422301:$it") }
-    optional("deps.sophisticatedcore") { implementation("curse.maven:sophisticated-core-618298:$it") }
+    optional("deps.ae2") { runtimeAndCompile("org.appliedenergistics:appliedenergistics2:$it") }
+    optional("deps.guideme") { runtimeAndCompile("org.appliedenergistics:guideme:$it") }
+    optional("deps.refinedstorage") { runtimeAndCompile("com.refinedmods.refinedstorage:refinedstorage-neoforge:$it") }
+    optional("deps.refinedstorage_curios") { runtimeAndCompile("curse.maven:refined-storage-curios-integration-1230729:$it") }
+    optional("deps.sophisticatedbackpacks") { runtimeAndCompile("curse.maven:sophisticated-backpacks-422301:$it") }
+    optional("deps.sophisticatedcore") { runtimeAndCompile("curse.maven:sophisticated-core-618298:$it") }
 
     // Curios and AE2 wireless terminals
     optional("deps.curios") {
         compileOnly("top.theillusivec4.curios:curios-neoforge:$it:api")
-        runtimeOnly("top.theillusivec4.curios:curios-neoforge:$it")
+        if (runtimeMods) runtimeOnly("top.theillusivec4.curios:curios-neoforge:$it")
     }
     optional("deps.ae2wtlib") {
-        implementation("de.mari_023:ae2wtlib_api:$it")
-        runtimeOnly("de.mari_023:ae2wtlib:$it")
+        runtimeAndCompile("de.mari_023:ae2wtlib_api:$it")
+        if (runtimeMods) runtimeOnly("de.mari_023:ae2wtlib:$it")
     }
 }
 
@@ -150,8 +152,9 @@ tasks {
         inputs.properties(props)
 
         filesMatching("META-INF/neoforge.mods.toml") { expand(props) }
+        filesMatching("pack.mcmeta") { expand("pack_format" to prop("mod.pack_format")) }
 
-        exclude("fabric.mod.json", "META-INF/mods.toml", "*.mixins.json")
+        exclude("fabric.mod.json", "*.mixins.json")
     }
 
     named("createMinecraftArtifacts") {

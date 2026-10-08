@@ -12,6 +12,8 @@ loomx.loom_version = "1.18-SNAPSHOT"
 
 ["1.21.1"]
 mod.mc_releases = ["1.21", "1.21.1"]
+mod.pack_format = "34"
+deps.runtime = "true"
 deps.jei = "19.56.0.440"
 deps.rei = "16.0.799"
 deps.emi = "1.1.24+1.21.1"
@@ -33,14 +35,11 @@ mod.mc_compat = "[1.21, 1.22)"
 deps.neo_loader = "21.1.240"
 deps.neo_loader_range = "[4,)"
 
-[forge."1.21.1"]
-mod.mc_compat = "[1.21.1, 1.22)"
-deps.forge = "52.1.16"
-deps.forge_loader_range = "[52,)"
 
 
 ["1.21.2"]
 mod.mc_releases = ["1.21.2"]
+mod.pack_format = "42"
 deps.rei = "17.0.807"
 deps.sophisticatedbackpacks = "8034893"
 deps.sophisticatedcore = "8039643"
@@ -50,3 +49,7 @@ deps.curios = "10.0.1+1.21.4"
 mod.mc_compat = "[1.21.2]"
 deps.neo_loader = "21.2.1-beta"
 deps.neo_loader_range = "[4,)"
+
+[fabric."1.21.2"]
+mod.mc_compat = "1.21.2"
+deps.fabric_api = "0.106.1+1.21.2"

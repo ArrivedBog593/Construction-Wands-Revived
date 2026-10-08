@@ -4,8 +4,6 @@ pluginManagement {
         gradlePluginPortal()
         maven("https://maven.fabricmc.net/") { name = "FabricMC" }
         maven("https://maven.neoforged.net/releases/") { name = "NeoForged" }
-        maven("https://maven.minecraftforge.net/") { name = "MinecraftForge" }
-        maven("https://repo.spongepowered.org/repository/maven-public/") { name = "Sponge" }
         maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" }
         maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots" }
     }
@@ -31,8 +29,8 @@ stonecutter {
             for (loader in loaders) version("$version-$loader", version).buildscript("build.$loader.gradle.kts")
         }
 
-        match("1.21.1", "neoforge", "fabric", "forge")
-        match("1.21.2", "neoforge") // no Forge build and no Forge Config API Port release exist for 1.21.2
+        match("1.21.1", "neoforge", "fabric")
+        match("1.21.2", "neoforge", "fabric")
 
         vcsVersion = "1.21.1-neoforge"
     }

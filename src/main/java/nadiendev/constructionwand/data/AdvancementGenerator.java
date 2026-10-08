@@ -43,7 +43,7 @@ public class AdvancementGenerator extends AdvancementProvider {
                             mcLoc("textures/block/oak_planks.png")
                     ))
                     .addCriterion("wand", InventoryChangeTrigger.TriggerInstance.hasItems(
-                            ItemPredicate.Builder.item().of(ModItems.WAND_STONE.get()).build()
+                            Inp.fromItem(registries, ModItems.WAND_STONE.get()).predicate
                     ))
                     .save(consumer, rootID("root"));
 

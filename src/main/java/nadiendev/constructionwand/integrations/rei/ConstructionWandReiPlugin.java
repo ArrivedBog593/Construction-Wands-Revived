@@ -1,4 +1,4 @@
-//? if (neoforge || fabric) && rei {
+//? if rei {
 package nadiendev.constructionwand.integrations.rei;
 
 import com.mojang.blaze3d.platform.InputConstants;

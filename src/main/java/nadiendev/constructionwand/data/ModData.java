@@ -23,7 +23,11 @@ public class ModData
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         if(event.includeServer()) {
+            //? if >=1.21.2 {
+            /*generator.addProvider(true, new RecipeGenerator.Runner(packOutput, lookupProvider));
+            *///?} else {
             generator.addProvider(true, new RecipeGenerator(packOutput, lookupProvider));
+            //?}
             generator.addProvider(true, new AdvancementGenerator(packOutput, lookupProvider, fileHelper));
         }
 

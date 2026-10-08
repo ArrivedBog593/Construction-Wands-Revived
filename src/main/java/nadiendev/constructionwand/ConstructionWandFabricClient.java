@@ -10,7 +10,11 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+//? if >=1.21.2 {
+/^import net.minecraft.world.InteractionResult;
+^///?} else {
 import net.minecraft.world.InteractionResultHolder;
+//?}
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import nadiendev.constructionwand.client.ClientEvents;
@@ -49,10 +53,17 @@ public class ConstructionWandFabricClient implements ClientModInitializer {
         // Sneak+(OPT)+Right click wand to open the GUI
         UseItemCallback.EVENT.register((player, level, hand) -> {
             var stack = player.getItemInHand(hand);
+            //? if >=1.21.2 {
+            /^if (level.isClientSide && ClientEvents.onRightClickItem(player, stack)) {
+                return InteractionResult.FAIL;
+            }
+            return InteractionResult.PASS;
+            ^///?} else {
             if (level.isClientSide && ClientEvents.onRightClickItem(player, stack)) {
                 return InteractionResultHolder.fail(stack);
             }
             return InteractionResultHolder.pass(stack);
+            //?}
         });
 
         // Placement preview instead of the vanilla block outline

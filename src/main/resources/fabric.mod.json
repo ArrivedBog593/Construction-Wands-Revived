@@ -20,16 +20,7 @@
         ],
         "client": [
             "nadiendev.constructionwand.ConstructionWandFabricClient"
-        ],
-        "jei_mod_plugin": [
-            "nadiendev.constructionwand.integrations.jei.ConstructionWandJeiPlugin"
-        ],
-        "emi": [
-            "nadiendev.constructionwand.integrations.emi.ConstructionWandEmiPlugin"
-        ],
-        "rei_client": [
-            "nadiendev.constructionwand.integrations.rei.ConstructionWandReiPlugin"
-        ]
+        ]${extra_entrypoints}
     },
     "mixins": [
         "${mod_id}.mixins.json"
