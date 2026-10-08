@@ -36,6 +36,11 @@ stonecutter parameters {
             replace(".getNormal()", ".getUnitVec3i()")
         }
 
+        // TriState moved into vanilla in 1.21.5
+        string(current.parsed >= "1.21.5") {
+            replace("net.neoforged.neoforge.common.util.TriState", "net.minecraft.util.TriState")
+        }
+
         // ResourceLocation was renamed in 1.21.11
         string(current.parsed >= "1.21.11") {
             replace("ResourceLocation", "Identifier")

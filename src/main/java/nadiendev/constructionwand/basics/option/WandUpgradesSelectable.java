@@ -1,5 +1,6 @@
 package nadiendev.constructionwand.basics.option;
 
+import nadiendev.constructionwand.basics.NbtCompat;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -77,7 +78,7 @@ public class WandUpgradesSelectable<T extends IWandUpgrade> extends WandUpgrades
     protected void deserialize() {;
         super.deserialize();
 
-        selector = tag.getByte(key + "_sel");
+        selector = NbtCompat.byt(tag, key + "_sel");
         fixSelector();
     }
 

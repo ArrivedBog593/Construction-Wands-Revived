@@ -109,8 +109,22 @@ public abstract class ItemWand extends Item
         return Integer.MAX_VALUE;
     }
 
+    //? if >=1.21.5 {
+    /*@Override
+    public void appendHoverText(@Nonnull ItemStack itemstack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
+                                java.util.function.Consumer<Component> consumer, @Nonnull TooltipFlag extraInfo) {
+        List<Component> lines = new java.util.ArrayList<>();
+        collectTooltip(itemstack, lines);
+        lines.forEach(consumer);
+    }
+    *///?} else {
     @Override
     public void appendHoverText(@Nonnull ItemStack itemstack, TooltipContext context, @Nonnull List<Component> lines, @Nonnull TooltipFlag extraInfo) {
+        collectTooltip(itemstack, lines);
+    }
+    //?}
+
+    private void collectTooltip(ItemStack itemstack, List<Component> lines) {
         WandOptions options = new WandOptions(itemstack);
         int limit = options.cores.get().getWandAction().getLimit(itemstack);
 

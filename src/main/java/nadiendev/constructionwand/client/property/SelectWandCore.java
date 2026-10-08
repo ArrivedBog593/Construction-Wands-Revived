@@ -48,6 +48,13 @@ import net.minecraft.world.item.Item;
         return null;
     }
 
+    //? if >=1.21.5 {
+    /^@Override
+    public Codec<String> valueCodec() {
+        return Codec.STRING;
+    }
+    ^///?}
+
     @Override
     public Type<? extends SelectItemModelProperty<String>, String> type() {
         return TYPE;

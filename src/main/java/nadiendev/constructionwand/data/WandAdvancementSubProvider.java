@@ -61,7 +61,7 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
 
     private static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {
         return new DisplayInfo(new ItemStack(icon), Component.translatable(titleKey), Component.translatable(descKey),
-                Optional.of(background), AdvancementType.TASK, false, false, false);
+                AdvancementCompat.background(background), AdvancementType.TASK, false, false, false);
     }
 
     private static DisplayInfo simpleDisplay(ItemLike icon, String name, AdvancementType type) {

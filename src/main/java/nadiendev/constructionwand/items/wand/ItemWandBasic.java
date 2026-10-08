@@ -37,10 +37,22 @@ public class ItemWandBasic extends ItemWand
         return ConfigServer.getWandProperties(this).getDurability();
     }
 
+    //? if >=1.21.5 {
+    /*@Override
+    public void inventoryTick(ItemStack stack, net.minecraft.server.level.ServerLevel level, Entity entity, net.minecraft.world.entity.EquipmentSlot slot) {
+        super.inventoryTick(stack, level, entity, slot);
+        syncMaxDamage(stack);
+    }
+    *///?} else {
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, level, entity, slot, selected);
         if(level.isClientSide) return;
+        syncMaxDamage(stack);
+    }
+    //?}
+
+    private void syncMaxDamage(ItemStack stack) {
         int max = getMaxDamage(stack);
         if(max > 0 && !Integer.valueOf(max).equals(stack.get(DataComponents.MAX_DAMAGE))) {
             stack.set(DataComponents.MAX_DAMAGE, max);

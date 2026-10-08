@@ -1,5 +1,6 @@
 package nadiendev.constructionwand.items.containeritems;
 
+import nadiendev.constructionwand.basics.NbtCompat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -60,10 +61,10 @@ public class ItemVoidSack extends Item
     public static CompoundTag getData(ItemStack sack) {
         CustomData cd = sack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
         CompoundTag root = cd.copyTag();
-        if (!root.contains(TAG_ROOT, Tag.TAG_COMPOUND)) {
+        if (!NbtCompat.has(root, TAG_ROOT, Tag.TAG_COMPOUND)) {
             root.put(TAG_ROOT, new CompoundTag());
         }
-        return root.getCompound(TAG_ROOT);
+        return NbtCompat.compound(root, TAG_ROOT);
     }
 
     public static void setData(ItemStack sack, CompoundTag tag) {
@@ -78,12 +79,12 @@ public class ItemVoidSack extends Item
     public static SimpleContainer loadInventory(ItemStack sack) {
         SimpleContainer inv = new SimpleContainer(SIZE);
         CompoundTag tag = getData(sack);
-        if (!tag.contains(TAG_ITEMS, Tag.TAG_LIST)) return inv;
+        if (!NbtCompat.has(tag, TAG_ITEMS, Tag.TAG_LIST)) return inv;
 
-        ListTag list = tag.getList(TAG_ITEMS, Tag.TAG_COMPOUND);
+        ListTag list = NbtCompat.list(tag, TAG_ITEMS, Tag.TAG_COMPOUND);
         for (int i = 0; i < list.size(); i++) {
-            CompoundTag slot = list.getCompound(i);
-            int slotIdx = slot.getByte("Slot") & 0xFF;
+            CompoundTag slot = NbtCompat.listCompound(list, i);
+            int slotIdx = NbtCompat.byt(slot, "Slot") & 0xFF;
             if (slotIdx >= SIZE) continue;
             ItemStack s = ItemStack.CODEC
                     .parse(NbtOps.INSTANCE, slot)
@@ -119,15 +120,15 @@ public class ItemVoidSack extends Item
     @Nullable
     public static BlockPos getLinkedPos(ItemStack sack) {
         CompoundTag tag = getData(sack);
-        if (!tag.contains(TAG_LINKED_POS, Tag.TAG_LONG)) return null;
-        return BlockPos.of(tag.getLong(TAG_LINKED_POS));
+        if (!NbtCompat.has(tag, TAG_LINKED_POS, Tag.TAG_LONG)) return null;
+        return BlockPos.of(NbtCompat.lng(tag, TAG_LINKED_POS));
     }
 
     @Nullable
     public static ResourceLocation getLinkedDim(ItemStack sack) {
         CompoundTag tag = getData(sack);
-        if (!tag.contains(TAG_LINKED_DIM, Tag.TAG_STRING)) return null;
-        return ResourceLocation.tryParse(tag.getString(TAG_LINKED_DIM));
+        if (!NbtCompat.has(tag, TAG_LINKED_DIM, Tag.TAG_STRING)) return null;
+        return ResourceLocation.tryParse(NbtCompat.str(tag, TAG_LINKED_DIM));
     }
 
     public static void setLinkedPos(ItemStack sack, @Nullable BlockPos pos,
@@ -147,7 +148,7 @@ public class ItemVoidSack extends Item
     // ─── Toggle send to container ─────────────────────────────────────────────
 
     public static boolean isSendToContainer(ItemStack sack) {
-        return getData(sack).getBoolean(TAG_SEND_TO_CONT);
+        return NbtCompat.bool(getData(sack), TAG_SEND_TO_CONT);
     }
 
     public static void setSendToContainer(ItemStack sack, boolean value) {
@@ -159,7 +160,7 @@ public class ItemVoidSack extends Item
     // ─── Toggle activo ────────────────────────────────────────────────────────
 
     public static boolean isActive(ItemStack sack) {
-        return getData(sack).getBoolean(TAG_ACTIVE);
+        return NbtCompat.bool(getData(sack), TAG_ACTIVE);
     }
 
     public static void setActive(ItemStack sack, boolean value) {
@@ -285,10 +286,24 @@ public class ItemVoidSack extends Item
 
     // ─── Tooltip ──────────────────────────────────────────────────────────────
 
+    //? if >=1.21.5 {
+    /*@Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
+                                java.util.function.Consumer<Component> consumer, TooltipFlag flag) {
+        List<Component> lines = new java.util.ArrayList<>();
+        collectTooltip(stack, lines);
+        lines.forEach(consumer);
+    }
+    *///?} else {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context,
                                 List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
+        collectTooltip(stack, tooltip);
+    }
+    //?}
+
+    private void collectTooltip(ItemStack stack, List<Component> tooltip) {
 
         boolean active = isActive(stack);        tooltip.add(Component.translatable(
                 active ? "item.constructionwand.void_sack.active"

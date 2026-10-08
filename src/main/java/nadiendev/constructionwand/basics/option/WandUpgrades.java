@@ -2,6 +2,7 @@ package nadiendev.constructionwand.basics.option;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import nadiendev.constructionwand.basics.NbtCompat;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
@@ -31,11 +32,11 @@ public class WandUpgrades<T extends IWandUpgrade>
     }
 
     protected void deserialize() {
-        ListTag listnbt = tag.getList(key, Tag.TAG_STRING);
+        ListTag listnbt = NbtCompat.list(tag, key, Tag.TAG_STRING);
         boolean require_fix = false;
 
         for(int i = 0; i < listnbt.size(); i++) {
-            String str = listnbt.getString(i);
+            String str = NbtCompat.listString(listnbt, i);
             ResourceLocation itemId = ResourceLocation.tryParse(str);
             Item item = itemId == null ? null : BuiltInRegistries.ITEM.getOptional(itemId).orElse(null);
 
