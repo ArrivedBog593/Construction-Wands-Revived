@@ -117,7 +117,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public void sendToServer(CustomPacketPayload payload) {
-        PacketDistributor.sendToServer(payload);
+        NeoForgeClientHooks.sendToServer(payload);
     }
 
     @Override

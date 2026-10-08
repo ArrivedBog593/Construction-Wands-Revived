@@ -17,5 +17,13 @@ final class NeoForgeClientHooks {
         ItemProperties.register(item, name, function::call);
     }
     //?}
+
+    static void sendToServer(net.minecraft.network.protocol.common.custom.CustomPacketPayload payload) {
+        //? if >=1.21.7 {
+        /*net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(payload);
+        *///?} else {
+        net.neoforged.neoforge.network.PacketDistributor.sendToServer(payload);
+        //?}
+    }
 }
 //?}
