@@ -5,7 +5,8 @@ on:
     branches:
       - "Neo/1.21.1"
     paths:
-      - "src/**/*.java"
+      - "neoforge/src/**/*.java"
+      - "common/src/**/*.java"
       - "gradle.properties"
 jobs:
   build:
@@ -29,7 +30,7 @@ jobs:
       - name: Read Version
         id: gradle_props
         run: |
-          VERSION=$(grep '^mod_version=' gradle.properties | cut -d'=' -f2)
+          VERSION=$(grep '^version=' gradle.properties | cut -d'=' -f2)
           echo "mod_version=$VERSION" >> $GITHUB_OUTPUT
           echo "release_version=${VERSION}-build.${{ github.run_number }}" >> $GITHUB_OUTPUT
 
@@ -54,6 +55,6 @@ jobs:
           name: ConstructionWandsRevived ${{ steps.gradle_props.outputs.release_version }}
           generate_release_notes: true
           files: |
-            build/libs/*.jar
+            neoforge/build/libs/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

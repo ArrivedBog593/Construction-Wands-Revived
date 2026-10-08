@@ -1,0 +1,128 @@
+plugins {
+    id 'multiloader-loader'
+    id 'net.neoforged.moddev'
+}
+
+neoForge {
+    version = neoforge_version
+    // Automatically enable neoforge AccessTransformers if the file exists
+    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers.from(at.absolutePath)
+    }
+    parchment {
+        minecraftVersion = parchment_minecraft
+        mappingsVersion = parchment_version
+    }
+    runs {
+        configureEach {
+            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
+            ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
+        }
+        client {
+            client()
+        }
+        data {
+            data()
+
+            // DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+
+        }
+        server {
+            server()
+        }
+    }
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://maven.creeperhost.net'
+        content {
+            includeGroup("com.refinedmods.refinedstorage")
+        }
+    }
+    maven {
+        url = "https://maven.blamejared.com"
+    }
+    maven {
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+	}
+    maven { url "https://maven.shedaniel.me" }
+    maven {
+        name = "Curse Maven"
+        url = "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    maven {
+        url = uri("https://modmaven.dev/")
+        content {
+            includeGroup "appeng"
+            includeGroup "de.mari_023"
+        }
+    }
+}
+
+dependencies {
+    //jei
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+
+    //rei (Roughly Enough Items)
+    compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"
+    compileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:${rei_version}"
+    runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+
+    //emi
+    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+     
+     // Applied Energistics 2
+    compileOnly "org.appliedenergistics:appliedenergistics2:${ae2_version}"
+    implementation "org.appliedenergistics:appliedenergistics2:${ae2_version}"
+    implementation "org.appliedenergistics:guideme:${guideme_version}"
+
+    //refined Storage
+    implementation "com.refinedmods.refinedstorage:refinedstorage-neoforge:${refinedstorage_version}"
+
+    //refined storage curios integration
+    implementation "curse.maven:refined-storage-curios-integration-1230729:${refinedstorage_curiosintegration_version_id}"
+
+    //sophisticated backpacks
+    implementation "curse.maven:sophisticated-backpacks-422301:${sophisticatedbackpacks_version}"
+
+    //sophisticated core
+    implementation "curse.maven:sophisticated-core-618298:${sophisticatedcore_version}"
+
+    // Curios API
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+
+    //Ae2 Wireless Terminals
+      implementation "de.mari_023:ae2wtlib_api:${ae2wtlib_version}"
+      runtimeOnly "de.mari_023:ae2wtlib:${ae2wtlib_version}"
+
+
+//    compileOnly ([
+//            group: "vazkii.botania",
+//            name: "Botania",
+//            version: "${project.botania}",
+//            classifier: "api"
+//    ])
+}

@@ -1,30 +1,30 @@
 modLoader = "javafml"
-loaderVersion = "${loader_version}"
+loaderVersion = "${neoforge_loader_version_range}"
 license = "${license}"
 [[mods]]
-modId="${modid}"
-version="${mod_version}"
-displayName="Construction Wands Revived"
+modId="${mod_id}"
+version="${version}"
+displayName="${mod_name}"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/construction-wands-revived"
 logoFile="logo.png"
-authors="${author}"
+authors="${mod_author}"
 description="${description}"
 
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"
-    versionRange="${neoversion}"
+    versionRange="[${neoforge_version},)"
     ordering = "NONE"
     side="BOTH"
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
     modId="minecraft"
     type="required"
-    versionRange="${mcversion}"
+    versionRange="${minecraft_version_range}"
     ordering = "NONE"
     side="BOTH"
 
 # jei dependency 
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
     modId="jei"
     type="optional"
     versionRange="${jei_version}"
@@ -32,7 +32,7 @@ description="${description}"
     side = "BOTH"
 
 # emi dependency
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
     modId="emi"
     type="optional"
     versionRange="[0,)"
@@ -40,7 +40,7 @@ description="${description}"
     side="CLIENT"
 
 # guideme dependency 
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
     modId="guideme"
     type="optional"
     versionRange="${guideme_version}"
@@ -48,7 +48,7 @@ description="${description}"
     side = "BOTH"
 
 # ae2 dependency 
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
     modId="ae2"
     type="optional"
     versionRange="${ae2_version}"
@@ -56,7 +56,7 @@ description="${description}"
     side = "BOTH"
 
 # refined storage dependency 
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
     modId="refinedstorage"
     type="optional"
     versionRange="${refinedstorage_version}"
@@ -64,7 +64,7 @@ description="${description}"
     side = "BOTH"
 
 # sophisticated core dependency 
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
     modId="sophisticatedcore"
     type="optional"
     versionRange="${sophisticatedcore_version}"
@@ -72,28 +72,28 @@ description="${description}"
     side = "BOTH"
 
 # sophisticated backpacks dependency 
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
     modId="sophisticatedbackpacks"
     type="optional"
     versionRange="${sophisticatedbackpacks_version}"
     ordering="AFTER"
     side = "BOTH"
 
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
 modId = "curios"
 type="optional"
 versionRange = "${curios_version}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
 modId = "ae2wtlib"
 type="optional"
 versionRange = "${ae2wtlib_version}"
 ordering = "NONE"
 side = "BOTH"
 # rei dependency
-[[dependencies.${modid}]]
+[[dependencies.${mod_id}]]
     modId="roughlyenoughitems"
     type="optional"
     versionRange="[0,)"
