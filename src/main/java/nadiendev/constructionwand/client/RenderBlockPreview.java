@@ -2,11 +2,14 @@ package nadiendev.constructionwand.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-//? if >=1.21.2 {
+//? if >=26.2 {
+/*import net.minecraft.client.renderer.SubmitNodeCollector;
+*///?} elif >=1.21.2 {
 /*import net.minecraft.client.renderer.ShapeRenderer;
 *///?} else {
 import net.minecraft.client.renderer.LevelRenderer;
 //?}
+//? if <26.2
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -35,13 +38,23 @@ public class RenderBlockPreview
      *
      * @return true when the vanilla outline must be skipped
      */
+    //? if >=26.2 {
+    /*public boolean renderBlockHighlight(BlockHitResult rtr, Camera camera, PoseStack ms, SubmitNodeCollector buffer,
+                                        double partialTicks) {
+    *///?} else {
     public boolean renderBlockHighlight(BlockHitResult rtr, Camera camera, PoseStack ms, MultiBufferSource buffer,
                                         double partialTicks) {
+    //?}
         return blockOutlineHandled = renderPreview(rtr, camera, ms, buffer, partialTicks);
     }
 
+    //? if >=26.2 {
+    /*private boolean renderPreview(BlockHitResult rtr, Camera camera, PoseStack ms, SubmitNodeCollector buffer,
+                                  double partialTicks) {
+    *///?} else {
     private boolean renderPreview(BlockHitResult rtr, Camera camera, PoseStack ms, MultiBufferSource buffer,
                                   double partialTicks) {
+    //?}
         if(rtr.getType() != HitResult.Type.BLOCK) return false;
 
         //? if >=1.21.11 {
@@ -73,7 +86,11 @@ public class RenderBlockPreview
 
         if(blocks == null || blocks.isEmpty()) return false;
 
-        //? if >=1.21.11 {
+        //? if >=26.2 {
+        /*double d0 = camera.position().x();
+        double d1 = camera.position().y();
+        double d2 = camera.position().z();
+        *///?} elif >=1.21.11 {
         /*VertexConsumer lineBuilder = buffer.getBuffer(net.minecraft.client.renderer.RenderTypes.lines());
 
         double d0 = camera.position().x();
@@ -95,7 +112,14 @@ public class RenderBlockPreview
 
         for(BlockPos block : blocks) {
             AABB aabb = new AABB(block).move(-d0, -d1, -d2);
-            //? if >=1.21.11 {
+            //? if >=26.2 {
+            /*ms.pushPose();
+            ms.translate(block.getX() - d0, block.getY() - d1, block.getZ() - d2);
+            buffer.submitShapeOutline(ms, net.minecraft.world.phys.shapes.Shapes.block(),
+                    net.minecraft.client.renderer.RenderTypes.lines(),
+                    net.minecraft.util.ARGB.colorFromFloat(0.4F, colorR, colorG, colorB), 2.0F, false);
+            ms.popPose();
+            *///?} elif >=1.21.11 {
             /*ShapeRenderer.renderShape(ms, lineBuilder, net.minecraft.world.phys.shapes.Shapes.create(aabb), 0, 0, 0,
                     net.minecraft.util.ARGB.colorFromFloat(0.4F, colorR, colorG, colorB), 1.0F);
             *///?} elif >=1.21.9 {

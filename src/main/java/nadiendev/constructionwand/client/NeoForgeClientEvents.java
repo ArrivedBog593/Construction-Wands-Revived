@@ -52,8 +52,13 @@ public final class NeoForgeClientEvents {
         if (preview == null) return;
         net.minecraft.world.phys.BlockHitResult target = event.getHitResult();
         net.minecraft.client.Camera camera = event.getCamera();
-        event.addCustomRenderer((CustomBlockOutlineRenderer) (renderState, buffer, poseStack, translucentPass, levelRenderState) ->
+        //? if >=26.2 {
+        /^event.addCustomRenderer((CustomBlockOutlineRenderer) (renderState, buffer, poseStack, levelRenderState) ->
                 preview.renderBlockHighlight(target, camera, poseStack, buffer, 0));
+        ^///?} else {
+        event.addCustomRenderer((CustomBlockOutlineRenderer) (renderState, buffer, poseStack, translucentPass, levelRenderState) ->
+                translucentPass ? preview.blockOutlineHandled : preview.renderBlockHighlight(target, camera, poseStack, buffer, 0));
+        //?}
     }
     *///?} else {
     @SubscribeEvent(receiveCanceled = true)

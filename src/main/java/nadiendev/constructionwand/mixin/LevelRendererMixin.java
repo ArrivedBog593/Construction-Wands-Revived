@@ -4,7 +4,11 @@
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
+//? if >=26.2 {
+/^import net.minecraft.client.renderer.SubmitNodeCollector;
+^///?} else {
 import net.minecraft.client.renderer.MultiBufferSource;
+//?}
 import net.minecraft.client.renderer.state.LevelRenderState;
 import net.minecraft.world.phys.BlockHitResult;
 import nadiendev.constructionwand.ConstructionWand;
@@ -18,6 +22,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LevelRenderer.class)
 public abstract class LevelRendererMixin {
 
+    //? if >=26.2 {
+    /^@Inject(method = "submitBlockOutline", at = @At("HEAD"), cancellable = true)
+    private void constructionwand$renderPreview(PoseStack poseStack, SubmitNodeCollector collector,
+                                                LevelRenderState levelRenderState, CallbackInfo ci) {
+        RenderBlockPreview preview = ConstructionWand.instance.renderBlockPreview;
+        if (preview == null || levelRenderState.blockOutlineRenderState == null) return;
+        Minecraft minecraft = Minecraft.getInstance();
+        if (!(minecraft.hitResult instanceof BlockHitResult hit)) return;
+
+        if (preview.renderBlockHighlight(hit, minecraft.gameRenderer.getMainCamera(), poseStack, collector, 0)) ci.cancel();
+    }
+    ^///?} else {
     @Inject(method = "renderBlockOutline", at = @At("HEAD"), cancellable = true)
     private void constructionwand$renderPreview(MultiBufferSource.BufferSource buffer, PoseStack poseStack,
                                                 boolean translucentPass, LevelRenderState levelRenderState,
@@ -32,5 +48,6 @@ public abstract class LevelRendererMixin {
                 : preview.renderBlockHighlight(hit, minecraft.gameRenderer.getMainCamera(), poseStack, buffer, 0);
         if (handled) ci.cancel();
     }
+    //?}
 }
 *///?}

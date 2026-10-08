@@ -43,8 +43,19 @@ stonecutter parameters {
         }
 
         // Package and method renames of 1.21.11
-        string(current.parsed >= "1.21.11") {
+        string(current.parsed >= "26.2") {
+            replace("net.minecraft.advancements.critereon.InventoryChangeTrigger", "net.minecraft.advancements.triggers.InventoryChangeTrigger")
+            replace("net.minecraft.advancements.critereon.ItemPredicate", "net.minecraft.advancements.predicates.ItemPredicate")
+            replace("Minecraft.getInstance().setScreen(", "Minecraft.getInstance().gui.setScreen(")
+            replace("minecraft.screen == null", "minecraft.gui.screen() == null")
+            replace("gameRenderer.getMainCamera()", "gameRenderer.mainCamera()")
+        }
+
+        string(current.parsed >= "1.21.11" && current.parsed < "26.2") {
             replace("net.minecraft.advancements.critereon", "net.minecraft.advancements.criterion")
+        }
+
+        string(current.parsed >= "1.21.11") {
             replace("net.minecraft.client.renderer.RenderType", "net.minecraft.client.renderer.rendertype.RenderType")
             replace(".dimension().location()", ".dimension().identifier()")
         }
