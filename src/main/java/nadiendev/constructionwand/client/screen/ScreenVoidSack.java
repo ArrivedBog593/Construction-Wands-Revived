@@ -29,13 +29,48 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
     private boolean hasLinked;
 
     public ScreenVoidSack(MenuVoidSack menu, Inventory playerInv, Component title) {
+        //? if >=26.1 {
+        /*super(menu, playerInv, title, GUI_WIDTH, GUI_HEIGHT);
+        *///?} else {
         super(menu, playerInv, title);
         this.imageWidth      = GUI_WIDTH;
         this.imageHeight     = GUI_HEIGHT;
+        //?}
         this.sendToContainer = menu.isSendToContainer();
         this.hasLinked       = menu.hasLinkedContainer();
     }
 
+    //? if >=26.1 {
+    /*@Override
+    public void extractBackground(GuiGraphics gfx, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(gfx, mouseX, mouseY, partialTick);
+        gfx.blit(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
+    }
+
+    @Override
+    public void extractRenderState(GuiGraphics gfx, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(gfx, mouseX, mouseY, partialTick);
+
+        if (hasLinked && isOverButton(mouseX, mouseY)) {
+            Component tooltipText = Component.translatable("gui.constructionwand.void_sack.toggle_tooltip");
+            List<FormattedCharSequence> lines = font.split(tooltipText, 150);
+            gfx.setTooltipForNextFrame(lines, mouseX, mouseY);
+        }
+    }
+
+    @Override
+    protected void extractLabels(GuiGraphics gfx, int mouseX, int mouseY) {
+        gfx.text(font, title, titleLabelX, titleLabelY, 0xFF404040, false);
+        gfx.text(font, playerInventoryTitle, 8, 100, 0xFF404040, false);
+
+        if (hasLinked) {
+            Component statusLabel = sendToContainer
+                    ? Component.translatable("gui.constructionwand.void_sack.sending")
+                    : Component.translatable("gui.constructionwand.void_sack.storing");
+            gfx.text(font, statusLabel, 8, GUI_HEIGHT - 6, 0xFF404040, false);
+        }
+    }
+    *///?} else {
     @Override
     public void render(GuiGraphics gfx, int mouseX, int mouseY, float partialTick) {
         renderBackground(gfx, mouseX, mouseY, partialTick);
@@ -76,6 +111,7 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
             gfx.drawString(font, statusLabel, 8, GUI_HEIGHT - 6, 0x404040, false);
         }
     }
+    //?}
 
     //? if >=1.21.9 {
     /*@Override

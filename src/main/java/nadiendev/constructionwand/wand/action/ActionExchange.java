@@ -1,5 +1,6 @@
 package nadiendev.constructionwand.wand.action;
 
+import nadiendev.constructionwand.basics.MessageCompat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -55,14 +56,14 @@ public class ActionExchange implements IWandAction
         Item item = state.getBlock().asItem();
 
         if(!(item instanceof BlockItem blockItem) || item == Items.AIR) {
-            player.displayClientMessage(
+            MessageCompat.overlay(player, 
                     Component.translatable(ConstructionWand.MODID + ".message.exchange_invalid")
                             .withStyle(ChatFormatting.RED), true);
             return false;
         }
 
         ConstructionWand.instance.undoHistory.setExchangeSelection(player, blockItem);
-        player.displayClientMessage(
+        MessageCompat.overlay(player, 
                 Component.translatable(ConstructionWand.MODID + ".message.exchange_selected", state.getBlock().getName())
                         .withStyle(ChatFormatting.GREEN), true);
 
@@ -78,7 +79,7 @@ public class ActionExchange implements IWandAction
         // Bloque seleccionado con Shift+Click. Sin selección no hay nada para intercambiar.
         BlockItem selected = ConstructionWand.instance.undoHistory.getExchangeSelection(player);
         if(selected == null) {
-            player.displayClientMessage(
+            MessageCompat.overlay(player, 
                     Component.translatable(ConstructionWand.MODID + ".message.exchange_none_selected")
                             .withStyle(ChatFormatting.RED), true);
             return exchangeSnapshots;

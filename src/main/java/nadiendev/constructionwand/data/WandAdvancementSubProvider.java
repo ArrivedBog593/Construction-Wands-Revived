@@ -60,14 +60,24 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
     }
 
     private static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {
-        return new DisplayInfo(new ItemStack(icon), Component.translatable(titleKey), Component.translatable(descKey),
+        return new DisplayInfo(iconStack(icon), Component.translatable(titleKey), Component.translatable(descKey),
                 AdvancementCompat.background(background), AdvancementType.TASK, false, false, false);
     }
 
     private static DisplayInfo simpleDisplay(ItemLike icon, String name, AdvancementType type) {
-        return new DisplayInfo(new ItemStack(icon), Component.translatable(advancementPrefix(name + ".title")),
+        return new DisplayInfo(iconStack(icon), Component.translatable(advancementPrefix(name + ".title")),
                 Component.translatable(advancementPrefix(name + ".desc")), Optional.empty(), type, true, true, false);
     }
+
+    //? if >=26.1 {
+    /^private static net.minecraft.world.item.ItemStackTemplate iconStack(ItemLike icon) {
+        return new net.minecraft.world.item.ItemStackTemplate(icon.asItem());
+    }
+    ^///?} else {
+    private static ItemStack iconStack(ItemLike icon) {
+        return new ItemStack(icon);
+    }
+    //?}
 
     private static String advancementPrefix(String name) {
         return "advancement." + ConstructionWand.MODID + "." + name;

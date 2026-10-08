@@ -1,5 +1,6 @@
 package nadiendev.constructionwand.network;
 
+import nadiendev.constructionwand.basics.MessageCompat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -55,7 +56,7 @@ public record PacketExchangeSelect() implements CustomPacketPayload
                 HitResult hit = player.pick(reach, 1.0F, false);
 
                 if(!(hit instanceof BlockHitResult blockHit) || hit.getType() != HitResult.Type.BLOCK) {
-                    player.displayClientMessage(
+                    MessageCompat.overlay(player, 
                             Component.translatable(MODID + ".message.exchange_no_target")
                                     .withStyle(net.minecraft.ChatFormatting.RED), true);
                     return;

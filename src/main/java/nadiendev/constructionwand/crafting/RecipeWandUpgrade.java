@@ -16,9 +16,15 @@ import javax.annotation.Nonnull;
 
 public class RecipeWandUpgrade extends CustomRecipe
 {
+    //? if >=26.1 {
+    /*public RecipeWandUpgrade() {
+        super();
+    }
+    *///?} else {
     public RecipeWandUpgrade(CraftingBookCategory category) {
         super(category);
     }
+    //?}
 
     @Override
     public boolean matches(@Nonnull CraftingInput inv, @Nonnull Level worldIn) {
@@ -41,7 +47,11 @@ public class RecipeWandUpgrade extends CustomRecipe
 
     @Nonnull
     @Override
+    //? if >=26.1 {
+    /*public ItemStack assemble(@Nonnull CraftingInput input) {
+    *///?} else {
     public ItemStack assemble(@Nonnull CraftingInput input, HolderLookup.Provider registries) {
+    //?}
         ItemStack wand = null;
         IWandUpgrade upgrade = null;
 

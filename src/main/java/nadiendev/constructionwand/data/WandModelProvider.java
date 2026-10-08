@@ -53,7 +53,13 @@ public class WandModelProvider extends ModelProvider {
         List<SelectItemModel.SwitchCase<String>> cases = new ArrayList<>();
         for (String core : List.of("core_angel", "core_destruction", "core_exchange")) {
             ResourceLocation model = TWO_LAYERED_HANDHELD.create(location.withSuffix("_" + core),
-                    TextureMapping.layered(location, overlay), itemModels.modelOutput);
+                    //? if >=26.1 {
+                    /^TextureMapping.layered(new net.minecraft.client.resources.model.sprite.Material(location),
+                            new net.minecraft.client.resources.model.sprite.Material(overlay))
+                    ^///?} else {
+                    TextureMapping.layered(location, overlay)
+                    //?}
+                    , itemModels.modelOutput);
             cases.add(ItemModelUtils.when(core, ItemModelUtils.plainModel(model)));
         }
 

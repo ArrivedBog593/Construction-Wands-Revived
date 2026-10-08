@@ -17,7 +17,11 @@ public class ModRecipes
 
     public static final Registrar<RecipeSerializer<?>> RECIPE_SERIALIZERS = new Registrar<>(BuiltInRegistries.RECIPE_SERIALIZER);
 
-    //? if >=1.21.2 {
+    //? if >=26.1 {
+    /*public static final Supplier<RecipeSerializer<RecipeWandUpgrade>> WAND_UPGRADE = RECIPE_SERIALIZERS.register("wand_upgrade",
+            () -> new RecipeSerializer<>(com.mojang.serialization.MapCodec.unit(RecipeWandUpgrade::new),
+                    net.minecraft.network.codec.StreamCodec.unit(new RecipeWandUpgrade())));
+    *///?} elif >=1.21.2 {
     /*public static final Supplier<CustomRecipe.Serializer<RecipeWandUpgrade>> WAND_UPGRADE = RECIPE_SERIALIZERS.register("wand_upgrade", () -> new CustomRecipe.Serializer<>(RecipeWandUpgrade::new));
     *///?} else {
     public static final Supplier<SimpleCraftingRecipeSerializer<RecipeWandUpgrade>> WAND_UPGRADE = RECIPE_SERIALIZERS.register("wand_upgrade", () -> new SimpleCraftingRecipeSerializer<>(RecipeWandUpgrade::new));

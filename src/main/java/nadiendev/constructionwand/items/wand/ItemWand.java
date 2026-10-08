@@ -1,5 +1,6 @@
 package nadiendev.constructionwand.items.wand;
 
+import nadiendev.constructionwand.basics.MessageCompat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -162,7 +163,7 @@ public abstract class ItemWand extends Item
     }
 
     public static void optionMessage(Player player, IOption<?> option) {
-        player.displayClientMessage(
+        MessageCompat.overlay(player, 
                 Component.translatable(option.getKeyTranslation()).withStyle(ChatFormatting.AQUA)
                         .append(Component.translatable(option.getValueTranslation()).withStyle(ChatFormatting.WHITE))
                         .append(Component.literal(" - ").withStyle(ChatFormatting.GRAY))

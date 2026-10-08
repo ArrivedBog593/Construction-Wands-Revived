@@ -54,7 +54,12 @@ public class HandlerBundle implements IContainerHandler
     }
 
     private void setItemList(ItemStack itemStack, List<ItemStack> itemStacks) {
+        //? if >=26.1 {
+        /*BundleContents contents = new BundleContents(itemStacks.stream()
+                .map(net.minecraft.world.item.ItemStackTemplate::fromNonEmptyStack).toList());
+        *///?} else {
         BundleContents contents = new BundleContents(itemStacks);
+        //?}
         itemStack.set(DataComponents.BUNDLE_CONTENTS, contents);
     }
 }

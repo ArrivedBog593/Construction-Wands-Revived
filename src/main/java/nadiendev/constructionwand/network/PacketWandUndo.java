@@ -1,5 +1,6 @@
 package nadiendev.constructionwand.network;
 
+import nadiendev.constructionwand.basics.MessageCompat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -55,12 +56,12 @@ public record PacketWandUndo() implements CustomPacketPayload
                 boolean success = ConstructionWand.instance.undoHistory.undoLast(player, player.level());
 
                 if (success) {
-                    player.displayClientMessage(
+                    MessageCompat.overlay(player, 
                             Component.translatable("constructionwand.undo.success")
                                     .withStyle(net.minecraft.ChatFormatting.GREEN),
                             true);
                 } else {
-                    player.displayClientMessage(
+                    MessageCompat.overlay(player, 
                             Component.translatable("constructionwand.undo.nothing")
                                     .withStyle(net.minecraft.ChatFormatting.GRAY),
                             true);

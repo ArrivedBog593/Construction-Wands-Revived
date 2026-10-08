@@ -44,12 +44,20 @@ public class ScreenWand extends Screen {
         createButton(1, 2, wandOptions.random);
     }
 
+    //? if >=26.1 {
+    /*@Override
+    public void extractRenderState(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        guiGraphics.centeredText(font, wand.getDisplayName(), width / 2, height / 2 - FIELD_HEIGHT / 2 - SPACING_HEIGHT, 16777215);
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
+    }
+    *///?} else {
     @Override
     public void render(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
         guiGraphics.drawCenteredString(font, wand.getDisplayName(), width / 2, height / 2 - FIELD_HEIGHT / 2 - SPACING_HEIGHT, 16777215);
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
     }
+    //?}
 
     //? if >=1.21.9 {
     /*@Override

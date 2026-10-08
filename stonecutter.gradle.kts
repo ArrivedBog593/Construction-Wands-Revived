@@ -49,6 +49,26 @@ stonecutter parameters {
             replace(".dimension().location()", ".dimension().identifier()")
         }
 
+        // Fabric API renames of 26.1
+        string(current.parsed >= "26.1") {
+            replace("keybinding.v1", "keymapping.v1")
+            replace("KeyBindingHelper", "KeyMappingHelper")
+            replace("registerKeyBinding", "registerKeyMapping")
+            replace("itemgroup.v1", "creativetab.v1")
+            replace("FabricItemGroup", "FabricCreativeModeTab")
+            replace("screenhandler.v1", "menu.v1")
+            replace("ExtendedScreenHandlerType", "ExtendedMenuType")
+            replace("ExtendedScreenHandlerFactory", "ExtendedMenuProvider")
+            replace(".playS2C()", ".clientboundPlay()")
+            replace(".playC2S()", ".serverboundPlay()")
+            replace("net.minecraft.client.renderer.state.LevelRenderState", "net.minecraft.client.renderer.state.level.LevelRenderState")
+        }
+
+        // GuiGraphics became GuiGraphicsExtractor in 26.1
+        string(current.parsed >= "26.1") {
+            replace("GuiGraphics", "GuiGraphicsExtractor")
+        }
+
         // ResourceLocation was renamed in 1.21.11
         string(current.parsed >= "1.21.11") {
             replace("ResourceLocation", "Identifier")

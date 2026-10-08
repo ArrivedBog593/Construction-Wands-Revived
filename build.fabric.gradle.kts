@@ -19,12 +19,17 @@ repositories {
     maven("https://maven.blamejared.com")
     maven("https://maven.shedaniel.me")
     maven("https://maven.terraformersmc.com/")
+    maven("https://maven.architectury.dev/") { content { includeGroup("dev.architectury") } }
 }
 
 dependencies {
     val mc = sc.current.version
     // JEI skips some Minecraft versions; its API is compatible with the neighbouring build
     val jeiMc = sc.properties.getOrNull<String>("deps.jei_mc") ?: mc
+    // The unobfuscated versions (26.1+) have no intermediary artifacts
+    val jeiCommonSuffix = if (sc.current.parsed >= "26.1") "" else "-intermediary"
+
+    fun optional(key: String, add: (String) -> Unit) = sc.properties.getOrNull<String>(key)?.let(add)
 
     minecraft("com.mojang:minecraft:$mc")
     // Applies Mojang Mappings on obfuscated versions
@@ -35,16 +40,19 @@ dependencies {
     // The full Fabric API
     modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric_api")}")
 
+    // Fabric API 0.145.1 resolves a lifecycle module that predates what its entity events module expects
+    optional("deps.fabric_lifecycle") { modCompileOnly("net.fabricmc.fabric-api:fabric-lifecycle-events-v1:$it") }
+
     // Nullability annotations used by the shared code
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")
     compileOnly("org.jetbrains:annotations:24.1.0")
 
     // Recipe viewers (compile-only, so the dev environment is not tied to their own dependencies)
-    fun optional(key: String, add: (String) -> Unit) = sc.properties.getOrNull<String>(key)?.let(add)
     optional("deps.jei") {
-        modCompileOnly("mezz.jei:jei-$jeiMc-common-api-intermediary:$it") { isTransitive = false }
+        modCompileOnly("mezz.jei:jei-$jeiMc-common-api$jeiCommonSuffix:$it") { isTransitive = false }
         modCompileOnly("mezz.jei:jei-$jeiMc-fabric-api:$it")
     }
+    optional("deps.architectury") { modCompileOnly("dev.architectury:architectury-fabric:$it") }
     optional("deps.rei") {
         modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:$it")
         modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:$it")
