@@ -143,7 +143,7 @@ public class ActionDestruction implements IWandAction
         }
 
         // Envolver snapshots con el contexto del Void Sack si hay uno en el inventario
-        if (!world.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!world.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             ItemStack voidSack = findSack(serverPlayer);
             if (!voidSack.isEmpty()) {
                 List<ISnapshot> wrapped = new ArrayList<>(destroySnapshots.size());

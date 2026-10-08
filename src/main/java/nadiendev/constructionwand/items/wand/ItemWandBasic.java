@@ -47,7 +47,7 @@ public class ItemWandBasic extends ItemWand
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, level, entity, slot, selected);
-        if(level.isClientSide) return;
+        if(level.isClientSide()) return;
         syncMaxDamage(stack);
     }
     //?}

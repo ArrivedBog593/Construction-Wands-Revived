@@ -170,3 +170,53 @@ deps.neo_loader_range = "[4,)"
 deps.jei = "24.2.0.6"
 mod.mc_compat = "1.21.8"
 deps.fabric_api = "0.136.1+1.21.8"
+
+["1.21.9"]
+mod.mc_releases = ["1.21.9"]
+mod.pack_format = "69"
+deps.rei = "21.9.813"
+
+[neoforge."1.21.9"]
+deps.jei = "25.0.1.4"
+mod.mc_compat = "[1.21.9]"
+deps.neo_loader = "21.9.16-beta"
+deps.neo_loader_range = "[4,)"
+
+[fabric."1.21.9"]
+deps.jei = "25.0.1.4"
+mod.mc_compat = "1.21.9"
+deps.fabric_api = "0.134.1+1.21.9"
+
+["1.21.10"]
+mod.mc_releases = ["1.21.10"]
+mod.pack_format = "69"
+deps.rei = "21.9.813"
+deps.curios = "13.0.0+1.21.10"
+
+[neoforge."1.21.10"]
+deps.jei = "26.3.0.31"
+mod.mc_compat = "[1.21.10]"
+deps.neo_loader = "21.10.64"
+deps.neo_loader_range = "[4,)"
+
+[fabric."1.21.10"]
+deps.jei = "26.3.0.31"
+mod.mc_compat = "1.21.10"
+deps.fabric_api = "0.138.4+1.21.10"
+
+["1.21.11"]
+mod.mc_releases = ["1.21.11"]
+mod.pack_format = "75"
+deps.rei = "21.11.816"
+deps.curios = "14.0.0+1.21.11"
+
+[neoforge."1.21.11"]
+deps.jei = "27.44.0.105"
+mod.mc_compat = "[1.21.11]"
+deps.neo_loader = "21.11.45"
+deps.neo_loader_range = "[4,)"
+
+[fabric."1.21.11"]
+deps.jei = "27.44.0.105"
+mod.mc_compat = "1.21.11"
+deps.fabric_api = "0.141.6+1.21.11"

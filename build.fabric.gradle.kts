@@ -123,7 +123,10 @@ tasks {
         filesMatching("pack.mcmeta") { expand("pack_format" to prop("mod.pack_format")) }
 
         val mixinJava = "JAVA_${requiredJava.majorVersion}"
-        val extraMixins = if (sc.current.parsed >= "1.21.4") """,\n    "SelectItemModelPropertiesMixin"""" else ""
+        val extraMixins = buildString {
+            if (sc.current.parsed >= "1.21.4") append(""",\n    "SelectItemModelPropertiesMixin"""")
+            if (sc.current.parsed >= "1.21.9") append(""",\n    "LevelRendererMixin"""")
+        }
         filesMatching("*.mixins.json") { expand("java" to mixinJava, "extra_client_mixins" to extraMixins) }
 
         exclude("META-INF/neoforge.mods.toml")

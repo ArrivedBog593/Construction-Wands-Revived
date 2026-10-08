@@ -40,7 +40,7 @@ public class ConstructionWandJeiPlugin implements IModPlugin
 
     @Override
     public void registerRecipes(@NotNull IRecipeRegistration registration) {
-        Component optkeyComponent = Component.translatable(InputConstants.getKey(ConfigClient.OPT_KEY.get(), -1).getName())
+        Component optkeyComponent = Component.translatable(InputConstants.Type.KEYSYM.getOrCreate(ConfigClient.OPT_KEY.get()).getName())
                 .withStyle(ChatFormatting.BLUE);
         Component wandModeComponent = keyComboComponent(ConfigClient.SHIFTOPT_MODE.get(), optkeyComponent);
         Component wandGuiComponent = keyComboComponent(ConfigClient.SHIFTOPT_GUI.get(), optkeyComponent);

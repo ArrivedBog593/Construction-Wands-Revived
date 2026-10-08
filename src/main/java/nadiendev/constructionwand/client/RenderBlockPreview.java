@@ -26,6 +26,8 @@ import java.util.Set;
 public class RenderBlockPreview
 {
     private WandJob wandJob;
+    /** Whether the last call replaced the vanilla outline; the outline is drawn in two passes since 1.21.9. */
+    public boolean blockOutlineHandled;
     public Set<BlockPos> undoBlocks;
 
     /**
@@ -35,6 +37,11 @@ public class RenderBlockPreview
      */
     public boolean renderBlockHighlight(BlockHitResult rtr, Camera camera, PoseStack ms, MultiBufferSource buffer,
                                         double partialTicks) {
+        return blockOutlineHandled = renderPreview(rtr, camera, ms, buffer, partialTicks);
+    }
+
+    private boolean renderPreview(BlockHitResult rtr, Camera camera, PoseStack ms, MultiBufferSource buffer,
+                                  double partialTicks) {
         if(rtr.getType() != HitResult.Type.BLOCK) return false;
 
         Entity entity = camera.getEntity();
@@ -62,15 +69,25 @@ public class RenderBlockPreview
 
         if(blocks == null || blocks.isEmpty()) return false;
 
+        //? if >=1.21.9 {
+        /*VertexConsumer lineBuilder = buffer.getBuffer(RenderType.lines());
+
+        double d0 = camera.position().x();
+        double d1 = camera.position().y();
+        double d2 = camera.position().z();
+        *///?} else {
         VertexConsumer lineBuilder = buffer.getBuffer(RenderType.LINES);
 
         double d0 = player.xOld + (player.getX() - player.xOld) * partialTicks;
         double d1 = player.yOld + player.getEyeHeight() + (player.getY() - player.yOld) * partialTicks;
         double d2 = player.zOld + (player.getZ() - player.zOld) * partialTicks;
+        //?}
 
         for(BlockPos block : blocks) {
             AABB aabb = new AABB(block).move(-d0, -d1, -d2);
-            //? if >=1.21.2 {
+            //? if >=1.21.9 {
+            /*ShapeRenderer.renderLineBox(ms.last(), lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
+            *///?} elif >=1.21.2 {
             /*ShapeRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
             *///?} else {
             LevelRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);

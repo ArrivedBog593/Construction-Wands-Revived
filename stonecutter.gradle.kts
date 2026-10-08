@@ -23,6 +23,7 @@ stonecutter parameters {
         this["neo_client_items"] = clientItems && loader == "neoforge"
         this["neo_legacy_items"] = !clientItems && loader == "neoforge"
         this["fabric_client_items"] = clientItems && loader == "fabric"
+        this["fabric_outline_mixin"] = current.parsed >= "1.21.9" && loader == "fabric"
 
         // Optional integrations are enabled only for versions that declare a dependency version for them
         for (dep in listOf("jei", "rei", "emi", "ae2", "refinedstorage", "ae2wtlib", "sophisticatedbackpacks", "curios")) {

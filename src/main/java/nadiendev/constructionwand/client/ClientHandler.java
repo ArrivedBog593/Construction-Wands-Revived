@@ -32,6 +32,8 @@ public class ClientHandler {
 
     @SubscribeEvent
     public static void registerKeymapping(final RegisterKeyMappingsEvent event) {
+        //? if >=1.21.9
+        //event.registerCategory(KeybindHandler.CATEGORY);
         event.register(KeybindHandler.KEY_VOID_SACK_TOGGLE);
         event.register(KeybindHandler.KEY_WAND_UNDO);
         event.register(KeybindHandler.KEY_EXCHANGE_SELECT);

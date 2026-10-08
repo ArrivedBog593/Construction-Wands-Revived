@@ -231,7 +231,7 @@ public class ItemVoidSack extends Item
 
         if (player == null) return InteractionResult.PASS;
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be != null) {
                 IItemInventory handler = Services.PLATFORM.getBlockInventory(level, pos, be);
@@ -254,7 +254,7 @@ public class ItemVoidSack extends Item
     //? if >=1.21.2 {
     /*@Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             openGui(serverPlayer, hand);
         }
         return InteractionResult.SUCCESS;
@@ -263,10 +263,10 @@ public class ItemVoidSack extends Item
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack sack = player.getItemInHand(hand);
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             openGui(serverPlayer, hand);
         }
-        return InteractionResultHolder.sidedSuccess(sack, level.isClientSide);
+        return InteractionResultHolder.sidedSuccess(sack, level.isClientSide());
     }
     //?}
 

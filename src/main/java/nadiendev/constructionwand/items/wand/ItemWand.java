@@ -40,7 +40,7 @@ public abstract class ItemWand extends Item
         InteractionHand hand = context.getHand();
         Level world = context.getLevel();
 
-        if(world.isClientSide || player == null) return InteractionResult.FAIL;
+        if(world.isClientSide() || player == null) return InteractionResult.FAIL;
 
         ItemStack stack = player.getItemInHand(hand);
 
@@ -60,7 +60,7 @@ public abstract class ItemWand extends Item
         ItemStack stack = player.getItemInHand(hand);
 
         if(!player.isCrouching()) {
-            if(world.isClientSide) return InteractionResult.FAIL;
+            if(world.isClientSide()) return InteractionResult.FAIL;
 
             // Right click in air: place angel block
             WandJob job = getWandJob(player, world, BlockHitResult.miss(player.getLookAngle(),
@@ -76,7 +76,7 @@ public abstract class ItemWand extends Item
         ItemStack stack = player.getItemInHand(hand);
 
         if(!player.isCrouching()) {
-            if(world.isClientSide) return InteractionResultHolder.fail(stack);
+            if(world.isClientSide()) return InteractionResultHolder.fail(stack);
 
             // Right click in air: place angel block
             WandJob job = getWandJob(player, world, BlockHitResult.miss(player.getLookAngle(),
@@ -131,7 +131,11 @@ public abstract class ItemWand extends Item
         String langTooltip = ConstructionWand.MODID + ".tooltip.";
 
         // +SHIFT tooltip: show all options and installed cores
+        //? if >=1.21.9 {
+        /*if(net.minecraft.client.Minecraft.getInstance().hasShiftDown()) {
+        *///?} else {
         if(Screen.hasShiftDown()) {
+        //?}
             for(int i = 1; i < options.allOptions.length; i++) {
                 IOption<?> opt = options.allOptions[i];
                 lines.add(Component.translatable(opt.getKeyTranslation()).withStyle(ChatFormatting.AQUA)

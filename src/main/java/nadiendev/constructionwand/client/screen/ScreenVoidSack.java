@@ -79,6 +79,17 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
         }
     }
 
+    //? if >=1.21.9 {
+    /*@Override
+    public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent event, boolean doubleClick) {
+        if (event.button() == 0 && hasLinked && isOverButton((int) event.x(), (int) event.y())) {
+            PacketToggleVoidSack.send(menu.getHand());
+            sendToContainer = !sendToContainer;
+            return true;
+        }
+        return super.mouseClicked(event, doubleClick);
+    }
+    *///?} else {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == 0 && hasLinked && isOverButton((int) mouseX, (int) mouseY)) {
@@ -88,16 +99,12 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }
+    //?}
 
     private boolean isOverButton(int mouseX, int mouseY) {
         int bx = leftPos + TOGGLE_BTN_X;
         int by = topPos  + TOGGLE_BTN_Y;
         return mouseX >= bx && mouseX < bx + TOGGLE_BTN_W
                 && mouseY >= by && mouseY < by + TOGGLE_BTN_H;
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 }

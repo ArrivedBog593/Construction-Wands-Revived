@@ -5,6 +5,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+//? if <1.21.9
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.client.Minecraft;
@@ -56,19 +57,20 @@ public class ConstructionWandFabricClient implements ClientModInitializer {
         UseItemCallback.EVENT.register((player, level, hand) -> {
             var stack = player.getItemInHand(hand);
             //? if >=1.21.2 {
-            /^if (level.isClientSide && ClientEvents.onRightClickItem(player, stack)) {
+            /^if (level.isClientSide() && ClientEvents.onRightClickItem(player, stack)) {
                 return InteractionResult.FAIL;
             }
             return InteractionResult.PASS;
             ^///?} else {
-            if (level.isClientSide && ClientEvents.onRightClickItem(player, stack)) {
+            if (level.isClientSide() && ClientEvents.onRightClickItem(player, stack)) {
                 return InteractionResultHolder.fail(stack);
             }
             return InteractionResultHolder.pass(stack);
             //?}
         });
 
-        // Placement preview instead of the vanilla block outline
+        // Placement preview instead of the vanilla block outline (LevelRendererMixin from 1.21.9 on)
+        //? if <1.21.9 {
         WorldRenderEvents.BLOCK_OUTLINE.register((context, outlineContext) -> {
             RenderBlockPreview preview = ConstructionWand.instance.renderBlockPreview;
             HitResult hit = Minecraft.getInstance().hitResult;
@@ -77,6 +79,7 @@ public class ConstructionWandFabricClient implements ClientModInitializer {
             return !preview.renderBlockHighlight(blockHit, context.camera(), context.matrixStack(),
                     context.consumers(), partialTicks);
         });
+        //?}
     }
 
     private static <T extends CustomPacketPayload> void registerClientPacket(ModMessages.Definition<T> definition) {

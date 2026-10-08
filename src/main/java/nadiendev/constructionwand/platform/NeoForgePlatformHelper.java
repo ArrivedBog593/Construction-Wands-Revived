@@ -94,15 +94,25 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Nullable
     @Override
     public IItemInventory getItemInventory(ItemStack stack) {
+        //? if >=1.21.9 {
+        /*var handler = net.neoforged.neoforge.transfer.access.ItemAccess.forStack(stack).getCapability(Capabilities.Item.ITEM);
+        return handler == null ? null : new NeoItemInventory(handler);
+        *///?} else {
         IItemHandler handler = stack.getCapability(Capabilities.ItemHandler.ITEM);
         return handler == null ? null : new NeoItemInventory(handler);
+        //?}
     }
 
     @Nullable
     @Override
     public IItemInventory getBlockInventory(Level level, BlockPos pos, BlockEntity blockEntity) {
+        //? if >=1.21.9 {
+        /*var handler = level.getCapability(Capabilities.Item.BLOCK, pos, blockEntity.getBlockState(), blockEntity, null);
+        return handler == null ? null : new NeoItemInventory(handler);
+        *///?} else {
         IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, blockEntity.getBlockState(), blockEntity, null);
         return handler == null ? null : new NeoItemInventory(handler);
+        //?}
     }
 
     @Override

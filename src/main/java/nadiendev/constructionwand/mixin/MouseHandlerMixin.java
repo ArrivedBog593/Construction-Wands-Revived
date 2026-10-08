@@ -21,9 +21,15 @@ public abstract class MouseHandlerMixin {
 
     @Inject(method = "onScroll", at = @At("HEAD"), cancellable = true)
     private void constructionwand$onScroll(long window, double xOffset, double yOffset, CallbackInfo ci) {
+        //? if >=1.21.9 {
+        /^if (window == minecraft.getWindow().handle() && minecraft.screen == null && ClientEvents.onMouseScroll(yOffset)) {
+            ci.cancel();
+        }
+        ^///?} else {
         if (window == minecraft.getWindow().getWindow() && minecraft.screen == null && ClientEvents.onMouseScroll(yOffset)) {
             ci.cancel();
         }
+        //?}
     }
 }
 *///?}

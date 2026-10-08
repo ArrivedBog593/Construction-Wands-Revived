@@ -14,6 +14,10 @@ import nadiendev.constructionwand.network.PacketToggleVoidSackActive;
 
 public class KeybindHandler {
 
+    //? if >=1.21.9 {
+    /*public static final KeyMapping.Category CATEGORY = new KeyMapping.Category(ConstructionWand.loc("main"));
+
+    *///?}
     public static final KeyMapping KEY_VOID_SACK_TOGGLE = new KeyMapping(
             getKey("void_sack_toggle"),
             GLFW.GLFW_KEY_M,
@@ -40,9 +44,15 @@ public class KeybindHandler {
         return String.join(".", "key", ConstructionWand.MODID, name);
     }
 
+    //? if >=1.21.9 {
+    /*private static KeyMapping.Category getCategory(String modid) {
+        return CATEGORY;
+    }
+    *///?} else {
     private static String getCategory(String modid) {
         return "key.categories." + modid;
     }
+    //?}
 
     /** Called by the loaders whenever keyboard input is processed (or every client tick). */
     public static void onKey() {

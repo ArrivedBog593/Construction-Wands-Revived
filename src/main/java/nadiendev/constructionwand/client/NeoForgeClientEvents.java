@@ -7,7 +7,12 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
+//? if >=1.21.9 {
+/*import net.neoforged.neoforge.client.CustomBlockOutlineRenderer;
+import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
+*///?} else {
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
+//?}
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.network.ClientRefresh;
@@ -40,6 +45,17 @@ public final class NeoForgeClientEvents {
         if (ClientEvents.onRightClickItem(event.getEntity(), event.getItemStack())) event.setCanceled(true);
     }
 
+    //? if >=1.21.9 {
+    /*@SubscribeEvent
+    public static void onExtractBlockOutline(ExtractBlockOutlineRenderStateEvent event) {
+        RenderBlockPreview preview = ConstructionWand.instance.renderBlockPreview;
+        if (preview == null) return;
+        net.minecraft.world.phys.BlockHitResult target = event.getHitResult();
+        net.minecraft.client.Camera camera = event.getCamera();
+        event.addCustomRenderer((CustomBlockOutlineRenderer) (renderState, buffer, poseStack, translucentPass, levelRenderState) ->
+                preview.renderBlockHighlight(target, camera, poseStack, buffer, 0));
+    }
+    *///?} else {
     @SubscribeEvent(receiveCanceled = true)
     public static void onRenderHighlight(RenderHighlightEvent.Block event) {
         RenderBlockPreview preview = ConstructionWand.instance.renderBlockPreview;
@@ -50,6 +66,7 @@ public final class NeoForgeClientEvents {
             event.setCanceled(true);
         }
     }
+    //?}
 
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
