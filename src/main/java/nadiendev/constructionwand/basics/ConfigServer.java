@@ -3,7 +3,7 @@ package nadiendev.constructionwand.basics;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Tiers;
+import nadiendev.constructionwand.items.wand.WandTier;
 import nadiendev.constructionwand.platform.IConfigBuilder;
 import nadiendev.constructionwand.platform.Services;
 import nadiendev.constructionwand.registry.RegistryObject;
@@ -124,12 +124,12 @@ public class ConfigServer
         // NOTE: WAND_GOLD previously had no entry here at all, which made ConfigServer.getWandProperties()
         // fall back to WandProperties.DEFAULT (upgradeable = false). That silently prevented Gold Wand from
         // ever accepting ANY core (Angel/Destruction included), not just Exchange. Added below.
-        new WandProperties(builder, ModItems.WAND_WOOD, Tiers.WOOD.getUses(), 5, 0, 0, 0, false);
-        new WandProperties(builder, ModItems.WAND_STONE, Tiers.STONE.getUses(), 9, 0, 0, 0, false);
-        new WandProperties(builder, ModItems.WAND_IRON, Tiers.IRON.getUses(), 27, 2, 9, 9, true);
-        new WandProperties(builder, ModItems.WAND_GOLD, Tiers.GOLD.getUses(), 60, 5, 15, 15, true);
-        new WandProperties(builder, ModItems.WAND_DIAMOND, Tiers.DIAMOND.getUses(), 128, 8, 25, 25, true);
-        new WandProperties(builder, ModItems.WAND_NETHERITE, Tiers.NETHERITE.getUses(), 512, 15, 75, 75, true);
+        new WandProperties(builder, ModItems.WAND_WOOD, WandTier.WOOD.durability(), 5, 0, 0, 0, false);
+        new WandProperties(builder, ModItems.WAND_STONE, WandTier.STONE.durability(), 9, 0, 0, 0, false);
+        new WandProperties(builder, ModItems.WAND_IRON, WandTier.IRON.durability(), 27, 2, 9, 9, true);
+        new WandProperties(builder, ModItems.WAND_GOLD, WandTier.GOLD.durability(), 60, 5, 15, 15, true);
+        new WandProperties(builder, ModItems.WAND_DIAMOND, WandTier.DIAMOND.durability(), 128, 8, 25, 25, true);
+        new WandProperties(builder, ModItems.WAND_NETHERITE, WandTier.NETHERITE.durability(), 512, 15, 75, 75, true);
         new WandProperties(builder, ModItems.WAND_INFINITY, 0, 1024, 16, 81, 81, true);
 
         builder.push("misc");

@@ -60,6 +60,11 @@ loom {
     }
 }
 
+// Data generated for this Minecraft version (recipes, advancements, models, lang), see `generated/{version}`
+sourceSets.main {
+    resources.srcDir(rootProject.file("generated/${sc.current.version}"))
+}
+
 java {
     withSourcesJar()
     targetCompatibility = requiredJava

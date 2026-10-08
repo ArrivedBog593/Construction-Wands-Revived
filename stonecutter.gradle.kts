@@ -24,6 +24,11 @@ stonecutter parameters {
     }
 
     replacements {
+        // Direction#getNormal was renamed in 1.21.2
+        string(current.parsed >= "1.21.2") {
+            replace(".getNormal()", ".getUnitVec3i()")
+        }
+
         // ResourceLocation was renamed in 1.21.11
         string(current.parsed >= "1.21.11") {
             replace("ResourceLocation", "Identifier")

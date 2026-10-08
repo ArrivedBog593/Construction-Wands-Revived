@@ -1,5 +1,5 @@
 //? if fabric {
-package nadiendev.constructionwand.platform;
+/*package nadiendev.constructionwand.platform;
 
 import nadiendev.constructionwand.ConstructionWand;
 
@@ -13,16 +13,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-/**
+/^*
  * Minimal config storage for Fabric, which has no config system of its own.
  * <p>
  * Values are kept in a TOML-like file ({@code [section]} headers, {@code key = value} lines, {@code #} comments)
  * with the same layout NeoForge and Forge use. The file is read once on startup and rewritten with every entry,
  * its comment and its default, so players can discover and edit all options.
- */
+ ^/
 public final class FabricConfigSpec {
 
-    /** One option of the config. */
+    /^* One option of the config. ^/
     record Entry(String section, String key, List<String> comment, Object defaultValue, Predicate<Object> validator) {
         String id() {
             return section.isEmpty() ? key : section + "." + key;
@@ -36,13 +36,13 @@ public final class FabricConfigSpec {
         entries.put(entry.id(), entry);
     }
 
-    /** Current value of an option; the default until the file has been loaded. */
+    /^* Current value of an option; the default until the file has been loaded. ^/
     Object get(String id) {
         Object value = values.get(id);
         return value != null ? value : entries.get(id).defaultValue();
     }
 
-    /** Reads the file (when it exists), replaces invalid values with their defaults and writes the file back. */
+    /^* Reads the file (when it exists), replaces invalid values with their defaults and writes the file back. ^/
     public void load(Path file) {
         Map<String, Object> parsed = new LinkedHashMap<>();
         if (Files.exists(file)) {
@@ -155,7 +155,7 @@ public final class FabricConfigSpec {
         }
     }
 
-    /** Reads a quoted string starting at {@code start}; returns the text and the index after the closing quote. */
+    /^* Reads a quoted string starting at {@code start}; returns the text and the index after the closing quote. ^/
     private static Object[] unquote(String text, int start) {
         StringBuilder out = new StringBuilder();
         int i = start + 1;
@@ -172,4 +172,4 @@ public final class FabricConfigSpec {
         return new Object[]{out.toString(), i};
     }
 }
-//?}
+*///?}

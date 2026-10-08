@@ -102,10 +102,16 @@ neoForge {
 
         register("data") {
             data()
-            val resources = rootProject.file("src/main/resources").absolutePath
-            programArguments.addAll("--mod", prop("mod.id"), "--all", "--output", resources, "--existing", resources)
+            val output = rootProject.file("generated/${sc.current.version}").absolutePath
+            val existing = rootProject.file("src/main/resources").absolutePath
+            programArguments.addAll("--mod", prop("mod.id"), "--all", "--output", output, "--existing", existing)
         }
     }
+}
+
+// Data generated for this Minecraft version (recipes, advancements, models, lang), see `generated/{version}`
+sourceSets.main {
+    resources.srcDir(rootProject.file("generated/${sc.current.version}"))
 }
 
 java {

@@ -5,7 +5,9 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+//? if <1.21.2
 import net.minecraft.world.InteractionResultHolder;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -51,6 +53,23 @@ public abstract class ItemWand extends Item
         }
     }
 
+    //? if >=1.21.2 {
+    /*@Nonnull
+    @Override
+    public InteractionResult use(@Nonnull Level world, Player player, @Nonnull InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+
+        if(!player.isCrouching()) {
+            if(world.isClientSide) return InteractionResult.FAIL;
+
+            // Right click in air: place angel block
+            WandJob job = getWandJob(player, world, BlockHitResult.miss(player.getLookAngle(),
+                    WandUtil.fromVector(player.getLookAngle()), player.blockPosition()), stack);
+            return job.doIt() ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+        }
+        return InteractionResult.FAIL;
+    }
+    *///?} else {
     @Nonnull
     @Override
     public InteractionResultHolder<ItemStack> use(@Nonnull Level world, Player player, @Nonnull InteractionHand hand) {
@@ -66,6 +85,7 @@ public abstract class ItemWand extends Item
         }
         return InteractionResultHolder.fail(stack);
     }
+    //?}
 
     public static WandJob getWandJob(Player player, Level world, @Nullable BlockHitResult rayTraceResult, ItemStack wand) {
         WandJob wandJob = new WandJob(player, world, rayTraceResult, wand);
@@ -78,10 +98,12 @@ public abstract class ItemWand extends Item
         return false;
     }
 
+    //? if <1.21.2 {
     @Override
     public boolean isValidRepairItem(@Nonnull ItemStack toRepair, @Nonnull ItemStack repair) {
         return false;
     }
+    //?}
 
     public int remainingDurability(ItemStack stack) {
         return Integer.MAX_VALUE;

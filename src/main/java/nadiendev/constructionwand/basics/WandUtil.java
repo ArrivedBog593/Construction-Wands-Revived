@@ -169,7 +169,11 @@ public class WandUtil
         if(server == null) return;
 
         BlockPos immutable = pos.immutable();
+        //? if >=1.21.2 {
+        /*server.schedule(new TickTask(server.getTickCount() + 1, () -> {
+        *///?} else {
         server.tell(new TickTask(server.getTickCount() + 1, () -> {
+        //?}
             if(!serverLevel.isLoaded(immutable)) return;
             BlockState current = serverLevel.getBlockState(immutable);
             serverLevel.sendBlockUpdated(immutable, current, current, Block.UPDATE_ALL);
@@ -262,6 +266,10 @@ public class WandUtil
 
     
     public static Direction fromVector(Vec3 vector) {
+        //? if >=1.21.2 {
+        /*return Direction.getApproximateNearest(vector.x, vector.y, vector.z);
+        *///?} else {
         return Direction.getNearest(vector.x, vector.y, vector.z);
+        //?}
     }
 }

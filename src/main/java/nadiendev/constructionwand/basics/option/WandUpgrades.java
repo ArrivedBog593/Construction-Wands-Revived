@@ -36,7 +36,8 @@ public class WandUpgrades<T extends IWandUpgrade>
 
         for(int i = 0; i < listnbt.size(); i++) {
             String str = listnbt.getString(i);
-            Item item = BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(str));
+            ResourceLocation itemId = ResourceLocation.tryParse(str);
+            Item item = itemId == null ? null : BuiltInRegistries.ITEM.getOptional(itemId).orElse(null);
 
             T data;
             try {

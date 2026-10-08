@@ -1,11 +1,11 @@
 //? if fabric {
-package nadiendev.constructionwand.platform;
+/*package nadiendev.constructionwand.platform;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-/** Builds a {@link FabricConfigSpec} through the common config builder interface. */
+/^* Builds a {@link FabricConfigSpec} through the common config builder interface. ^/
 public class FabricConfigBuilder implements IConfigBuilder {
     private final FabricConfigSpec spec = new FabricConfigSpec();
     private final List<String> path = new ArrayList<>();
@@ -63,4 +63,4 @@ public class FabricConfigBuilder implements IConfigBuilder {
         return () -> (T) spec.get(entry.id());
     }
 }
-//?}
+*///?}

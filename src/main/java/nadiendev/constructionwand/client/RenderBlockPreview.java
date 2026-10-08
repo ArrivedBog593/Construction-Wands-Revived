@@ -2,7 +2,11 @@ package nadiendev.constructionwand.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+//? if >=1.21.2 {
+/*import net.minecraft.client.renderer.ShapeRenderer;
+*///?} else {
 import net.minecraft.client.renderer.LevelRenderer;
+//?}
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -66,7 +70,11 @@ public class RenderBlockPreview
 
         for(BlockPos block : blocks) {
             AABB aabb = new AABB(block).move(-d0, -d1, -d2);
+            //? if >=1.21.2 {
+            /*ShapeRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
+            *///?} else {
             LevelRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
+            //?}
         }
 
         return true;
