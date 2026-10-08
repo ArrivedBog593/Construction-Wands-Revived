@@ -1,5 +1,5 @@
 //? if neoforge {
-/*package nadiendev.constructionwand.basics;
+package nadiendev.constructionwand.basics;
 
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -11,7 +11,7 @@ import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.events.VoidSackDropHandler;
 import nadiendev.constructionwand.events.VoidSackPickupHandler;
 
-/^* Forwards NeoForge's void sack related game events to the shared handlers. ^/
+/** Forwards NeoForge's void sack related game events to the shared handlers. */
 @EventBusSubscriber(modid = ConstructionWand.MODID)
 public final class NeoForgeCommonEvents {
 
@@ -31,4 +31,4 @@ public final class NeoForgeCommonEvents {
         }
     }
 }
-*///?}
+//?}

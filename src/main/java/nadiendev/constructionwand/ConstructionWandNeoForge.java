@@ -1,5 +1,5 @@
 //? if neoforge {
-/*package nadiendev.constructionwand;
+package nadiendev.constructionwand;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.neoforged.bus.api.IEventBus;
@@ -66,4 +66,4 @@ public class ConstructionWandNeoForge {
         }
     }
 }
-*///?}
+//?}

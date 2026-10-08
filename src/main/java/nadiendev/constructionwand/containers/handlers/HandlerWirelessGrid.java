@@ -1,5 +1,5 @@
 //? if neoforge {
-/*package nadiendev.constructionwand.containers.handlers;
+package nadiendev.constructionwand.containers.handlers;
 
 import com.refinedmods.refinedstorage.api.core.Action;
 import com.refinedmods.refinedstorage.api.network.Network;
@@ -169,4 +169,4 @@ public class HandlerWirelessGrid implements IContainerHandler {
         return location != null && location.toString().equals("refinedstorage:creative_wireless_grid");
     }
 }
-*///?}
+//?}

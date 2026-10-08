@@ -1,5 +1,5 @@
 //? if neoforge || fabric {
-/*package nadiendev.constructionwand.integrations.emi;
+package nadiendev.constructionwand.integrations.emi;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.emi.emi.api.EmiPlugin;
@@ -74,4 +74,4 @@ public class ConstructionWandEmiPlugin implements EmiPlugin
                 ConstructionWand.loc("info/" + itemId.getPath())));
     }
 }
-*///?}
+//?}

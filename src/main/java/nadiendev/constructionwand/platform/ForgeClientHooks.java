@@ -1,5 +1,5 @@
 //? if forge {
-package nadiendev.constructionwand.platform;
+/*package nadiendev.constructionwand.platform;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
-/** Client only calls, kept apart so the dedicated server never has to load the classes they touch. */
+/^* Client only calls, kept apart so the dedicated server never has to load the classes they touch. ^/
 final class ForgeClientHooks {
 
     private ForgeClientHooks() {
@@ -21,4 +21,4 @@ final class ForgeClientHooks {
         ItemProperties.register(item, name, function::call);
     }
 }
-//?}
+*///?}

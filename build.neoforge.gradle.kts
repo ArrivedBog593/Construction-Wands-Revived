@@ -76,12 +76,12 @@ neoForge {
 
     runs {
         register("client") {
-            gameDirectory = file("../../run/")
+            gameDirectory = rootProject.file("run")
             client()
         }
 
         register("server") {
-            gameDirectory = file("../../run/")
+            gameDirectory = rootProject.file("run")
             server()
             programArgument("--nogui")
         }
@@ -142,7 +142,7 @@ tasks {
     withType<Jar> {
         val name = prop("mod.id")
         inputs.property("mod_id", name)
-        from("../../LICENSE") { rename { "$it-$name" } }
+        from(rootProject.file("LICENSE")) { rename { "$it-$name" } }
     }
 
     register<Copy>("buildAndCollect") {

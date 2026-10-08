@@ -39,8 +39,25 @@ stonecutter {
 
 rootProject.name = "Construction-Wands-Revived"
 
-// Group the nodes by Minecraft version: `{version}/{loader}` instead of `versions/{version}-{loader}`
+// Stonecutter looks for the shared sources at `../../src` relative to every node. With the nodes nested one level
+// deeper that resolves to `versions/src`, so link it to the real `src` folder (a junction on Windows).
+val sharedSources = file("versions/src")
+if (!sharedSources.exists()) {
+    sharedSources.parentFile.mkdirs()
+    val realSources = file("src")
+    if (System.getProperty("os.name").lowercase().contains("win")) {
+        ProcessBuilder("cmd", "/c", "mklink", "/J", sharedSources.absolutePath, realSources.absolutePath)
+            .redirectErrorStream(true).start().also { it.inputStream.readAllBytes() }.waitFor()
+    } else {
+        java.nio.file.Files.createSymbolicLink(sharedSources.toPath(), realSources.toPath())
+    }
+}
+
+// Group the nodes by Minecraft version: `versions/{version}/{loader}` instead of `versions/{version}-{loader}`
 for (node in rootProject.children) {
     val (version, loader) = node.name.split('-', limit = 2)
-    node.projectDir = file("$version/$loader").also { it.mkdirs() }
+    file("versions/${node.name}").delete() // the empty default folder Stonecutter created
+    node.projectDir = file("versions/$version/$loader").also { it.mkdirs() }
+    // Stonecutter points the node at its build script relative to the default directory depth
+    node.buildFileName = "../../../build.$loader.gradle.kts"
 }

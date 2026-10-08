@@ -1,12 +1,12 @@
 //? if forge {
-package nadiendev.constructionwand.platform;
+/*package nadiendev.constructionwand.platform;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-/** Backs the common config builder with Forge's {@link ForgeConfigSpec}. */
+/^* Backs the common config builder with Forge's {@link ForgeConfigSpec}. ^/
 public class ForgeConfigBuilder implements IConfigBuilder {
     private final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
@@ -49,4 +49,4 @@ public class ForgeConfigBuilder implements IConfigBuilder {
         return builder.build();
     }
 }
-//?}
+*///?}

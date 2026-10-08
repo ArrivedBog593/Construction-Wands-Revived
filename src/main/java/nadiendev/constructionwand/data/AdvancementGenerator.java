@@ -1,5 +1,5 @@
 //? if neoforge {
-/*package nadiendev.constructionwand.data;
+package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.items.ModItems;
@@ -104,4 +104,4 @@ public class AdvancementGenerator extends AdvancementProvider {
         }
     }
 }
-*///?}
+//?}

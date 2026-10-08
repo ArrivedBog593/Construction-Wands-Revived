@@ -1,10 +1,10 @@
 //? if neoforge {
-/*package nadiendev.constructionwand.platform;
+package nadiendev.constructionwand.platform;
 
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 
-/^* Exposes a NeoForge {@link IItemHandler} as a common inventory. ^/
+/** Exposes a NeoForge {@link IItemHandler} as a common inventory. */
 public record NeoItemInventory(IItemHandler handler) implements IItemInventory {
 
     @Override
@@ -27,4 +27,4 @@ public record NeoItemInventory(IItemHandler handler) implements IItemInventory {
         return handler.insertItem(slot, stack, simulate);
     }
 }
-*///?}
+//?}

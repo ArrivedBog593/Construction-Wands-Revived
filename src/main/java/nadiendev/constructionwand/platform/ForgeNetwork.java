@@ -1,5 +1,5 @@
 //? if forge {
-package nadiendev.constructionwand.platform;
+/*package nadiendev.constructionwand.platform;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -14,7 +14,7 @@ import net.minecraftforge.network.payload.PayloadFlow;
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.network.ModMessages;
 
-/** Wraps Forge's payload channel, which carries vanilla custom payloads, for the shared packets. */
+/^* Wraps Forge's payload channel, which carries vanilla custom payloads, for the shared packets. ^/
 public final class ForgeNetwork {
 
     private static Channel<CustomPacketPayload> channel;
@@ -22,7 +22,7 @@ public final class ForgeNetwork {
     private ForgeNetwork() {
     }
 
-    /** Builds the channel and registers every packet. Must run during mod construction. */
+    /^* Builds the channel and registers every packet. Must run during mod construction. ^/
     public static void init() {
         PayloadFlow<RegistryFriendlyByteBuf, CustomPacketPayload> flow = ChannelBuilder
                 .named(ConstructionWand.loc("main"))
@@ -57,4 +57,4 @@ public final class ForgeNetwork {
         channel.send(payload, PacketDistributor.TRACKING_CHUNK.with(level.getChunk(chunk.x, chunk.z)));
     }
 }
-//?}
+*///?}

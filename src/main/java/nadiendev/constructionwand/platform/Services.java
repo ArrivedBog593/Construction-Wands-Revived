@@ -10,10 +10,10 @@ public class Services {
 
     public static final IPlatformHelper PLATFORM =
             //? if neoforge {
-            /*new NeoForgePlatformHelper();
-            *///?} elif fabric {
+            new NeoForgePlatformHelper();
+            //?} elif fabric {
             /*new FabricPlatformHelper();
             *///?} else {
-            new ForgePlatformHelper();
-            //?}
+            /*new ForgePlatformHelper();
+            *///?}
 }

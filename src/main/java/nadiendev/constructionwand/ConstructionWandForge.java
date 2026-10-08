@@ -1,5 +1,5 @@
 //? if forge {
-package nadiendev.constructionwand;
+/*package nadiendev.constructionwand;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
@@ -75,4 +75,4 @@ public class ConstructionWandForge {
         event.register(registrar.registry().key(), helper -> registrar.registerAll(helper::register));
     }
 }
-//?}
+*///?}

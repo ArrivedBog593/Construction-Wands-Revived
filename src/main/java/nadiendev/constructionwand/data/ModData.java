@@ -1,5 +1,5 @@
 //? if neoforge {
-/*package nadiendev.constructionwand.data;
+package nadiendev.constructionwand.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -46,4 +46,4 @@ public class ModData
         }
     }
 }
-*///?}
+//?}

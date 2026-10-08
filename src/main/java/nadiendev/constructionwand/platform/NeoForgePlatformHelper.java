@@ -1,5 +1,5 @@
 //? if neoforge {
-/*package nadiendev.constructionwand.platform;
+package nadiendev.constructionwand.platform;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -119,4 +119,4 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
         PacketDistributor.sendToPlayersTrackingChunk(level, chunk, payload);
     }
 }
-*///?}
+//?}
