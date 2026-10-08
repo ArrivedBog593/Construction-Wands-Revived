@@ -17,7 +17,7 @@ public final class VoidSackPickupHandler
      */
     public static boolean onItemPickup(Player player, ItemEntity itemEntity) {
         if (!(player instanceof ServerPlayer sp)) return false;
-        if (!(player.level() instanceof ServerLevel level)) return false;
+        if (!(player.serverLevel() instanceof ServerLevel level)) return false;
 
         ItemStack sack = findActiveSack(sp);
         if (sack == null) return false;

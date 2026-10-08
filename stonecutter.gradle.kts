@@ -36,6 +36,12 @@ stonecutter parameters {
             replace(".getNormal()", ".getUnitVec3i()")
         }
 
+        // NeoForge 21.6 removed the explicit mod bus option, mod events are routed automatically
+        // and ServerPlayer#level now returns a ServerLevel (serverLevel() was removed)
+        string(current.parsed >= "1.21.6") {
+            replace(".serverLevel()", ".level()")
+        }
+
         // TriState moved into vanilla in 1.21.5
         string(current.parsed >= "1.21.5") {
             replace("net.neoforged.neoforge.common.util.TriState", "net.minecraft.util.TriState")

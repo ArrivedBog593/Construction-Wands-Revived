@@ -62,7 +62,7 @@ public record PacketExchangeSelect() implements CustomPacketPayload
                 }
 
                 BlockPos pos = blockHit.getBlockPos();
-                ActionExchange.selectReplacementBlock(player.level(), player, pos);
+                ActionExchange.selectReplacementBlock(player.serverLevel(), player, pos);
             })
             .exceptionally(e -> {
                 ctx.disconnect(Component.translatable(

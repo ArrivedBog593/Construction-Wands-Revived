@@ -52,7 +52,7 @@ public record PacketWandUndo() implements CustomPacketPayload
                 if (wand == null) return;
 
                 
-                boolean success = ConstructionWand.instance.undoHistory.undoLast(player, player.level());
+                boolean success = ConstructionWand.instance.undoHistory.undoLast(player, player.serverLevel());
 
                 if (success) {
                     player.displayClientMessage(

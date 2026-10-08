@@ -14,7 +14,11 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 //? if >=1.21.4
 //import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
 
+//? if >=1.21.6 {
+/*@EventBusSubscriber(modid = ConstructionWand.MODID, value = Dist.CLIENT)
+*///?} else {
 @EventBusSubscriber(modid = ConstructionWand.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+//?}
 public class ClientHandler {
 
     @SubscribeEvent

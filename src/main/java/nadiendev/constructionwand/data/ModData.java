@@ -15,7 +15,11 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import java.util.concurrent.CompletableFuture;
 
 @SuppressWarnings("removal")
+//? if >=1.21.6 {
+/*@EventBusSubscriber
+*///?} else {
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+//?}
 public class ModData
 {
     //? if >=1.21.4 {

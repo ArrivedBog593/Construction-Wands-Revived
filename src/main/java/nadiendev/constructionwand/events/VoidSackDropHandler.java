@@ -22,7 +22,7 @@ public final class VoidSackDropHandler
         ActionDestruction.VoidSackDropContext ctx = ActionDestruction.ACTIVE_CONTEXT.get();
         if (ctx == null) return false;
 
-        ServerLevel level = ctx.level();
+        ServerLevel level = ctx.serverLevel();
         ItemStack sack = ctx.sack();
 
         if (sack.isEmpty() || !(sack.getItem() instanceof ItemVoidSack)) return false;

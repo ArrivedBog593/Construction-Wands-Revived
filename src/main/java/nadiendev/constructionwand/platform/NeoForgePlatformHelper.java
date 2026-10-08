@@ -51,7 +51,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
         //? if curios {
         return CuriosIntegration.getCurioStacks(player);
         //?} else
-        /*return List.of();*/
+        //return List.of();
     }
 
     //? if <1.21.4 {
