@@ -1,8 +1,6 @@
 package nadiendev.constructionwand.client.screen;
 
 import net.minecraft.client.gui.GuiGraphics;
-//? if >=1.21.2
-//import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -60,7 +58,7 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
         //? if >=1.21.6 {
         /*gfx.blit(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
         *///?} elif >=1.21.2 {
-        /*gfx.blit(RenderType::guiTextured, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
+        /*gfx.blit(net.minecraft.client.renderer.RenderType::guiTextured, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
         *///?} else {
         gfx.blit(TEXTURE, leftPos, topPos, 0, 0, GUI_WIDTH, GUI_HEIGHT);
         //?}

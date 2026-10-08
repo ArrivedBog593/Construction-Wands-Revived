@@ -44,7 +44,11 @@ public class RenderBlockPreview
                                   double partialTicks) {
         if(rtr.getType() != HitResult.Type.BLOCK) return false;
 
+        //? if >=1.21.11 {
+        /*Entity entity = camera.entity();
+        *///?} else {
         Entity entity = camera.getEntity();
+        //?}
         if(!(entity instanceof Player player)) return false;
         Set<BlockPos> blocks;
         float colorR = 0, colorG = 0, colorB = 0;
@@ -69,7 +73,13 @@ public class RenderBlockPreview
 
         if(blocks == null || blocks.isEmpty()) return false;
 
-        //? if >=1.21.9 {
+        //? if >=1.21.11 {
+        /*VertexConsumer lineBuilder = buffer.getBuffer(net.minecraft.client.renderer.RenderTypes.lines());
+
+        double d0 = camera.position().x();
+        double d1 = camera.position().y();
+        double d2 = camera.position().z();
+        *///?} elif >=1.21.9 {
         /*VertexConsumer lineBuilder = buffer.getBuffer(RenderType.lines());
 
         double d0 = camera.position().x();
@@ -85,7 +95,10 @@ public class RenderBlockPreview
 
         for(BlockPos block : blocks) {
             AABB aabb = new AABB(block).move(-d0, -d1, -d2);
-            //? if >=1.21.9 {
+            //? if >=1.21.11 {
+            /*ShapeRenderer.renderShape(ms, lineBuilder, net.minecraft.world.phys.shapes.Shapes.create(aabb), 0, 0, 0,
+                    net.minecraft.util.ARGB.colorFromFloat(0.4F, colorR, colorG, colorB), 1.0F);
+            *///?} elif >=1.21.9 {
             /*ShapeRenderer.renderLineBox(ms.last(), lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
             *///?} elif >=1.21.2 {
             /*ShapeRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);

@@ -42,6 +42,13 @@ stonecutter parameters {
             replace("net.neoforged.neoforge.common.util.TriState", "net.minecraft.util.TriState")
         }
 
+        // Package and method renames of 1.21.11
+        string(current.parsed >= "1.21.11") {
+            replace("net.minecraft.advancements.critereon", "net.minecraft.advancements.criterion")
+            replace("net.minecraft.client.renderer.RenderType", "net.minecraft.client.renderer.rendertype.RenderType")
+            replace(".dimension().location()", ".dimension().identifier()")
+        }
+
         // ResourceLocation was renamed in 1.21.11
         string(current.parsed >= "1.21.11") {
             replace("ResourceLocation", "Identifier")
