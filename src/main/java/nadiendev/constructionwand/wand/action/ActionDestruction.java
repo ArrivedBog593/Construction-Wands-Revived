@@ -142,9 +142,9 @@ public class ActionDestruction implements IWandAction
             }
         }
 
-        // Envolver snapshots con el contexto del Void Sack si hay uno en el inventario
+        // Envolver snapshots con el contexto del Void Sack si hay uno activo en el inventario
         if (!world.isClientSide && player instanceof ServerPlayer serverPlayer) {
-            ItemStack voidSack = findSack(serverPlayer);
+            ItemStack voidSack = findActiveSack(serverPlayer);
             if (!voidSack.isEmpty()) {
                 List<ISnapshot> wrapped = new ArrayList<>(destroySnapshots.size());
                 for (ISnapshot s : destroySnapshots)
@@ -156,19 +156,28 @@ public class ActionDestruction implements IWandAction
         return destroySnapshots;
     }
 
-    /** Busca el primer Void Sack en el inventario completo del jugador. */
-    public static ItemStack findSack(Player player) {
+    /**
+     * Busca el primer Void Sack que debe capturar drops en mano principal, secundaria o
+     * inventario: uno activo, o uno inactivo que envía a un contenedor enlazado.
+     */
+    public static ItemStack findActiveSack(Player player) {
         ItemStack main = player.getMainHandItem();
-        if (main.getItem() instanceof ItemVoidSack) return main;
+        if (capturesDrops(main)) return main;
 
         ItemStack off = player.getOffhandItem();
-        if (off.getItem() instanceof ItemVoidSack) return off;
+        if (capturesDrops(off)) return off;
 
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack s = player.getInventory().getItem(i);
-            if (s.getItem() instanceof ItemVoidSack) return s;
+            if (capturesDrops(s)) return s;
         }
         return ItemStack.EMPTY;
+    }
+
+    private static boolean capturesDrops(ItemStack stack) {
+        if (!(stack.getItem() instanceof ItemVoidSack)) return false;
+        if (ItemVoidSack.isActive(stack)) return true;
+        return ItemVoidSack.isSendToContainer(stack) && ItemVoidSack.getLinkedPos(stack) != null;
     }
 
     /**

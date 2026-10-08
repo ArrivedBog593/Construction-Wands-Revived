@@ -1,6 +1,7 @@
 package nadiendev.constructionwand.containers;
 
 import nadiendev.constructionwand.ConstructionWand;
+import nadiendev.constructionwand.containers.handlers.HandlerBotania;
 import nadiendev.constructionwand.containers.handlers.HandlerBundle;
 import nadiendev.constructionwand.containers.handlers.HandlerCapability;
 import nadiendev.constructionwand.containers.handlers.HandlerShulkerbox;
@@ -18,14 +19,21 @@ public class ContainerRegistrar
         ConstructionWand.instance.containerManager.register(new HandlerShulkerbox());
         ConstructionWand.instance.containerManager.register(new HandlerBundle());
 
-//        if(ModList.get().isLoaded("botania")) {
-//            ConstructionWand.instance.containerManager.register(new HandlerBotania());
-//            ConstructionWand.LOGGER.info("Botania integration added");
-//        }
-
+        registerBotania();
         registerSophisticatedBackpacks();
         registerAppliedEnergistics();
         registerRefinedStorage();
+    }
+
+    private static void registerBotania() {
+        try {
+            if (ModList.get().isLoaded("botania")) {
+                ConstructionWand.instance.containerManager.register(new HandlerBotania());
+                ConstructionWand.LOGGER.info("Botania integration added");
+            }
+        } catch (Exception | LinkageError e) {
+            ConstructionWand.LOGGER.warn("Could not load Botania integration: " + e);
+        }
     }
 
     private static void registerSophisticatedBackpacks() {
