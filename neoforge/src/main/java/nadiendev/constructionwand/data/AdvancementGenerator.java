@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredItem;
+import nadiendev.constructionwand.registry.RegistryObject;
 import net.minecraft.world.item.Item;
 
 import java.util.List;
@@ -58,7 +58,7 @@ public class AdvancementGenerator extends AdvancementProvider {
             onHasItem(consumer, ModItems.VOID_SACK,        AdvancementType.TASK, root);
         }
 
-        private static void onHasItem(Consumer<AdvancementHolder> consumer, DeferredItem<Item> item,
+        private static void onHasItem(Consumer<AdvancementHolder> consumer, RegistryObject<Item> item,
                                       AdvancementType type, AdvancementHolder parent) {
             String path = item.getId().getPath();
             Advancement.Builder.advancement()

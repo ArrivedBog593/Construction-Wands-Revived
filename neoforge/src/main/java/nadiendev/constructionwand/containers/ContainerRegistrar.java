@@ -1,9 +1,6 @@
 package nadiendev.constructionwand.containers;
 
 import nadiendev.constructionwand.ConstructionWand;
-import nadiendev.constructionwand.containers.handlers.HandlerBundle;
-import nadiendev.constructionwand.containers.handlers.HandlerCapability;
-import nadiendev.constructionwand.containers.handlers.HandlerShulkerbox;
 import nadiendev.constructionwand.containers.handlers.HandlerSophisticatedBackpack;
 import nadiendev.constructionwand.containers.handlers.HandlerPortableCell;
 import nadiendev.constructionwand.containers.handlers.HandlerWirelessGrid;
@@ -11,13 +8,10 @@ import nadiendev.constructionwand.containers.handlers.HandlerWirelessTerminal;
 import nadiendev.constructionwand.containers.handlers.HandlerWirelessTerminalAE2WTLib;
 import net.neoforged.fml.ModList;
 
+/** Registers the container handlers of optional NeoForge-only mods. Vanilla and generic ones live in common. */
 public class ContainerRegistrar
 {
     public static void register() {
-        ConstructionWand.instance.containerManager.register(new HandlerCapability());
-        ConstructionWand.instance.containerManager.register(new HandlerShulkerbox());
-        ConstructionWand.instance.containerManager.register(new HandlerBundle());
-
 //        if(ModList.get().isLoaded("botania")) {
 //            ConstructionWand.instance.containerManager.register(new HandlerBotania());
 //            ConstructionWand.LOGGER.info("Botania integration added");

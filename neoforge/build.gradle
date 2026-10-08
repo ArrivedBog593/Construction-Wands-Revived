@@ -27,7 +27,7 @@ neoForge {
 
             // DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', rootProject.file('common/src/main/resources/').getAbsolutePath(), '--existing', rootProject.file('common/src/main/resources/').getAbsolutePath()
 
         }
         server {
@@ -41,7 +41,10 @@ neoForge {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+// REI and EMI are not available on every loader, so their plugins are compiled per loader from shared folders
+sourceSets.main.java.srcDir rootProject.file('common/src/rei/java')
+sourceSets.main.java.srcDir rootProject.file('common/src/emi/java')
 
 repositories {
     mavenCentral()
