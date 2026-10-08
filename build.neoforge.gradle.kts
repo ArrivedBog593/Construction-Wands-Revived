@@ -27,6 +27,9 @@ repositories {
         name = "Curse Maven"
         content { includeGroup("curse.maven") }
     }
+    maven("https://api.modrinth.com/maven") {
+        content { includeGroup("maven.modrinth") }
+    }
     maven("https://modmaven.dev/") {
         content {
             includeGroup("appeng")
@@ -69,8 +72,13 @@ dependencies {
     optional("deps.guideme") { runtimeAndCompile("org.appliedenergistics:guideme:$it") }
     optional("deps.refinedstorage") { runtimeAndCompile("com.refinedmods.refinedstorage:refinedstorage-neoforge:$it") }
     optional("deps.refinedstorage_curios") { runtimeAndCompile("curse.maven:refined-storage-curios-integration-1230729:$it") }
-    optional("deps.sophisticatedbackpacks") { runtimeAndCompile("curse.maven:sophisticated-backpacks-422301:$it") }
-    optional("deps.sophisticatedcore") { runtimeAndCompile("curse.maven:sophisticated-core-618298:$it") }
+    // CurseForge file ids for the older builds, Modrinth version numbers (e.g. 26.2-3.26.9.2191) for the newer ones
+    fun sophisticated(key: String, slug: String, curseProject: String) = optional(key) {
+        if (it.all(Char::isDigit)) runtimeAndCompile("curse.maven:$slug-$curseProject:$it")
+        else runtimeAndCompile("maven.modrinth:$slug:$it")
+    }
+    sophisticated("deps.sophisticatedbackpacks", "sophisticated-backpacks", "422301")
+    sophisticated("deps.sophisticatedcore", "sophisticated-core", "618298")
 
     // Curios and AE2 wireless terminals
     optional("deps.curios") {
