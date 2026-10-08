@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -57,7 +56,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public void registerItemProperty(Item item, ResourceLocation name, ClampedItemPropertyFunction function) {
+    public void registerItemProperty(Item item, ResourceLocation name, ItemPropertyFunction function) {
         FabricClientHooks.registerItemProperty(item, name, function);
     }
 

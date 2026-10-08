@@ -1,7 +1,6 @@
 package nadiendev.constructionwand.platform;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
@@ -13,8 +12,8 @@ final class FabricClientHooks {
     private FabricClientHooks() {
     }
 
-    static void registerItemProperty(Item item, ResourceLocation name, ClampedItemPropertyFunction function) {
-        ItemProperties.register(item, name, function);
+    static void registerItemProperty(Item item, ResourceLocation name, ItemPropertyFunction function) {
+        ItemProperties.register(item, name, function::call);
     }
 
     static void sendToServer(CustomPacketPayload payload) {

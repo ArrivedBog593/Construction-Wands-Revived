@@ -1,7 +1,5 @@
 package nadiendev.constructionwand.platform;
 
-import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -52,8 +50,8 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public void registerItemProperty(Item item, ResourceLocation name, ClampedItemPropertyFunction function) {
-        ItemProperties.register(item, name, function);
+    public void registerItemProperty(Item item, ResourceLocation name, ItemPropertyFunction function) {
+        NeoForgeClientHooks.registerItemProperty(item, name, function);
     }
 
     @Override

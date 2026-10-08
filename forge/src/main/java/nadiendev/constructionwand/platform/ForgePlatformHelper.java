@@ -1,7 +1,6 @@
 package nadiendev.constructionwand.platform;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
@@ -49,7 +48,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public void registerItemProperty(Item item, ResourceLocation name, ClampedItemPropertyFunction function) {
+    public void registerItemProperty(Item item, ResourceLocation name, ItemPropertyFunction function) {
         ForgeClientHooks.registerItemProperty(item, name, function);
     }
 

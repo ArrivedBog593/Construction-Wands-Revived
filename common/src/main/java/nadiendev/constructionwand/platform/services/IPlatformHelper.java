@@ -1,6 +1,5 @@
 package nadiendev.constructionwand.platform.services;
 
-import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -20,6 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import nadiendev.constructionwand.platform.IConfigBuilder;
 import nadiendev.constructionwand.platform.IItemInventory;
+import nadiendev.constructionwand.platform.ItemPropertyFunction;
 import nadiendev.constructionwand.platform.MenuFactory;
 
 import javax.annotation.Nullable;
@@ -41,7 +41,7 @@ public interface IPlatformHelper {
     // ── Client / rendering hooks ──────────────────────────────────────────────
 
     /** Registers an item model predicate (client only). */
-    void registerItemProperty(Item item, ResourceLocation name, ClampedItemPropertyFunction function);
+    void registerItemProperty(Item item, ResourceLocation name, ItemPropertyFunction function);
 
     /** Asks the renderer to refresh model data of a block entity (client only). No-op where unsupported. */
     void requestModelDataUpdate(BlockEntity blockEntity);
