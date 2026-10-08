@@ -2,6 +2,7 @@
 package nadiendev.constructionwand.containers;
 
 import nadiendev.constructionwand.ConstructionWand;
+import nadiendev.constructionwand.containers.handlers.HandlerBotania;
 //? if sophisticatedbackpacks
 import nadiendev.constructionwand.containers.handlers.HandlerSophisticatedBackpack;
 //? if ae2 {
@@ -18,10 +19,7 @@ import net.neoforged.fml.ModList;
 public class ContainerRegistrar
 {
     public static void register() {
-//        if(ModList.get().isLoaded("botania")) {
-//            ConstructionWand.instance.containerManager.register(new HandlerBotania());
-//            ConstructionWand.LOGGER.info("Botania integration added");
-//        }
+        registerBotania();
 
         //? if sophisticatedbackpacks
         registerSophisticatedBackpacks();
@@ -29,6 +27,17 @@ public class ContainerRegistrar
         registerAppliedEnergistics();
         //? if refinedstorage
         registerRefinedStorage();
+    }
+
+    private static void registerBotania() {
+        try {
+            if (ModList.get().isLoaded("botania")) {
+                ConstructionWand.instance.containerManager.register(new HandlerBotania());
+                ConstructionWand.LOGGER.info("Botania integration added");
+            }
+        } catch (Exception | LinkageError e) {
+            ConstructionWand.LOGGER.warn("Could not load Botania integration: " + e);
+        }
     }
 
     //? if sophisticatedbackpacks {

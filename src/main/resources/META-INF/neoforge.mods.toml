@@ -99,3 +99,11 @@ side = "BOTH"
     versionRange="[0,)"
     ordering="AFTER"
     side="CLIENT"
+
+# botania dependency
+[[dependencies.${mod_id}]]
+    modId="botania"
+    type="optional"
+    versionRange="[0,)"
+    ordering="AFTER"
+    side="BOTH"
