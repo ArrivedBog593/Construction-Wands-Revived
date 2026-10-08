@@ -28,6 +28,9 @@ minecraft {
     runs {
         configureEach {
             workingDir.set(rootProject.layout.projectDirectory.dir("run"))
+            mods.register(prop("mod.id")) {
+                source(sourceSets.main.get())
+            }
         }
 
         register("client")
@@ -100,4 +103,11 @@ tasks {
         from(jar.flatMap { it.archiveFile }, named<Jar>("sourcesJar").flatMap { it.archiveFile })
         into(rootProject.layout.buildDirectory.file("libs/${prop("mod.version")}"))
     }
+}
+
+// Forge discovers the mod from the folder holding its mods.toml, so classes and resources must share one output folder
+sourceSets.configureEach {
+    val dir = layout.buildDirectory.dir("sourcesSets/$name")
+    output.setResourcesDir(dir)
+    java.destinationDirectory.set(dir)
 }
