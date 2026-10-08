@@ -1,4 +1,4 @@
-//? if neoforge {
+//? if neoforge && refinedstorage {
 package nadiendev.constructionwand.containers.handlers;
 
 import com.refinedmods.refinedstorage.api.core.Action;

@@ -1,4 +1,4 @@
-//? if neoforge {
+//? if neoforge && emi {
 package nadiendev.constructionwand.integrations.emi;
 
 import dev.emi.emi.api.EmiEntrypoint;

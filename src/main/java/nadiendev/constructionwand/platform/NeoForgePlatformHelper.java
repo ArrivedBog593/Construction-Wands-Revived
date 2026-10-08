@@ -26,6 +26,7 @@ import net.neoforged.neoforge.common.util.BlockSnapshot;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
+//? if curios
 import nadiendev.constructionwand.integrations.curios.CuriosIntegration;
 import nadiendev.constructionwand.platform.services.IPlatformHelper;
 
@@ -47,7 +48,10 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public List<ItemStack> getCurioStacks(Player player) {
+        //? if curios {
         return CuriosIntegration.getCurioStacks(player);
+        //?} else
+        /*return List.of();*/
     }
 
     @Override

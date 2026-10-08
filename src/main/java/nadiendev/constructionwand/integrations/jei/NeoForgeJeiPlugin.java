@@ -1,4 +1,4 @@
-//? if neoforge {
+//? if neoforge && jei {
 package nadiendev.constructionwand.integrations.jei;
 
 import mezz.jei.api.JeiPlugin;

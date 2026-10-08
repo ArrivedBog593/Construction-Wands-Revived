@@ -1,4 +1,4 @@
-//? if neoforge || fabric {
+//? if (neoforge || fabric) && emi {
 package nadiendev.constructionwand.integrations.emi;
 
 import com.mojang.blaze3d.platform.InputConstants;

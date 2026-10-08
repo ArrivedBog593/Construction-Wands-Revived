@@ -1,4 +1,4 @@
-//? if neoforge {
+//? if neoforge && rei {
 package nadiendev.constructionwand.integrations.rei;
 
 import me.shedaniel.rei.forge.REIPluginClient;

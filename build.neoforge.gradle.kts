@@ -4,6 +4,7 @@ plugins {
 }
 
 fun prop(key: String): String = sc.properties[key]
+fun propOr(key: String, default: String): String = sc.properties.getOrNull<String>(key) ?: default
 
 version = "${prop("mod.version")}+${sc.current.version}"
 base.archivesName = "${prop("mod.id")}-neoforge"
@@ -37,32 +38,45 @@ repositories {
 dependencies {
     val mc = sc.current.version
 
+    /** Adds the dependency only if the version declares a version for [key]. */
+    fun optional(key: String, add: (String) -> Unit) = sc.properties.getOrNull<String>(key)?.let(add)
+
     // Recipe viewers
-    compileOnly("mezz.jei:jei-$mc-common-api:${prop("deps.jei")}")
-    compileOnly("mezz.jei:jei-$mc-neoforge-api:${prop("deps.jei")}")
-    runtimeOnly("mezz.jei:jei-$mc-neoforge:${prop("deps.jei")}")
-
-    compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:${prop("deps.rei")}")
-    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:${prop("deps.rei")}")
-    runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${prop("deps.rei")}")
-
-    compileOnly("dev.emi:emi-neoforge:${prop("deps.emi")}:api")
-    runtimeOnly("dev.emi:emi-neoforge:${prop("deps.emi")}")
+    optional("deps.jei") {
+        compileOnly("mezz.jei:jei-$mc-common-api:$it")
+        compileOnly("mezz.jei:jei-$mc-neoforge-api:$it")
+        runtimeOnly("mezz.jei:jei-$mc-neoforge:$it")
+    }
+    optional("deps.rei") {
+        compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:$it")
+        compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:$it")
+        runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:$it")
+    }
+    optional("deps.emi") {
+        compileOnly("dev.emi:emi-neoforge:$it:api")
+        runtimeOnly("dev.emi:emi-neoforge:$it")
+    }
 
     // Storage mod integrations
-    compileOnly("org.appliedenergistics:appliedenergistics2:${prop("deps.ae2")}")
-    implementation("org.appliedenergistics:appliedenergistics2:${prop("deps.ae2")}")
-    implementation("org.appliedenergistics:guideme:${prop("deps.guideme")}")
-    implementation("com.refinedmods.refinedstorage:refinedstorage-neoforge:${prop("deps.refinedstorage")}")
-    implementation("curse.maven:refined-storage-curios-integration-1230729:${prop("deps.refinedstorage_curios_id")}")
-    implementation("curse.maven:sophisticated-backpacks-422301:${prop("deps.sophisticatedbackpacks_id")}")
-    implementation("curse.maven:sophisticated-core-618298:${prop("deps.sophisticatedcore_id")}")
+    optional("deps.ae2") {
+        compileOnly("org.appliedenergistics:appliedenergistics2:$it")
+        implementation("org.appliedenergistics:appliedenergistics2:$it")
+    }
+    optional("deps.guideme") { implementation("org.appliedenergistics:guideme:$it") }
+    optional("deps.refinedstorage") { implementation("com.refinedmods.refinedstorage:refinedstorage-neoforge:$it") }
+    optional("deps.refinedstorage_curios") { implementation("curse.maven:refined-storage-curios-integration-1230729:$it") }
+    optional("deps.sophisticatedbackpacks") { implementation("curse.maven:sophisticated-backpacks-422301:$it") }
+    optional("deps.sophisticatedcore") { implementation("curse.maven:sophisticated-core-618298:$it") }
 
     // Curios and AE2 wireless terminals
-    compileOnly("top.theillusivec4.curios:curios-neoforge:${prop("deps.curios")}:api")
-    runtimeOnly("top.theillusivec4.curios:curios-neoforge:${prop("deps.curios")}")
-    implementation("de.mari_023:ae2wtlib_api:${prop("deps.ae2wtlib")}")
-    runtimeOnly("de.mari_023:ae2wtlib:${prop("deps.ae2wtlib")}")
+    optional("deps.curios") {
+        compileOnly("top.theillusivec4.curios:curios-neoforge:$it:api")
+        runtimeOnly("top.theillusivec4.curios:curios-neoforge:$it")
+    }
+    optional("deps.ae2wtlib") {
+        implementation("de.mari_023:ae2wtlib_api:$it")
+        runtimeOnly("de.mari_023:ae2wtlib:$it")
+    }
 }
 
 neoForge {
@@ -118,14 +132,14 @@ tasks {
             "minecraft_version_range" to prop("mod.mc_compat"),
             "neoforge_version" to prop("deps.neo_loader"),
             "neoforge_loader_version_range" to prop("deps.neo_loader_range"),
-            "jei_version" to prop("deps.jei"),
-            "guideme_version" to prop("deps.guideme"),
-            "ae2_version" to prop("deps.ae2"),
-            "refinedstorage_version" to prop("deps.refinedstorage"),
-            "sophisticatedcore_version" to prop("deps.sophisticatedcore_id"),
-            "sophisticatedbackpacks_version" to prop("deps.sophisticatedbackpacks_id"),
-            "curios_version" to prop("deps.curios"),
-            "ae2wtlib_version" to prop("deps.ae2wtlib"),
+            "jei_version" to propOr("deps.jei", "0"),
+            "guideme_version" to propOr("deps.guideme", "0"),
+            "ae2_version" to propOr("deps.ae2", "0"),
+            "refinedstorage_version" to propOr("deps.refinedstorage", "0"),
+            "sophisticatedcore_version" to propOr("deps.sophisticatedcore", "0"),
+            "sophisticatedbackpacks_version" to propOr("deps.sophisticatedbackpacks", "0"),
+            "curios_version" to propOr("deps.curios", "0"),
+            "ae2wtlib_version" to propOr("deps.ae2wtlib", "0"),
         )
         inputs.properties(props)
 

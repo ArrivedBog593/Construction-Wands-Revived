@@ -16,6 +16,11 @@ stonecutter parameters {
     // Loader constants for `//? if neoforge {` style comments
     constants {
         match(loader, "neoforge", "fabric", "forge")
+
+        // Optional integrations are enabled only for versions that declare a dependency version for them
+        for (dep in listOf("jei", "rei", "emi", "ae2", "refinedstorage", "ae2wtlib", "sophisticatedbackpacks", "curios")) {
+            this[dep] = properties.getOrNull<String>("deps.$dep") != null
+        }
     }
 
     replacements {

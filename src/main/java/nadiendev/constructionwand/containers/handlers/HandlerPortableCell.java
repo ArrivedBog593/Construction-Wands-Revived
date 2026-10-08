@@ -1,4 +1,4 @@
-//? if neoforge {
+//? if neoforge && ae2 {
 package nadiendev.constructionwand.containers.handlers;
 
 import appeng.api.config.Actionable;

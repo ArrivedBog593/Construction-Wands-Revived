@@ -1,4 +1,4 @@
-//? if neoforge {
+//? if neoforge && sophisticatedbackpacks {
 package nadiendev.constructionwand.containers.handlers;
 
 import net.minecraft.core.registries.BuiltInRegistries;
