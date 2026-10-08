@@ -3,11 +3,11 @@
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuType;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
@@ -18,7 +18,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
@@ -58,7 +58,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     //? if <1.21.4 {
     @Override
-    public void registerItemProperty(Item item, ResourceLocation name, ItemPropertyFunction function) {
+    public void registerItemProperty(Item item, Identifier name, ItemPropertyFunction function) {
         FabricClientHooks.registerItemProperty(item, name, function);
     }
     //?}
@@ -70,7 +70,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public CreativeModeTab.Builder newCreativeTabBuilder() {
-        return FabricItemGroup.builder();
+        return FabricCreativeModeTab.builder();
     }
 
     @Override
@@ -105,14 +105,14 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public <T extends AbstractContainerMenu> MenuType<T> createMenuType(MenuFactory<T> factory) {
-        return new ExtendedScreenHandlerType<T, byte[]>((windowId, inventory, data) ->
+        return new ExtendedMenuType<T, byte[]>((windowId, inventory, data) ->
                 factory.create(windowId, inventory, new FriendlyByteBuf(Unpooled.wrappedBuffer(data))),
                 ByteBufCodecs.BYTE_ARRAY);
     }
 
     @Override
     public void openMenu(ServerPlayer player, MenuProvider provider, Consumer<FriendlyByteBuf> extraData) {
-        player.openMenu(new ExtendedScreenHandlerFactory<byte[]>() {
+        player.openMenu(new ExtendedMenuProvider<byte[]>() {
             @Override
             public byte[] getScreenOpeningData(ServerPlayer opening) {
                 FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());

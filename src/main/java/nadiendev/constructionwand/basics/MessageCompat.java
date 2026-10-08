@@ -11,10 +11,10 @@ public final class MessageCompat {
 
     public static void overlay(Player player, Component message, boolean overlay) {
         //? if >=26.1 {
-        /*if (overlay) player.sendOverlayMessage(message);
+        if (overlay) player.sendOverlayMessage(message);
         else player.sendSystemMessage(message);
-        *///?} else {
-        player.displayClientMessage(message, overlay);
-        //?}
+        //?} else {
+        /*player.displayClientMessage(message, overlay);
+        *///?}
     }
 }

@@ -1,5 +1,5 @@
 //? if neo_legacy_items {
-package nadiendev.constructionwand.data;
+/*package nadiendev.constructionwand.data;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.BlockItem;
@@ -72,4 +72,4 @@ public class ItemModelGenerator extends ItemModelProvider
                 .end();
     }
 }
-//?}
+*///?}

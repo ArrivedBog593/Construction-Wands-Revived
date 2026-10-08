@@ -1,7 +1,7 @@
 package nadiendev.constructionwand.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
@@ -45,22 +45,22 @@ public class ScreenWand extends Screen {
     }
 
     //? if >=26.1 {
-    /*@Override
-    public void extractRenderState(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    @Override
+    public void extractRenderState(@Nonnull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         guiGraphics.centeredText(font, wand.getDisplayName(), width / 2, height / 2 - FIELD_HEIGHT / 2 - SPACING_HEIGHT, 16777215);
         super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
     }
-    *///?} else {
-    @Override
-    public void render(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    //?} else {
+    /*@Override
+    public void render(@Nonnull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
         guiGraphics.drawCenteredString(font, wand.getDisplayName(), width / 2, height / 2 - FIELD_HEIGHT / 2 - SPACING_HEIGHT, 16777215);
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
     }
-    //?}
+    *///?}
 
     //? if >=1.21.9 {
-    /*@Override
+    @Override
     public boolean keyPressed(net.minecraft.client.input.KeyEvent event) {
         if (Minecraft.getInstance().options.keyInventory.matches(event)) {
             this.onClose();
@@ -69,8 +69,8 @@ public class ScreenWand extends Screen {
             return super.keyPressed(event);
         }
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (Minecraft.getInstance().options.keyInventory.matches(keyCode, scanCode)) {
             this.onClose();
@@ -79,7 +79,7 @@ public class ScreenWand extends Screen {
             return super.keyPressed(keyCode, scanCode, modifiers);
         }
     }
-    //?}
+    *///?}
 
     private void createButton(int cx, int cy, IOption<?> option) {
         Button button = Button.builder(getButtonLabel(option), bt -> clickButton(bt, option))

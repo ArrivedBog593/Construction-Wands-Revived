@@ -1,5 +1,5 @@
 //? if neo_client_items {
-/*package nadiendev.constructionwand.data;
+package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.client.property.SelectWandCore;
@@ -17,13 +17,13 @@ import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.SelectItemModel;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/^* Generates the item model definitions; wands switch their model by the installed core. ^/
+/** Generates the item model definitions; wands switch their model by the installed core. */
 public class WandModelProvider extends ModelProvider {
 
     private static final ModelTemplate TWO_LAYERED_HANDHELD =
@@ -45,20 +45,20 @@ public class WandModelProvider extends ModelProvider {
     }
 
     private void generateWandModel(ItemModelGenerators itemModels, Item wand) {
-        ResourceLocation location = ModelLocationUtils.getModelLocation(wand);
-        ResourceLocation overlay = ConstructionWand.loc("item/overlay_core");
+        Identifier location = ModelLocationUtils.getModelLocation(wand);
+        Identifier overlay = ConstructionWand.loc("item/overlay_core");
 
         ItemModel.Unbaked base = ItemModelUtils.plainModel(itemModels.createFlatItemModel(wand, ModelTemplates.FLAT_HANDHELD_ITEM));
 
         List<SelectItemModel.SwitchCase<String>> cases = new ArrayList<>();
         for (String core : List.of("core_angel", "core_destruction", "core_exchange")) {
-            ResourceLocation model = TWO_LAYERED_HANDHELD.create(location.withSuffix("_" + core),
+            Identifier model = TWO_LAYERED_HANDHELD.create(location.withSuffix("_" + core),
                     //? if >=26.1 {
-                    /^TextureMapping.layered(new net.minecraft.client.resources.model.sprite.Material(location),
+                    TextureMapping.layered(new net.minecraft.client.resources.model.sprite.Material(location),
                             new net.minecraft.client.resources.model.sprite.Material(overlay))
-                    ^///?} else {
-                    TextureMapping.layered(location, overlay)
-                    //?}
+                    //?} else {
+                    /*TextureMapping.layered(location, overlay)
+                    *///?}
                     , itemModels.modelOutput);
             cases.add(ItemModelUtils.when(core, ItemModelUtils.plainModel(model)));
         }
@@ -66,4 +66,4 @@ public class WandModelProvider extends ModelProvider {
         itemModels.itemModelOutput.accept(wand, ItemModelUtils.select(new SelectWandCore(), base, cases));
     }
 }
-*///?}
+//?}
