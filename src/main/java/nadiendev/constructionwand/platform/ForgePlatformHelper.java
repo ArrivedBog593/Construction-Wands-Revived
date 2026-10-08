@@ -1,5 +1,5 @@
 //? if forge {
-/*package nadiendev.constructionwand.platform;
+package nadiendev.constructionwand.platform;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -114,4 +114,4 @@ public class ForgePlatformHelper implements IPlatformHelper {
         ForgeNetwork.sendToTrackingChunk(level, chunk, payload);
     }
 }
-*///?}
+//?}

@@ -1,5 +1,5 @@
 //? if neoforge {
-package nadiendev.constructionwand.data;
+/*package nadiendev.constructionwand.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -89,4 +89,4 @@ public class RecipeGenerator extends RecipeProvider {
         SpecialRecipeBuilder.special(RecipeWandUpgrade::new).save(output, ConstructionWand.loc("dynamic/" + name.getPath()).toString());
     }
 }
-//?}
+*///?}

@@ -1,12 +1,12 @@
 //? if neoforge {
-package nadiendev.constructionwand.platform;
+/*package nadiendev.constructionwand.platform;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-/** Backs the common config builder with NeoForge's {@link ModConfigSpec}. */
+/^* Backs the common config builder with NeoForge's {@link ModConfigSpec}. ^/
 public class NeoConfigBuilder implements IConfigBuilder {
     private final ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
@@ -49,4 +49,4 @@ public class NeoConfigBuilder implements IConfigBuilder {
         return builder.build();
     }
 }
-//?}
+*///?}

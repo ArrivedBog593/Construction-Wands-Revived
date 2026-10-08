@@ -1,5 +1,5 @@
 //? if neoforge {
-package nadiendev.constructionwand.integrations.curios;
+/*package nadiendev.constructionwand.integrations.curios;
 
 import appeng.menu.locator.ItemMenuHostLocator;
 import appeng.menu.locator.MenuLocators;
@@ -20,9 +20,9 @@ public final class CuriosIntegration {
     private CuriosIntegration() {
     }
 
-    /**
+    /^*
      * @return true si el mod Curios API está instalado y cargado.
-     */
+     ^/
     public static boolean isLoaded() {
         return LOADED;
     }
@@ -83,4 +83,4 @@ public final class CuriosIntegration {
         }
     }
 }
-//?}
+*///?}

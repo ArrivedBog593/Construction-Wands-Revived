@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("net.minecraftforge.gradle") version "[6.0.24,6.2)"
+    id("net.minecraftforge.gradle") version "[7.0.3,8)"
 }
 
 fun prop(key: String): String = sc.properties[key]
@@ -15,6 +15,9 @@ val requiredJava = when {
 }
 
 repositories {
+    minecraft.mavenizer(this)
+    maven(fg.forgeMaven)
+    maven(fg.minecraftLibsMaven)
     mavenCentral()
     maven("https://maven.blamejared.com")
 }
@@ -22,25 +25,15 @@ repositories {
 minecraft {
     mappings("official", sc.current.version)
 
-    // Forge 1.20.6+ uses official mappings at runtime, so there is nothing to reobfuscate
-    reobf = false
-
-    // Calls processResources when in dev
-    copyIdeResources = true
-
     runs {
-        create("client") {
-            workingDirectory(rootProject.file("run"))
-            mods {
-                create(prop("mod.id")) { source(sourceSets.main.get()) }
-            }
+        configureEach {
+            workingDir.set(rootProject.layout.projectDirectory.dir("run"))
         }
 
-        create("server") {
-            workingDirectory(rootProject.file("run"))
-            mods {
-                create(prop("mod.id")) { source(sourceSets.main.get()) }
-            }
+        register("client")
+
+        register("server") {
+            args("--nogui")
         }
     }
 }
@@ -48,10 +41,7 @@ minecraft {
 dependencies {
     val mc = sc.current.version
 
-    "minecraft"("net.minecraftforge:forge:$mc-${prop("deps.forge")}")
-
-    // Forge's hack fix
-    implementation("net.sf.jopt-simple:jopt-simple:5.0.4") { version { strictly("5.0.4") } }
+    implementation(minecraft.dependency("net.minecraftforge:forge:$mc-${prop("deps.forge")}"))
 
     // Nullability annotations used by the shared code
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")

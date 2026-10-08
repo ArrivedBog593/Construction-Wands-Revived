@@ -1,10 +1,10 @@
 //? if forge {
-/*package nadiendev.constructionwand.platform;
+package nadiendev.constructionwand.platform;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
-/^* Exposes a Forge {@link IItemHandler} as a common inventory. ^/
+/** Exposes a Forge {@link IItemHandler} as a common inventory. */
 public record ForgeItemInventory(IItemHandler handler) implements IItemInventory {
 
     @Override
@@ -27,4 +27,4 @@ public record ForgeItemInventory(IItemHandler handler) implements IItemInventory
         return handler.insertItem(slot, stack, simulate);
     }
 }
-*///?}
+//?}

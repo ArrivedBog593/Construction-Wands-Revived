@@ -1,5 +1,5 @@
 //? if neoforge {
-package nadiendev.constructionwand.containers.handlers;
+/*package nadiendev.constructionwand.containers.handlers;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.player.Player;
@@ -68,4 +68,4 @@ public class HandlerSophisticatedBackpack implements IContainerHandler {
         return count;
     }
 }
-//?}
+*///?}

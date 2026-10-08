@@ -1,5 +1,5 @@
 //? if forge {
-/*package nadiendev.constructionwand.client;
+package nadiendev.constructionwand.client;
 
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.client.event.InputEvent;
@@ -16,7 +16,7 @@ import nadiendev.constructionwand.client.screen.ScreenVoidSack;
 import nadiendev.constructionwand.network.ClientRefresh;
 import nadiendev.constructionwand.registry.ModMenuTypes;
 
-/^* Client side wiring for Forge. Only loaded on the physical client. ^/
+/** Client side wiring for Forge. Only loaded on the physical client. */
 public final class ForgeClientEvents {
 
     private ForgeClientEvents() {
@@ -79,4 +79,4 @@ public final class ForgeClientEvents {
         ClientRefresh.onClientTick();
     }
 }
-*///?}
+//?}

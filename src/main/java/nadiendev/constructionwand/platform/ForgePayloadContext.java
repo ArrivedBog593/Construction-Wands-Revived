@@ -1,5 +1,5 @@
 //? if forge {
-/*package nadiendev.constructionwand.platform;
+package nadiendev.constructionwand.platform;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -8,7 +8,7 @@ import nadiendev.constructionwand.network.IPayloadContext;
 
 import java.util.concurrent.CompletableFuture;
 
-/^* Adapts Forge's payload context to the common one. ^/
+/** Adapts Forge's payload context to the common one. */
 public record ForgePayloadContext(CustomPayloadEvent.Context context) implements IPayloadContext {
 
     @Override
@@ -26,4 +26,4 @@ public record ForgePayloadContext(CustomPayloadEvent.Context context) implements
         context.getConnection().disconnect(reason);
     }
 }
-*///?}
+//?}

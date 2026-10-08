@@ -31,10 +31,16 @@ stonecutter {
             for (loader in loaders) version("$version-$loader", version).buildscript("build.$loader.gradle.kts")
         }
 
-        match("1.21.1", "neoforge", "fabric")
+        match("1.21.1", "neoforge", "fabric", "forge")
 
         vcsVersion = "1.21.1-neoforge"
     }
 }
 
 rootProject.name = "Construction-Wands-Revived"
+
+// Group the nodes by Minecraft version: `{version}/{loader}` instead of `versions/{version}-{loader}`
+for (node in rootProject.children) {
+    val (version, loader) = node.name.split('-', limit = 2)
+    node.projectDir = file("$version/$loader").also { it.mkdirs() }
+}

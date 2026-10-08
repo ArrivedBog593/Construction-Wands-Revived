@@ -1,5 +1,5 @@
 //? if neoforge {
-package nadiendev.constructionwand.containers.handlers;
+/*package nadiendev.constructionwand.containers.handlers;
 
 import appeng.api.config.Actionable;
 import appeng.api.networking.security.IActionSource;
@@ -102,4 +102,4 @@ public class HandlerPortableCell implements IContainerHandler {
         return CuriosIntegration.resolveCurioSlot(player, cell);
     }
 }
-//?}
+*///?}

@@ -1,5 +1,5 @@
 //? if neoforge {
-package nadiendev.constructionwand.containers.handlers;
+/*package nadiendev.constructionwand.containers.handlers;
 
 import appeng.api.config.Actionable;
 import appeng.api.networking.security.IActionSource;
@@ -116,4 +116,4 @@ public class HandlerWirelessTerminalAE2WTLib implements IContainerHandler {
         return null;
     }
 }
-//?}
+*///?}

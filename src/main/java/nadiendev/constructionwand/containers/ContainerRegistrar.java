@@ -1,5 +1,5 @@
 //? if neoforge {
-package nadiendev.constructionwand.containers;
+/*package nadiendev.constructionwand.containers;
 
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.containers.handlers.HandlerSophisticatedBackpack;
@@ -9,7 +9,7 @@ import nadiendev.constructionwand.containers.handlers.HandlerWirelessTerminal;
 import nadiendev.constructionwand.containers.handlers.HandlerWirelessTerminalAE2WTLib;
 import net.neoforged.fml.ModList;
 
-/** Registers the container handlers of optional NeoForge-only mods. Vanilla and generic ones live in common. */
+/^* Registers the container handlers of optional NeoForge-only mods. Vanilla and generic ones live in common. ^/
 public class ContainerRegistrar
 {
     public static void register() {
@@ -70,4 +70,4 @@ public class ContainerRegistrar
         }
     }
 }
-//?}
+*///?}

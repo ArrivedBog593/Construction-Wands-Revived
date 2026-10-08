@@ -1,5 +1,5 @@
 //? if neoforge {
-package nadiendev.constructionwand.client;
+/*package nadiendev.constructionwand.client;
 
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.client.property.SelectWandCore;
@@ -34,4 +34,4 @@ public class ClientHandler {
         event.register(ModMenuTypes.VOID_SACK.get(), ScreenVoidSack::new);
     }
 }
-//?}
+*///?}

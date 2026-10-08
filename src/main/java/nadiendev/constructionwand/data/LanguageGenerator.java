@@ -1,15 +1,15 @@
 //? if neoforge {
-package nadiendev.constructionwand.data;
+/*package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.items.ModItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
-/*
+/^
 *Language Provider
 * By NadienDev
-*/
+^/
 public class LanguageGenerator extends LanguageProvider {
 
     public LanguageGenerator(PackOutput packOutput) {
@@ -1809,4 +1809,4 @@ add("key.constructionwand.exchange_select", "Austauschblock auswählen");
     }
 
 }
-//?}
+*///?}

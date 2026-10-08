@@ -1,11 +1,11 @@
 //? if neoforge {
-package nadiendev.constructionwand.platform;
+/*package nadiendev.constructionwand.platform;
 
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
-/** Client only calls, kept apart so the dedicated server never has to load the classes they touch. */
+/^* Client only calls, kept apart so the dedicated server never has to load the classes they touch. ^/
 final class NeoForgeClientHooks {
 
     private NeoForgeClientHooks() {
@@ -15,4 +15,4 @@ final class NeoForgeClientHooks {
         ItemProperties.register(item, name, function::call);
     }
 }
-//?}
+*///?}

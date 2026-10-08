@@ -1,5 +1,5 @@
 //? if neoforge {
-package nadiendev.constructionwand.data;
+/*package nadiendev.constructionwand.data;
 
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -32,4 +32,4 @@ public class Inp
         return new Inp(in.location().getPath(), Ingredient.of(in), ItemPredicate.Builder.item().of(in).build());
     }
 }
-//?}
+*///?}

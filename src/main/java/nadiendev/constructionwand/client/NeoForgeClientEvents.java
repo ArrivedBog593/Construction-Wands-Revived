@@ -1,5 +1,5 @@
 //? if neoforge {
-package nadiendev.constructionwand.client;
+/*package nadiendev.constructionwand.client;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.network.ClientRefresh;
 
-/** Forwards NeoForge's client side game events to the shared client hooks. */
+/^* Forwards NeoForge's client side game events to the shared client hooks. ^/
 @EventBusSubscriber(modid = ConstructionWand.MODID, value = Dist.CLIENT)
 public final class NeoForgeClientEvents {
 
@@ -56,4 +56,4 @@ public final class NeoForgeClientEvents {
         ClientRefresh.onClientTick();
     }
 }
-//?}
+*///?}

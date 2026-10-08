@@ -1,5 +1,5 @@
 //? if neoforge {
-package nadiendev.constructionwand.platform;
+/*package nadiendev.constructionwand.platform;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -7,7 +7,7 @@ import nadiendev.constructionwand.network.IPayloadContext;
 
 import java.util.concurrent.CompletableFuture;
 
-/** Adapts NeoForge's payload context to the common one. */
+/^* Adapts NeoForge's payload context to the common one. ^/
 public record NeoPayloadContext(net.neoforged.neoforge.network.handling.IPayloadContext context) implements IPayloadContext {
 
     @Override
@@ -25,4 +25,4 @@ public record NeoPayloadContext(net.neoforged.neoforge.network.handling.IPayload
         context.disconnect(reason);
     }
 }
-//?}
+*///?}

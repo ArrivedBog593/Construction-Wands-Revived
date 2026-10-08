@@ -1,5 +1,5 @@
 //? if neoforge || fabric {
-package nadiendev.constructionwand.integrations.rei;
+/*package nadiendev.constructionwand.integrations.rei;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
@@ -67,4 +67,4 @@ public class ConstructionWandReiPlugin implements REIClientPlugin
                 .line(text));
     }
 }
-//?}
+*///?}
