@@ -1,0 +1,40 @@
+# See https://stonecutter.kikugie.dev/wiki/config/properties#centralized-properties
+mod.id = "constructionwand"
+mod.name = "Construction Wands Revived"
+mod.group = "nadiendev.constructionwand"
+mod.version = "4.0.6"
+mod.author = "thetadev, SrNadien"
+mod.license = "MIT"
+mod.description = "Construction Wands make building easier!"
+
+deps.fabric_loader = "0.19.5"
+loomx.loom_version = "1.18-SNAPSHOT"
+
+["1.21.1"]
+mod.mc_releases = ["1.21", "1.21.1"]
+deps.jei = "19.56.0.440"
+deps.rei = "16.0.799"
+deps.emi = "1.1.24+1.21.1"
+deps.ae2 = "19.2.17"
+deps.guideme = "21.1.15"
+deps.refinedstorage = "2.0.1"
+deps.refinedstorage_curios_id = "6360514"
+deps.sophisticatedbackpacks_id = "7854633"
+deps.sophisticatedcore_id = "7858124"
+deps.curios = "9.5.1+1.21.1"
+deps.ae2wtlib = "19.4.1"
+
+[fabric."1.21.1"]
+mod.mc_compat = ">=1.21 <=1.21.1"
+deps.fabric_api = "0.116.17+1.21.1"
+deps.forgeconfigapiport = "21.1.6"
+
+[neoforge."1.21.1"]
+mod.mc_compat = "[1.21, 1.22)"
+deps.neo_loader = "21.1.240"
+deps.neo_loader_range = "[4,)"
+
+[forge."1.21.1"]
+mod.mc_compat = "[1.21.1, 1.22)"
+deps.forge = "52.1.16"
+deps.forge_loader_range = "[52,)"

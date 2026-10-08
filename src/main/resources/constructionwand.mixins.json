@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "nadiendev.constructionwand.mixin",
+  "compatibilityLevel": "${java}",
+  "mixins": [
+    "ItemEntityMixin",
+    "ServerLevelMixin"
+  ],
+  "client": [
+    "MinecraftMixin",
+    "MouseHandlerMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
