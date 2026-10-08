@@ -54,10 +54,12 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
         /*return List.of();*/
     }
 
+    //? if <1.21.4 {
     @Override
     public void registerItemProperty(Item item, ResourceLocation name, ItemPropertyFunction function) {
         NeoForgeClientHooks.registerItemProperty(item, name, function);
     }
+    //?}
 
     @Override
     public void requestModelDataUpdate(BlockEntity blockEntity) {

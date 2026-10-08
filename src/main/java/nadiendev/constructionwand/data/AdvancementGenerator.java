@@ -1,4 +1,4 @@
-//? if neoforge {
+//? if neo_legacy_items {
 package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;

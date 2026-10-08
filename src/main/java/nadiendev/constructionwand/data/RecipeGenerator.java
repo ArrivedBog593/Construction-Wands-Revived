@@ -46,6 +46,10 @@ import java.util.concurrent.CompletableFuture;
         }
     }
 
+    public static void register(net.minecraft.data.DataGenerator generator, PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        generator.addProvider(true, new Runner(packOutput, lookupProvider));
+    }
+
     @Override
     protected void buildRecipes() {
         wandRecipe(ModItems.WAND_WOOD.get(), Inp.fromItems(registries, "wood_planks", Items.CHERRY_PLANKS, Items.BIRCH_PLANKS));
@@ -169,6 +173,10 @@ public class RecipeGenerator extends RecipeProvider {
                 .pattern("EDE")
                 .unlockedBy("has_core_destruction", inventoryTrigger(coreDestruction.predicate))
                 .save(output);
+    }
+
+    public static void register(net.minecraft.data.DataGenerator generator, PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        generator.addProvider(true, new RecipeGenerator(packOutput, lookupProvider));
     }
 
     private void specialRecipe(RecipeOutput output, net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer<?> serializer) {

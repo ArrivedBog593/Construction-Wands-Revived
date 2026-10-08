@@ -31,6 +31,12 @@ stonecutter {
 
         match("1.21.1", "neoforge", "fabric")
         match("1.21.2", "neoforge", "fabric")
+        match("1.21.3", "neoforge", "fabric")
+        match("1.21.4", "neoforge", "fabric")
+        match("1.21.5", "neoforge", "fabric")
+        match("1.21.6", "neoforge", "fabric")
+        match("1.21.7", "neoforge", "fabric")
+        match("1.21.8", "neoforge", "fabric")
 
         vcsVersion = "1.21.1-neoforge"
     }
@@ -59,4 +65,30 @@ for (node in rootProject.children) {
     node.projectDir = file("versions/$version/$loader").also { it.mkdirs() }
     // Stonecutter points the node at its build script relative to the default directory depth
     node.buildFileName = "../../../build.$loader.gradle.kts"
+}
+
+// Shortcuts: `./gradlew runNeo 1.21.1`, `runFabric 1.21.1`, `runNeoServer 1.21.1`, `runFabricServer 1.21.1`.
+// The version is a plain argument, so it is rewritten into the matching node's run task before Gradle parses it.
+run {
+    val shortcuts = mapOf(
+        "runNeo" to ("neoforge" to "runClient"),
+        "runNeoServer" to ("neoforge" to "runServer"),
+        "runFabric" to ("fabric" to "runClient"),
+        "runFabricServer" to ("fabric" to "runServer"),
+    )
+    val tasks = gradle.startParameter.taskNames
+    val rewritten = mutableListOf<String>()
+    var i = 0
+    while (i < tasks.size) {
+        val shortcut = shortcuts[tasks[i]]
+        val version = tasks.getOrNull(i + 1)
+        if (shortcut != null && version != null && Regex("""\d+(\.\d+)+""").matches(version)) {
+            rewritten += ":$version-${shortcut.first}:${shortcut.second}"
+            i += 2
+        } else {
+            rewritten += tasks[i]
+            i++
+        }
+    }
+    if (rewritten != tasks) gradle.startParameter.setTaskNames(rewritten)
 }

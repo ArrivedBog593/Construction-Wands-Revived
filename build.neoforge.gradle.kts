@@ -37,6 +37,8 @@ repositories {
 
 dependencies {
     val mc = sc.current.version
+    // JEI skips some Minecraft versions; its API is compatible with the neighbouring build
+    val jeiMc = sc.properties.getOrNull<String>("deps.jei_mc") ?: mc
 
     /** Adds the dependency only if the version declares a version for [key]. */
     fun optional(key: String, add: (String) -> Unit) = sc.properties.getOrNull<String>(key)?.let(add)
@@ -48,9 +50,9 @@ dependencies {
 
     // Recipe viewers
     optional("deps.jei") {
-        compileOnly("mezz.jei:jei-$mc-common-api:$it")
-        compileOnly("mezz.jei:jei-$mc-neoforge-api:$it")
-        if (runtimeMods) runtimeOnly("mezz.jei:jei-$mc-neoforge:$it")
+        compileOnly("mezz.jei:jei-$jeiMc-common-api:$it")
+        compileOnly("mezz.jei:jei-$jeiMc-neoforge-api:$it")
+        if (runtimeMods) runtimeOnly("mezz.jei:jei-$jeiMc-neoforge:$it")
     }
     optional("deps.rei") {
         compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:$it")
@@ -102,8 +104,9 @@ neoForge {
             programArgument("--nogui")
         }
 
-        register("data") {
-            data()
+        // 1.21.4 split the data run into client and server flavours; the client one also covers the server data
+        register(if (sc.current.parsed >= "1.21.4") "clientData" else "data") {
+            if (sc.current.parsed >= "1.21.4") clientData() else data()
             val output = rootProject.file("generated/${sc.current.version}").absolutePath
             val existing = rootProject.file("src/main/resources").absolutePath
             programArguments.addAll("--mod", prop("mod.id"), "--all", "--output", output, "--existing", existing)

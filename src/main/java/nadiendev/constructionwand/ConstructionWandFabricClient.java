@@ -20,6 +20,7 @@ import net.minecraft.world.phys.HitResult;
 import nadiendev.constructionwand.client.ClientEvents;
 import nadiendev.constructionwand.client.KeybindHandler;
 import nadiendev.constructionwand.client.RenderBlockPreview;
+//? if <1.21.4
 import nadiendev.constructionwand.client.property.SelectWandCore;
 import nadiendev.constructionwand.client.screen.ScreenVoidSack;
 import nadiendev.constructionwand.network.ClientRefresh;
@@ -42,6 +43,7 @@ public class ConstructionWandFabricClient implements ClientModInitializer {
         KeyBindingHelper.registerKeyBinding(KeybindHandler.KEY_EXCHANGE_SELECT);
 
         MenuScreens.register(ModMenuTypes.VOID_SACK.get(), ScreenVoidSack::new);
+        //? if <1.21.4
         SelectWandCore.register();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

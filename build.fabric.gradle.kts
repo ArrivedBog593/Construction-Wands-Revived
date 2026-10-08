@@ -23,6 +23,8 @@ repositories {
 
 dependencies {
     val mc = sc.current.version
+    // JEI skips some Minecraft versions; its API is compatible with the neighbouring build
+    val jeiMc = sc.properties.getOrNull<String>("deps.jei_mc") ?: mc
 
     minecraft("com.mojang:minecraft:$mc")
     // Applies Mojang Mappings on obfuscated versions
@@ -40,8 +42,8 @@ dependencies {
     // Recipe viewers (compile-only, so the dev environment is not tied to their own dependencies)
     fun optional(key: String, add: (String) -> Unit) = sc.properties.getOrNull<String>(key)?.let(add)
     optional("deps.jei") {
-        modCompileOnly("mezz.jei:jei-$mc-common-api-intermediary:$it") { isTransitive = false }
-        modCompileOnly("mezz.jei:jei-$mc-fabric-api:$it")
+        modCompileOnly("mezz.jei:jei-$jeiMc-common-api-intermediary:$it") { isTransitive = false }
+        modCompileOnly("mezz.jei:jei-$jeiMc-fabric-api:$it")
     }
     optional("deps.rei") {
         modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:$it")
@@ -121,7 +123,8 @@ tasks {
         filesMatching("pack.mcmeta") { expand("pack_format" to prop("mod.pack_format")) }
 
         val mixinJava = "JAVA_${requiredJava.majorVersion}"
-        filesMatching("*.mixins.json") { expand("java" to mixinJava) }
+        val extraMixins = if (sc.current.parsed >= "1.21.4") """,\n    "SelectItemModelPropertiesMixin"""" else ""
+        filesMatching("*.mixins.json") { expand("java" to mixinJava, "extra_client_mixins" to extraMixins) }
 
         exclude("META-INF/neoforge.mods.toml")
     }

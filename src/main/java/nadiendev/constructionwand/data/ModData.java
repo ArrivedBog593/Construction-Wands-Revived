@@ -6,7 +6,10 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+//? if <1.21.4
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraft.data.advancements.AdvancementProvider;
+import java.util.List;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,6 +18,28 @@ import java.util.concurrent.CompletableFuture;
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class ModData
 {
+    //? if >=1.21.4 {
+    /*@SubscribeEvent
+    public static void gatherData(GatherDataEvent.Client event) {
+        event.createProvider((output, lookup) -> new AdvancementProvider(output, lookup, List.of(new WandAdvancementSubProvider())));
+        event.createProvider(RecipeGenerator.Runner::new);
+        event.createProvider(WandModelProvider::new);
+        event.createProvider((output, lookup) -> new LanguageGenerator(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.ESAR(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.ESCL(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.ESCO(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.ESES(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.ESMX(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.JAJP(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.KOKR(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.PTBR(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.RURU(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.SVSE(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.TRTR(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.ZHCN(output));
+        event.createProvider((output, lookup) -> new LanguageGenerator.DEDE(output));
+    }
+    *///?} else {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
@@ -23,11 +48,7 @@ public class ModData
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         if(event.includeServer()) {
-            //? if >=1.21.2 {
-            /*generator.addProvider(true, new RecipeGenerator.Runner(packOutput, lookupProvider));
-            *///?} else {
-            generator.addProvider(true, new RecipeGenerator(packOutput, lookupProvider));
-            //?}
+            RecipeGenerator.register(generator, packOutput, lookupProvider);
             generator.addProvider(true, new AdvancementGenerator(packOutput, lookupProvider, fileHelper));
         }
 
@@ -49,5 +70,6 @@ public class ModData
             generator.addProvider(true, new LanguageGenerator.DEDE(packOutput)); // German
         }
     }
+//?}
 }
 //?}

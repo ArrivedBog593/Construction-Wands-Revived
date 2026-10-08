@@ -40,8 +40,10 @@ public interface IPlatformHelper {
 
     // ── Client / rendering hooks ──────────────────────────────────────────────
 
+    //? if <1.21.4 {
     /** Registers an item model predicate (client only). */
     void registerItemProperty(Item item, ResourceLocation name, ItemPropertyFunction function);
+    //?}
 
     /** Asks the renderer to refresh model data of a block entity (client only). No-op where unsupported. */
     void requestModelDataUpdate(BlockEntity blockEntity);

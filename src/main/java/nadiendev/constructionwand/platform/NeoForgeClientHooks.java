@@ -1,6 +1,7 @@
 //? if neoforge {
 package nadiendev.constructionwand.platform;
 
+//? if <1.21.4
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -11,8 +12,10 @@ final class NeoForgeClientHooks {
     private NeoForgeClientHooks() {
     }
 
+    //? if <1.21.4 {
     static void registerItemProperty(Item item, ResourceLocation name, ItemPropertyFunction function) {
         ItemProperties.register(item, name, function::call);
     }
+    //?}
 }
 //?}

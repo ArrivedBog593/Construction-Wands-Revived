@@ -17,6 +17,13 @@ stonecutter parameters {
     constants {
         match(loader, "neoforge", "fabric")
 
+        // Version thresholds that need to be combined with loader constants
+        val clientItems = current.parsed >= "1.21.4"
+        this["client_items"] = clientItems
+        this["neo_client_items"] = clientItems && loader == "neoforge"
+        this["neo_legacy_items"] = !clientItems && loader == "neoforge"
+        this["fabric_client_items"] = clientItems && loader == "fabric"
+
         // Optional integrations are enabled only for versions that declare a dependency version for them
         for (dep in listOf("jei", "rei", "emi", "ae2", "refinedstorage", "ae2wtlib", "sophisticatedbackpacks", "curios")) {
             this[dep] = properties.getOrNull<String>("deps.$dep") != null
