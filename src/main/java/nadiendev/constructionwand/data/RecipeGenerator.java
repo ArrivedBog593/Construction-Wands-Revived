@@ -1,7 +1,12 @@
 //? if neoforge {
 package nadiendev.constructionwand.data;
 
+import net.minecraft.advancements.Advancement;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -23,7 +28,77 @@ import nadiendev.constructionwand.items.ModItems;
 
 import java.util.concurrent.CompletableFuture;
 
-//? if >=1.21.2 {
+//? if >=26.3 {
+/*public class RecipeGenerator extends RecipeProvider {
+    private final HolderGetter<Item> registries = items;
+
+    public RecipeGenerator(BootstrapContext<Recipe<?>> recipeOutput, BootstrapContext<Advancement> advancementOutput) {
+        super(recipeOutput, advancementOutput);
+    }
+
+    @Override
+    protected void buildRecipes() {
+        wandRecipe(ModItems.WAND_WOOD.get(), Inp.fromItems(registries, "wood_planks", Items.CHERRY_PLANKS, Items.BIRCH_PLANKS));
+        wandRecipe(ModItems.WAND_STONE.get(), Inp.fromTag(registries, ItemTags.STONE_TOOL_MATERIALS));
+        wandRecipe(ModItems.WAND_IRON.get(), Inp.fromTag(registries, Tags.Items.INGOTS_IRON));
+        wandRecipe(ModItems.WAND_GOLD.get(), Inp.fromTag(registries, Tags.Items.INGOTS_GOLD));
+        wandRecipe(ModItems.WAND_DIAMOND.get(), Inp.fromTag(registries, Tags.Items.GEMS_DIAMOND));
+        wandRecipe(ModItems.WAND_NETHERITE.get(), Inp.fromTag(registries, Tags.Items.INGOTS_NETHERITE));
+        wandRecipe(ModItems.WAND_INFINITY.get(), Inp.fromTag(registries, Tags.Items.NETHER_STARS));
+
+        coreRecipe(ModItems.CORE_ANGEL.get(), Inp.fromTag(registries, Tags.Items.FEATHERS), Inp.fromTag(registries, Tags.Items.INGOTS_GOLD));
+        coreRecipe(ModItems.CORE_DESTRUCTION.get(), Inp.fromTag(registries, Tags.Items.STORAGE_BLOCKS_DIAMOND), Inp.fromItem(registries, Items.DIAMOND_PICKAXE));
+        coreRecipe(ModItems.CORE_EXCHANGE.get(), Inp.fromItem(registries, Items.NETHER_STAR), Inp.fromTag(registries, Tags.Items.STORAGE_BLOCKS_NETHERITE));
+
+        voidSackRecipe();
+
+        specialRecipe();
+    }
+
+    private void wandRecipe(ItemLike wand, Inp material) {
+        shaped(RecipeCategory.TOOLS, wand)
+                .define('X', material.ingredient)
+                .define('#', Tags.Items.RODS_WOODEN)
+                .pattern("  X")
+                .pattern(" # ")
+                .pattern("#  ")
+                .unlockedBy("has_item", inventoryTrigger(material.predicate))
+                .save(output);
+    }
+
+    private void coreRecipe(ItemLike core, Inp item1, Inp item2) {
+        shaped(RecipeCategory.MISC, core)
+                .define('O', item1.ingredient)
+                .define('X', item2.ingredient)
+                .define('#', Tags.Items.GLASS_PANES)
+                .pattern(" #X")
+                .pattern("#O#")
+                .pattern("X# ")
+                .unlockedBy("has_item", inventoryTrigger(item1.predicate))
+                .save(output);
+    }
+
+    private void voidSackRecipe() {
+        Inp coreDestruction = Inp.fromItem(registries, ModItems.CORE_DESTRUCTION.get());
+        shaped(RecipeCategory.MISC, ModItems.VOID_SACK.get())
+                .define('C', coreDestruction.ingredient)
+                .define('E', Items.DIAMOND)
+                .define('O', Items.NETHERITE_INGOT)
+                .define('D', Items.EMERALD)
+                .pattern("EDE")
+                .pattern("OCO")
+                .pattern("EDE")
+                .unlockedBy("has_core_destruction", inventoryTrigger(coreDestruction.predicate))
+                .save(output);
+    }
+
+    private void specialRecipe() {
+        ResourceLocation name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(ModRecipes.WAND_UPGRADE.get());
+        SpecialRecipeBuilder.special(RecipeWandUpgrade::new)
+                .save(output, ConstructionWand.loc("dynamic/" + name.getPath()).toString());
+    }
+}
+*///?} elif >=1.21.2 {
 /*public class RecipeGenerator extends RecipeProvider {
     protected RecipeGenerator(HolderLookup.Provider registries, RecipeOutput output) {
         super(registries, output);

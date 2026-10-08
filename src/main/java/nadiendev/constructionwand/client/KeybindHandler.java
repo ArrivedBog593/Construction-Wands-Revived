@@ -1,5 +1,6 @@
 package nadiendev.constructionwand.client;
 
+//? if <26.3
 import org.lwjgl.glfw.GLFW;
 
 import net.minecraft.client.KeyMapping;
@@ -14,19 +15,30 @@ import nadiendev.constructionwand.network.PacketToggleVoidSackActive;
 
 public class KeybindHandler {
 
+    //? if >=26.3 {
+    /*// 26.3 reports scancodes instead of GLFW key codes
+    private static final int KEY_M = com.mojang.blaze3d.platform.InputConstants.KEY_M;
+    private static final int KEY_K = com.mojang.blaze3d.platform.InputConstants.KEY_K;
+    private static final int KEY_KP_7 = com.mojang.blaze3d.platform.InputConstants.KEY_NUMPAD7;
+    *///?} else {
+    private static final int KEY_M = GLFW.GLFW_KEY_M;
+    private static final int KEY_K = GLFW.GLFW_KEY_K;
+    private static final int KEY_KP_7 = GLFW.GLFW_KEY_KP_7;
+    //?}
+
     //? if >=1.21.9 {
     /*public static final KeyMapping.Category CATEGORY = new KeyMapping.Category(ConstructionWand.loc("main"));
 
     *///?}
     public static final KeyMapping KEY_VOID_SACK_TOGGLE = new KeyMapping(
             getKey("void_sack_toggle"),
-            GLFW.GLFW_KEY_M,
+            KEY_M,
             getCategory("constructionwand")
     );
 
     public static final KeyMapping KEY_WAND_UNDO = new KeyMapping(
             getKey("wand_undo"),
-            GLFW.GLFW_KEY_K,
+            KEY_K,
             getCategory("constructionwand")
     );
 
@@ -36,7 +48,7 @@ public class KeybindHandler {
      */
     public static final KeyMapping KEY_EXCHANGE_SELECT = new KeyMapping(
             getKey("exchange_select"),
-            GLFW.GLFW_KEY_KP_7,
+            KEY_KP_7,
             getCategory("constructionwand")
     );
 

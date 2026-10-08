@@ -9,7 +9,9 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
@@ -21,12 +23,29 @@ import net.minecraft.world.level.ItemLike;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+//? if >=26.3 {
+/^public class WandAdvancementSubProvider extends AdvancementSubProvider
+{
+    public WandAdvancementSubProvider(BootstrapContext<Advancement> output) {
+        super(output);
+    }
+
+    @Override
+    public void generate() {
+        build(output, output.lookup(Registries.ITEM));
+    }
+
+    private static void build(BootstrapContext<Advancement> consumer, HolderGetter<Item> items) {
+^///?} else {
 public class WandAdvancementSubProvider implements AdvancementSubProvider
 {
     @Override
     public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> consumer) {
-        var items = registries.lookupOrThrow(Registries.ITEM);
+        build(consumer, registries.lookupOrThrow(Registries.ITEM));
+    }
 
+    private static void build(Consumer<AdvancementHolder> consumer, HolderGetter<Item> items) {
+//?}
         AdvancementHolder root = Advancement.Builder.advancement()
                 .display(rootDisplay(
                         ModItems.WAND_STONE.get(),
@@ -49,8 +68,13 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
         onHasItem(consumer, ModItems.VOID_SACK, AdvancementType.TASK, root);
     }
 
+    //? if >=26.3 {
+    /^private static void onHasItem(BootstrapContext<Advancement> consumer, RegistryObject<Item> item,
+                                  AdvancementType type, AdvancementHolder parent) {
+    ^///?} else {
     private static void onHasItem(Consumer<AdvancementHolder> consumer, RegistryObject<Item> item,
                                   AdvancementType type, AdvancementHolder parent) {
+    //?}
         String path = item.getId().getPath();
         Advancement.Builder.advancement()
                 .display(simpleDisplay(item.get(), path, type))

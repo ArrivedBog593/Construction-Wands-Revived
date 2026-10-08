@@ -171,7 +171,11 @@ public class UndoHistory
                     ItemStack stack = snapshot.getRequiredItems();
 
                     if(!player.getInventory().add(stack)) {
+                        //? if >=26.3 {
+                        /*player.drop(stack, false, net.minecraft.util.Prediction.SERVER_ONLY);
+                        *///?} else {
                         player.drop(stack, false);
+                        //?}
                     }
                 }
             }

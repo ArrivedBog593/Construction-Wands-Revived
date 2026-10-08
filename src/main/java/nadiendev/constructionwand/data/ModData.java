@@ -9,6 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 //? if <1.21.4
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.minecraft.data.advancements.AdvancementProvider;
+import net.minecraft.data.recipes.RecipeProvider;
 import java.util.List;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
@@ -25,8 +26,16 @@ public class ModData
     //? if >=1.21.4 {
     /*@SubscribeEvent
     public static void gatherData(GatherDataEvent.Client event) {
+        //? if >=26.3 {
+        /^event.createReloadableRegistryObjects(new net.minecraft.core.RegistrySetBuilder()
+                .add(RecipeProvider.asBootstrap(RecipeGenerator::new))
+                .add(net.minecraft.core.registries.Registries.ADVANCEMENT,
+                        new AdvancementProvider(List.of(WandAdvancementSubProvider::new))),
+                java.util.Set.of(nadiendev.constructionwand.ConstructionWand.MODID), "Construction Wand Recipes/Advancements");
+        ^///?} else {
         event.createProvider((output, lookup) -> new AdvancementProvider(output, lookup, List.of(new WandAdvancementSubProvider())));
         event.createProvider(RecipeGenerator.Runner::new);
+        //?}
         event.createProvider(WandModelProvider::new);
         event.createProvider((output, lookup) -> new LanguageGenerator(output));
         event.createProvider((output, lookup) -> new LanguageGenerator.ESAR(output));

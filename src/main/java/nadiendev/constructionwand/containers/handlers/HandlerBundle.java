@@ -49,7 +49,11 @@ public class HandlerBundle implements IContainerHandler
             return Stream.empty();
         } else {
             BundleContents contents = bundleStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
+            //? if >=26.3 {
+            /*return contents.itemCopies();
+            *///?} else {
             return contents.itemCopyStream();
+            //?}
         }
     }
 

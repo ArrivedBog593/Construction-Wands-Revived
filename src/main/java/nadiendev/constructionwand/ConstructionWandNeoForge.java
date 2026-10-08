@@ -30,7 +30,11 @@ public class ConstructionWandNeoForge {
         modBus.addListener(this::registerPayloads);
         modBus.addListener(this::register);
 
+        //? if >=26.3 {
+        /*container.registerConfig(ModConfig.Type.SYNCED, (ModConfigSpec) ConfigServer.SPEC);
+        *///?} else {
         container.registerConfig(ModConfig.Type.SERVER, (ModConfigSpec) ConfigServer.SPEC);
+        //?}
         container.registerConfig(ModConfig.Type.CLIENT, (ModConfigSpec) ConfigClient.SPEC);
     }
 

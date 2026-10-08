@@ -75,6 +75,11 @@ stonecutter parameters {
             replace("net.minecraft.client.renderer.state.LevelRenderState", "net.minecraft.client.renderer.state.level.LevelRenderState")
         }
 
+        // Keyboard input switched to SDL in 26.3
+        string(current.parsed >= "26.3") {
+            replace("InputConstants.Type.KEYSYM", "InputConstants.Type.KEYBOARD")
+        }
+
         // GuiGraphics became GuiGraphicsExtractor in 26.1
         string(current.parsed >= "26.1") {
             replace("GuiGraphics", "GuiGraphicsExtractor")
