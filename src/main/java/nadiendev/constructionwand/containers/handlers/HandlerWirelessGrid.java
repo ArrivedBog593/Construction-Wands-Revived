@@ -129,7 +129,7 @@ public class HandlerWirelessGrid implements IContainerHandler {
     private boolean isNetworkValidForPlayer(Network network, Player player) {
         GraphNetworkComponent graph = network.getComponent(GraphNetworkComponent.class);
         NetworkItemPlayerValidator.PlayerCoordinates coordinates =
-            new NetworkItemPlayerValidator.PlayerCoordinates(player.serverLevel().dimension(), player.position());
+            new NetworkItemPlayerValidator.PlayerCoordinates(player.level().dimension(), player.position());
 
         for (NetworkItemPlayerValidator validator : graph.getContainers(NetworkItemPlayerValidator.class)) {
             if (validator.isValid(coordinates)) {
