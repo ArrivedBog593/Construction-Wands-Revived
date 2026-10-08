@@ -86,7 +86,11 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public boolean fireBreakEvent(Level level, Player player, BlockState state, BlockPos pos) {
+        //? if >=26.1.2 {
+        /*net.neoforged.neoforge.event.level.block.BreakBlockEvent event = new net.neoforged.neoforge.event.level.block.BreakBlockEvent(level, pos, state, player);
+        *///?} else {
         BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(level, pos, state, player);
+        //?}
         NeoForge.EVENT_BUS.post(event);
         return event.isCanceled();
     }
