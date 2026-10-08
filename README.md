@@ -140,3 +140,21 @@ As #Hacktoberfest now requires repo owners to opt in, I added the tag to this re
 I'd really appreciate translations. Currently, ConstructionWand is available in English, German, Swedish And Spanish.
 If you speak any other language you can help translate the mod and add a new language file
 under `src/main/resources/assets/constructionwand/lang/`.
+
+## Building
+
+All Minecraft versions (1.21.1 to 26.3) and both loaders (NeoForge and Fabric) are built from the shared sources
+in `src/` with [Stonecutter](https://stonecutter.kikugie.dev/). Gradle needs JDK 25; the matching Java toolchain for
+each Minecraft version is picked automatically.
+
+```
+./gradlew build                          # every version and loader
+./gradlew :1.21.1-neoforge:build         # a single node
+./gradlew runNeo 1.21.11                 # NeoForge client of one version (runNeoServer for a server)
+./gradlew runFabric 1.21.11              # Fabric client of one version (runFabricServer for a server)
+```
+
+Versions and dependency versions are declared in `stonecutter.properties.toml`, the nodes live in
+`versions/<minecraft version>/<loader>`, and the generated recipes, advancements, models and language files of each
+version are in `generated/<minecraft version>`. Recipe viewers (JEI, REI, EMI) and the storage integrations
+(AE2, Refined Storage, Sophisticated Backpacks, Curios) are only built for the versions and loaders they exist for.
