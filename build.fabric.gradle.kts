@@ -16,10 +16,6 @@ val requiredJava: JavaVersion = when {
 }
 
 repositories {
-    maven("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/") {
-        name = "Forge Config API Port"
-        content { includeGroup("fuzs.forgeconfigapiport") }
-    }
     maven("https://maven.blamejared.com")
     maven("https://maven.shedaniel.me")
     maven("https://maven.terraformersmc.com/")
@@ -36,9 +32,6 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric_loader")}")
     // The full Fabric API, so its version also wins over the one Forge Config API Port depends on
     modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric_api")}")
-
-    // NeoForge style config (ModConfigSpec) on Fabric
-    modImplementation("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${prop("deps.forgeconfigapiport")}")
 
     // Nullability annotations used by the shared code
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")

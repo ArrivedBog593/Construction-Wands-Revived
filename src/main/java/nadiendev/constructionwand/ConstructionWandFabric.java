@@ -1,20 +1,19 @@
 //? if fabric {
 /*package nadiendev.constructionwand;
 
-import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.Registry;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.common.ModConfigSpec;
 import nadiendev.constructionwand.basics.ConfigClient;
 import nadiendev.constructionwand.basics.ConfigServer;
 import nadiendev.constructionwand.basics.ReplacementRegistry;
 import nadiendev.constructionwand.network.ModMessages;
+import nadiendev.constructionwand.platform.FabricConfigSpec;
 import nadiendev.constructionwand.platform.FabricPayloadContext;
 import nadiendev.constructionwand.registry.ModRegistries;
 import nadiendev.constructionwand.registry.Registrar;
@@ -29,8 +28,9 @@ public class ConstructionWandFabric implements ModInitializer {
             registerAll(registrar);
         }
 
-        NeoForgeConfigRegistry.INSTANCE.register(ConstructionWand.MODID, ModConfig.Type.SERVER, (ModConfigSpec) ConfigServer.SPEC);
-        NeoForgeConfigRegistry.INSTANCE.register(ConstructionWand.MODID, ModConfig.Type.CLIENT, (ModConfigSpec) ConfigClient.SPEC);
+        // Fabric has no config system, so both configs are plain files in the config folder
+        ((FabricConfigSpec) ConfigServer.SPEC).load(FabricLoader.getInstance().getConfigDir().resolve(ConstructionWand.MODID + "-server.toml"));
+        ((FabricConfigSpec) ConfigClient.SPEC).load(FabricLoader.getInstance().getConfigDir().resolve(ConstructionWand.MODID + "-client.toml"));
 
         for (ModMessages.Definition<?> definition : ModMessages.PACKETS) {
             registerPacket(definition);

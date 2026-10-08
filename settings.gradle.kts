@@ -32,6 +32,7 @@ stonecutter {
         }
 
         match("1.21.1", "neoforge", "fabric", "forge")
+        match("1.21.2", "neoforge") // no Forge build and no Forge Config API Port release exist for 1.21.2
 
         vcsVersion = "1.21.1-neoforge"
     }

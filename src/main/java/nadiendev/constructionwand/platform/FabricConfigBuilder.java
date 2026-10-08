@@ -1,52 +1,66 @@
 //? if fabric {
-/*package nadiendev.constructionwand.platform;
+package nadiendev.constructionwand.platform;
 
-import net.neoforged.neoforge.common.ModConfigSpec;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-/^* Backs the common config builder with the ModConfigSpec shipped by Forge Config API Port. ^/
+/** Builds a {@link FabricConfigSpec} through the common config builder interface. */
 public class FabricConfigBuilder implements IConfigBuilder {
-    private final ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+    private final FabricConfigSpec spec = new FabricConfigSpec();
+    private final List<String> path = new ArrayList<>();
+    private List<String> pendingComment = List.of();
 
     @Override
     public IConfigBuilder comment(String... lines) {
-        builder.comment(lines);
+        pendingComment = List.of(lines);
         return this;
     }
 
     @Override
-    public IConfigBuilder push(String path) {
-        builder.push(path);
+    public IConfigBuilder push(String name) {
+        path.add(name);
+        pendingComment = List.of();
         return this;
     }
 
     @Override
     public IConfigBuilder pop() {
-        builder.pop();
+        path.remove(path.size() - 1);
         return this;
     }
 
     @Override
-    public Supplier<Integer> defineInRange(String path, int defaultValue, int min, int max) {
-        return builder.defineInRange(path, defaultValue, min, max);
+    public Supplier<Integer> defineInRange(String name, int defaultValue, int min, int max) {
+        return define(name, defaultValue, value -> value instanceof Integer number && number >= min && number <= max,
+                " Range: " + min + " ~ " + max);
     }
 
     @Override
-    public Supplier<Boolean> define(String path, boolean defaultValue) {
-        return builder.define(path, defaultValue);
+    public Supplier<Boolean> define(String name, boolean defaultValue) {
+        return define(name, defaultValue, value -> value instanceof Boolean, null);
     }
 
     @Override
-    public Supplier<List<?>> defineList(String path, List<String> defaultValue) {
-        ModConfigSpec.ConfigValue<List<? extends String>> value = builder.defineList(path, defaultValue, obj -> true);
-        return value::get;
+    public Supplier<List<?>> defineList(String name, List<String> defaultValue) {
+        return define(name, List.<Object>copyOf(defaultValue), value -> value instanceof List<?>, null);
     }
 
     @Override
     public Object build() {
-        return builder.build();
+        return spec;
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> Supplier<T> define(String name, Object defaultValue, java.util.function.Predicate<Object> validator,
+                                   String note) {
+        List<String> comment = new ArrayList<>(pendingComment);
+        if (note != null) comment.add(note);
+        pendingComment = List.of();
+
+        FabricConfigSpec.Entry entry = new FabricConfigSpec.Entry(String.join(".", path), name, comment, defaultValue, validator);
+        spec.define(entry);
+        return () -> (T) spec.get(entry.id());
     }
 }
-*///?}
+//?}
