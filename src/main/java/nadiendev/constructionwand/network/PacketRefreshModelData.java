@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +17,7 @@ public record PacketRefreshModelData(HashSet<BlockPos> positions) implements Cus
             PacketRefreshModelData::encode,
             PacketRefreshModelData::new);
     public static final Type<PacketRefreshModelData> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(MODID, "refresh_model_data"));
+            new Type<>(Identifier.fromNamespaceAndPath(MODID, "refresh_model_data"));
 
     public PacketRefreshModelData(FriendlyByteBuf buffer) {
         this(readPositions(buffer));

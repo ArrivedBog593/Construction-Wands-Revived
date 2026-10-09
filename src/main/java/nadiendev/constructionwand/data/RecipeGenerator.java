@@ -16,7 +16,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
@@ -93,18 +93,18 @@ import java.util.concurrent.CompletableFuture;
     }
 
     private void specialRecipe() {
-        ResourceLocation name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(ModRecipes.WAND_UPGRADE.get());
+        Identifier name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(ModRecipes.WAND_UPGRADE.get());
         SpecialRecipeBuilder.special(RecipeWandUpgrade::new)
                 .save(output, ConstructionWand.loc("dynamic/" + name.getPath()).toString());
     }
 }
 *///?} elif >=1.21.2 {
-/*public class RecipeGenerator extends RecipeProvider {
+public class RecipeGenerator extends RecipeProvider {
     protected RecipeGenerator(HolderLookup.Provider registries, RecipeOutput output) {
         super(registries, output);
     }
 
-    /^* Vanilla runs recipe providers through a runner that supplies the registries and the output. ^/
+    /** Vanilla runs recipe providers through a runner that supplies the registries and the output. */
     public static class Runner extends RecipeProvider.Runner {
         public Runner(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
             super(packOutput, lookupProvider);
@@ -182,13 +182,13 @@ import java.util.concurrent.CompletableFuture;
     }
 
     private void specialRecipe() {
-        ResourceLocation name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(ModRecipes.WAND_UPGRADE.get());
+        Identifier name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(ModRecipes.WAND_UPGRADE.get());
         SpecialRecipeBuilder.special(RecipeWandUpgrade::new)
                 .save(output, ResourceKey.create(Registries.RECIPE, ConstructionWand.loc("dynamic/" + name.getPath())));
     }
 }
-*///?} else {
-public class RecipeGenerator extends RecipeProvider {
+//?} else {
+/*public class RecipeGenerator extends RecipeProvider {
     public RecipeGenerator(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(packOutput, lookupProvider);
     }
@@ -255,9 +255,9 @@ public class RecipeGenerator extends RecipeProvider {
     }
 
     private void specialRecipe(RecipeOutput output, net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer<?> serializer) {
-        ResourceLocation name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(serializer);
+        Identifier name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(serializer);
         SpecialRecipeBuilder.special(RecipeWandUpgrade::new).save(output, ConstructionWand.loc("dynamic/" + name.getPath()).toString());
     }
 }
-//?}
+*///?}
 //?}

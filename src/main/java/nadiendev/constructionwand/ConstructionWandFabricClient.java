@@ -3,7 +3,7 @@
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 //? if <1.21.9
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
@@ -39,9 +39,9 @@ public class ConstructionWandFabricClient implements ClientModInitializer {
             if (definition.toClient()) registerClientPacket(definition);
         }
 
-        KeyBindingHelper.registerKeyBinding(KeybindHandler.KEY_VOID_SACK_TOGGLE);
-        KeyBindingHelper.registerKeyBinding(KeybindHandler.KEY_WAND_UNDO);
-        KeyBindingHelper.registerKeyBinding(KeybindHandler.KEY_EXCHANGE_SELECT);
+        KeyMappingHelper.registerKeyMapping(KeybindHandler.KEY_VOID_SACK_TOGGLE);
+        KeyMappingHelper.registerKeyMapping(KeybindHandler.KEY_WAND_UNDO);
+        KeyMappingHelper.registerKeyMapping(KeybindHandler.KEY_EXCHANGE_SELECT);
 
         MenuScreens.register(ModMenuTypes.VOID_SACK.get(), ScreenVoidSack::new);
         //? if <1.21.4

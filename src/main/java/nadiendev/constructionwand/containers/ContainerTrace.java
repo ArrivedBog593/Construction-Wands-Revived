@@ -24,10 +24,10 @@ public class ContainerTrace {
     public ContainerTrace(ServerPlayer player) {
         this.player = player;
         //? if >=1.21.6 {
-        /*this.level = player.level();
-        *///?} else {
-        this.level = player.serverLevel();
-        //?}
+        this.level = player.level();
+        //?} else {
+        /*this.level = player.serverLevel();
+        *///?}
         visited.add(-1);
     }
 

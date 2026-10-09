@@ -1,7 +1,7 @@
 package nadiendev.constructionwand.basics;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import nadiendev.constructionwand.items.wand.WandTier;
 import nadiendev.constructionwand.platform.IConfigBuilder;
@@ -33,7 +33,7 @@ public class ConfigServer
     public static final Supplier<List<?>> TE_LIST;
     private static final String[] TE_LIST_DEFAULT = {"chiselsandbits"};
 
-    private static final HashMap<ResourceLocation, WandProperties> wandProperties = new HashMap<>();
+    private static final HashMap<Identifier, WandProperties> wandProperties = new HashMap<>();
 
     public static WandProperties getWandProperties(Item wand) {
         return wandProperties.getOrDefault(BuiltInRegistries.ITEM.getKey(wand), WandProperties.DEFAULT);
@@ -63,7 +63,7 @@ public class ConfigServer
 
         public WandProperties(IConfigBuilder builder, RegistryObject<? extends Item> wandSupplier, int defDurability, int defLimit,
                               int defAngel, int defDestruction, int defExchange, boolean defUpgradeable) {
-            ResourceLocation registryName = wandSupplier.getId();
+            Identifier registryName = wandSupplier.getId();
             builder.push(registryName.getPath());
 
             if(defDurability > 0) {
