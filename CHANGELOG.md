@@ -1,6 +1,114 @@
 # Changelog
 
-## 4.0.5 — Minecraft 1.21.1 / NeoForge
+## 4.0.7 — Minecraft 26.3 / NeoForge and Fabric
+
+### Additions
+
+- **Fabric build for Minecraft 26.3.** This version now ships a NeoForge jar and a Fabric
+  jar built from the same code. The Fabric build supports the recipe viewers (JEI, REI, EMI) that exist
+  for this version. The integrations with other mods (storage mods, Curios, Botania) are NeoForge only.
+
+- **Applied Energistics 2 support is back** (NeoForge): wireless terminals and portable cells, plus
+  AE2 Wireless Terminals and Sophisticated Backpacks.
+
+- **Botania Revived support is back** (NeoForge): the Black Hole Talisman and the Rod of the Lands and
+  Depths supply blocks to the wand, consuming one block per placement.
+
+- **The Exchange Core now has an advancement.** It was the only core without one.
+
+### Fixes
+
+- **The Destruction core captures drops with the Void Sack again.** The sack is found anywhere in the
+  inventory, not only in your hand. An active sack stores the drops, or sends them to its linked
+  container. An inactive sack that is linked to a container still sends to it. Without either, the
+  drops go straight to your inventory.
+
+- **The Void Sack advancement showed the wrong text.** Its title and description were swapped, so the
+  toast showed the whole sentence as the title. It also left the Destruction Core name untranslated in
+  every language. The title is now "Void Sack" and the sentence is the description.
+
+- **Sophisticated Backpacks are read through the same inventory layer as the other containers**, which
+  also works with the item transfer API of this version.
+
+- **The Fabric mixin configuration was malformed.** The extra client mixins were joined with a literal
+  `\n` instead of a line break, which is not valid JSON.
+
+### Changes
+
+- The files are now named `ConstructionWandsRevived-26.3-4.0.7-<NeoForge|Fabric>.jar`.
+
+## 4.0.7 — Minecraft 26.3 / NeoForge and Fabric (Español)
+
+### Anadido
+
+- **Build de Fabric para Minecraft 26.3.** Esta version trae ahora un jar de NeoForge y
+  otro de Fabric hechos con el mismo codigo. El build de Fabric soporta los visores de recetas (JEI, REI,
+  EMI) que existen para esta version. Las integraciones con otros mods (mods de almacenamiento, Curios,
+  Botania) son solo de NeoForge.
+
+- **Vuelve el soporte de Applied Energistics 2** (NeoForge): terminales inalambricas y celdas portatiles,
+  ademas de AE2 Wireless Terminals y Sophisticated Backpacks.
+
+- **Vuelve el soporte de Botania Revived** (NeoForge): el Black Hole Talisman y la Rod of the Lands y
+  Depths suministran bloques a la varita, consumiendo un bloque por colocacion.
+
+- **El Nucleo de Intercambio ahora tiene avance.** Era el unico nucleo que no tenia.
+
+### Corregido
+
+- **El nucleo de Destruccion vuelve a capturar los drops con la Bolsa del Vacio.** La bolsa se encuentra
+  en cualquier parte del inventario, no solo en la mano. Una bolsa activa guarda los drops, o los envia a
+  su contenedor vinculado. Una bolsa inactiva vinculada a un contenedor sigue enviando a el. Sin ninguna
+  de las dos cosas, los drops van directo al inventario.
+
+- **El avance de la Bolsa del Vacio mostraba el texto equivocado.** El titulo y la descripcion estaban
+  intercambiados, asi que el aviso mostraba la frase completa como titulo. Ademas dejaba sin traducir el
+  nombre del Destruction Core en todos los idiomas. Ahora el titulo es "Bolsa del Vacio" y la frase es la
+  descripcion.
+
+- **Las Sophisticated Backpacks se leen con la misma capa de inventarios que el resto de contenedores**,
+  lo que tambien funciona con la API de transferencia de items de esta version.
+
+- **La configuracion de mixins de Fabric estaba mal formada.** Los mixins extra del cliente se unian con
+  un `\n` literal en vez de un salto de linea, lo cual no es JSON valido.
+
+### Cambios
+
+- Los archivos ahora se llaman `ConstructionWandsRevived-26.3-4.0.7-<NeoForge|Fabric>.jar`.
+
+## 4.0.1 — Minecraft 26.3 / NeoForge
+
+### Additions
+
+- **JEI is back.** JEI now ships for 26.3, so the item descriptions (wand stats, core
+  descriptions and the Void Sack entry) show up in JEI again. Reliable Recipe Viewer stays
+  supported: both register the same texts and can be installed together.
+- **Curios is back.** Wands pull blocks again from containers equipped in Curios slots.
+
+---
+
+## 4.0.1 — Minecraft 26.3 / NeoForge (Español)
+
+### Añadido
+
+- **Vuelve JEI.** JEI ya tiene build para 26.3, así que las descripciones de los ítems
+  (estadísticas de las varitas, descripción de los núcleos y la entrada de la Bolsa del Vacío)
+  vuelven a salir en JEI. Reliable Recipe Viewer sigue soportado: los dos registran los mismos
+  textos y se pueden tener instalados a la vez.
+- **Vuelve Curios.** Las varitas vuelven a sacar bloques de los contenedores equipados en slots
+  de Curios.
+
+---
+
+## 4.0.0 — Minecraft 26.3 / NeoForge
+
+This release is a port of the 1.21 line, brought over for parity across versions: the fixes and
+changes below were developed on 1.21.1 and 26.1 and carried here so every supported version
+behaves the same.
+
+Port to Minecraft 26.3, branched from the 26.2 tree. Carries the same fixes as 4.0.3 on
+26.2 (modded blocks that store data on the item, block entity data preserved on placement,
+redrawn golden wand).
 
 ### Additions
 
@@ -8,21 +116,69 @@
   core slots at all. It is crafted from **cherry or birch planks** only, and its texture uses the
   same silhouette and shading as the rest of the set, in cherry tones.
 
+### Build
+
+- Minecraft `26.3`, NeoForge `26.3.0.0-beta` (declared range: `[26.3.0.0-beta,26.4.0)`).
+- **Build system migrated from NeoGradle to ModDevGradle `2.0.147`.** NeoGradle `7.1.38`,
+  the newest release, cannot build 26.3: its `neoFormRecompile` step fails while recompiling
+  decompiled *vanilla* source (`net/minecraft/core/HolderSet.java`). ModDevGradle uses
+  NeoForm Runtime and the artifacts NeoForge already publishes, so that step never runs.
+  The previous build script is kept as `build.gradle.neogradle.bak`.
+
+### Ported
+
+- **Minecraft 26.3 replaced GLFW with SDL.** `org.lwjgl.glfw` is no longer on the classpath
+  (`lwjgl-sdl` is), so the keybinds now use Mojang's own `InputConstants` key codes instead
+  of raw `GLFW.GLFW_KEY_*` constants. Same default keys.
+- **Recipes and advancements are now reloadable datapack registries.** `RecipeProvider` takes
+  a `BootstrapContext` pair instead of a `PackOutput`, `RecipeProvider.Runner` is gone, and
+  `AdvancementProvider` is a `SingleRegistryBootstrap<Advancement>` built from
+  `AdvancementSubProvider.Factory` list. Data generation is wired through a
+  `RegistrySetBuilder` handed to `DatapackBuiltinEntriesProvider.forReloadableLayer`.
+- `RecipeProvider` exposes a `HolderGetter<Item>` (`items`) instead of the full
+  `HolderLookup.Provider`, and `ItemPredicate.Builder#of` takes that getter.
+- `Player#drop` now requires a `Prediction`; the undo history drops server-side.
+- `BundleContents#itemCopyStream` was renamed to `itemCopies`.
+- `FriendlyByteBuf`'s `read/writeBlockHitResult` helpers are gone; the preview packet uses
+  `BlockHitResult.STREAM_CODEC`.
+
+### Recipe viewer
+
+JEI has no 26.3 build (`jei-26.3-neoforge` is not on the maven), so the item descriptions
+are provided through **Reliable Recipe Viewer** instead, which does ship for 26.3.
+`RrvIntegration` registers exactly the same texts the JEI plugin did — wand stats, core
+descriptions and the Void Sack entry — translated from JEI's `addIngredientInfo` to RRV's
+info recipes, rebuilt on every client reload so they follow keybind and config changes.
+
+It is an optional client-side dependency: `ClientHandler` only touches the integration
+behind `ModList.isLoaded("rrv")`, so nothing is loaded when RRV is absent.
+
+The JEI plugin is **not deleted** — it stays in `src/disabled-integrations/`, and its
+dependency lines in `build.gradle` and `neoforge.mods.toml` are commented out rather than
+removed, ready to switch back on when JEI ships for 26.3. Both viewers can coexist then.
+
+RRV is pulled from the Modrinth maven (`maven.modrinth:rrv:8.10.5+26.3-neoforge`) because
+`maven.cassian.cc` has not published 8.10.5 yet, and 8.10.5 is the first release with 26.3
+support.
+
+### Removed (temporarily)
+
+| Integration | Mod | Reason |
+|---|---|---|
+| Recipe descriptions | JEI | no 26.3 build; covered by Reliable Recipe Viewer in the meantime |
+
+Sophisticated Backpacks and Sophisticated Core moved from `implementation` to `compileOnly`.
+Their published builds declare `minecraft 26.2 or above, and below 26.3`, so FML refuses to
+start a dev run with them on the runtime classpath. The integration still compiles and the
+published jar is unchanged — those mods were never bundled, and `ContainerRegistrar` already
+guards the handler behind `ModList.isLoaded("sophisticatedbackpacks")`. Switch them back to
+`implementation` once a 26.3 build ships.
+
+Everything 26.2 already had parked in `src/disabled-integrations/` stays parked. The JEI
+plugin joins it there, and its dependency lines in `build.gradle` and `neoforge.mods.toml`
+are commented out, ready to switch back on when JEI ships for 26.3.
+
 ### Fixes
-
-- **Blocks from other mods that store data in the item now work with the wands.**
-  Functional Storage framed drawers, decorated or not, were the clearest case: the wand
-  behaved as if you had none in your inventory and refused to place anything. The supply
-  lookup compared what you were carrying against a freshly built, component-less stack, so
-  any block carrying data on the item (a frame material, a stored inventory, a mod's own
-  configuration) never matched and was counted as zero. The wand now tracks the real
-  ItemStack end to end: each variant of an item is supplied, placed and consumed
-  separately, keeping its data intact.
-
-- **Placement no longer strips the item's block entity data.** Blocks are now placed in the
-  same order vanilla uses in `BlockItem#place`: the block entity saved on the item is
-  restored first, then the block is notified with the real stack. Previously both steps
-  received a blank stack, so even a block that did get placed came out in its default state.
 
 - **Blocks that draw themselves from model data now render correctly when placed by a wand.**
   Functional Storage drawers were the visible case: a framed drawer placed by the wand appeared
@@ -31,24 +187,13 @@
   prediction that makes those mods refresh their model data. The wand now tells the client which
   positions to refresh, retrying for the block entities the client has not created yet.
 
-- **The wand preview did not appear when pointing at a drawer.** Titanium, the library behind
-  Functional Storage, cancels the block highlight event on its own blocks to draw its per-slot
-  outline, and the preview handler was not receiving canceled events, so it never ran.
-
 - **The golden wand had no translation.** Its name showed as `item.constructionwand.gold_wand`
   and it had no advancement, in every language.
 
 - **The Void Sack tooltip showed a raw `%1$s`** instead of the toggle key, because the
   translation argument was never passed.
 
-
-### Changes
-
-- **Golden wand texture redrawn to match the rest of the set.** It was a flat 4-colour
-  head while every other wand had a fully shaded one; it now uses the same silhouette and
-  the same shading detail as the iron, stone, diamond and netherite wands, in gold.
-
-- **JEI updated to the latest build for this Minecraft version.**
+- **Mod icon added**, so the mod shows its own icon in the mods list instead of the default block.
 
 ### Documentation
 
@@ -58,110 +203,3 @@
 - New images: the wooden and golden wand recipes, and a stats table.
 
 ---
-
-## 4.0.5 — Minecraft 1.21.1 / NeoForge (Español)
-
-### Anadido
-
-- **Varita de madera.** Nueva varita de entrada, por debajo de la de piedra: 59 usos, 5 bloques
-  por colocacion y sin ranuras para nucleos. Se fabrica solo con **tablas de cerezo o abedul**, y su
-  textura usa la misma silueta y sombreado que el resto de la familia, en tonos de cerezo.
-
-### Corregido
-
-- **Los bloques de otros mods que guardan datos en el item ya funcionan con las varitas.**
-  Los cajones enmarcados de Functional Storage, decorados o sin decorar, eran el caso mas
-  claro: la varita se comportaba como si no tuvieras ninguno en el inventario y no colocaba
-  nada. La busqueda de suministro comparaba lo que llevabas encima contra un stack recien
-  construido y sin componentes, asi que cualquier bloque con datos en el item (el material
-  del marco, un inventario guardado, la configuracion propia de un mod) nunca coincidia y
-  contaba como cero. Ahora la varita lleva el ItemStack real de punta a punta: cada variante
-  de un item se suministra, se coloca y se consume por separado, con sus datos intactos.
-
-- **Al colocar ya no se pierden los datos del block entity del item.** Los bloques se
-  colocan en el mismo orden que usa vanilla en `BlockItem#place`: primero se restaura el
-  block entity guardado en el item y despues se avisa al bloque con el stack real. Antes los
-  dos pasos recibian un stack vacio, asi que incluso un bloque que si llegaba a colocarse
-  salia en su estado por defecto.
-
-- **Los bloques que se dibujan segun model data ya se ven bien al colocarlos con la varita.**
-  El caso visible eran los cajones de Functional Storage: un cajon enmarcado colocado con la varita
-  salia sin su marco hasta que algo forzaba a redibujar el chunk, como poner un bloque al lado. La
-  varita coloca solo en el servidor, asi que el cliente nunca ejecuta la prediccion de colocacion
-  que hace que esos mods refresquen su model data. Ahora la varita le indica al cliente que
-  posiciones refrescar, reintentando con los block entities que el cliente todavia no creo.
-
-- **El preview de la varita no aparecia al apuntar a un cajon.** Titanium, la libreria sobre la que
-  esta hecho Functional Storage, cancela el evento de resaltado en sus bloques para dibujar su
-  propio recuadro de slots, y nuestro handler no recibia eventos cancelados, asi que nunca llegaba
-  a ejecutarse.
-
-- **La varita dorada no tenia traduccion.** Su nombre salia como `item.constructionwand.gold_wand`
-  y no tenia avance, en todos los idiomas.
-
-- **El tooltip de la Void Sack mostraba un `%1$s` crudo** en vez de la tecla, porque nunca se
-  pasaba el argumento de la traduccion.
-
-
-### Cambios
-
-- **Textura de la varita dorada redibujada al estilo del resto.** Tenia un cabezal plano de
-  4 colores mientras que las demas lo tenian completamente sombreado; ahora usa la misma
-  silueta y el mismo nivel de detalle que las varitas de hierro, piedra, diamante y
-  netherita, en dorado.
-
-- **JEI actualizado a la ultima build para esta version de Minecraft.**
-
-### Documentacion
-
-- La tabla de varitas del README no incluia madera, oro ni, en algunas versiones, netherita, y
-  varios valores no coincidian con la config. Ahora lista las siete con los valores reales y suma
-  la columna de intercambio. Los enlaces de imagenes apuntan a este repositorio y no al original.
-- Imagenes nuevas: las recetas de la varita de madera y la dorada, y un cuadro de estadisticas.
-
----
-
-## 4.0.4 — Minecraft 1.21.1 / NeoForge
-
-### Changes
-
-- **Exchange core: replacement now stops under a covered block instead of going around it.**
-  When the exchange flood-fill reached a block with something sitting on top of it, that block was
-  correctly skipped — but the fill kept spreading through the diagonal neighbours, wrapped around
-  the obstruction and carried on replacing on the far side. Diagonals now only propagate when both
-  orthogonal neighbours are themselves uncovered, so the exchange cuts off right below the covered
-  block and stops there. Straight propagation already behaved this way; this only closes the
-  diagonal bypass.
-
-- **Destruction core: broken blocks go straight to your inventory when you have no Void Sack.**
-  Previously the drops were spawned in the world and you had to walk over them. Now, if you are not
-  holding an active Void Sack, the drops are inserted directly into your inventory, and once the
-  inventory is full the remainder is discarded instead of littering the ground. Nothing changes when
-  a Void Sack **is** active: the block still drops normally and the sack intercepts the pickup, so
-  linked containers and internal storage work exactly as before. Which items a block drops is
-  unchanged.
-
----
-
-## 4.0.4 — Minecraft 1.21.1 / NeoForge (Español)
-
-### Cambios
-
-- **Núcleo de intercambio: el reemplazo ahora se corta debajo de un bloque tapado en vez de rodearlo.**
-  Cuando el relleno del intercambio llegaba a un bloque que tenía algo encima, ese bloque se saltaba
-  correctamente, pero el relleno seguía extendiéndose por los vecinos diagonales, rodeaba el
-  obstáculo y continuaba reemplazando al otro lado. Ahora las diagonales solo se propagan si los dos
-  vecinos ortogonales están a su vez descubiertos, así que el intercambio se corta justo debajo del
-  bloque tapado y se detiene ahí. La propagación recta ya funcionaba así; esto solo cierra el atajo
-  por diagonal.
-
-- **Núcleo de destrucción: los bloques rotos van directos al inventario si no llevas la Bolsa del Vacío.**
-  Antes los drops aparecían en el mundo y había que pasar por encima a recogerlos. Ahora, si no
-  llevas una Bolsa del Vacío activa, los drops se meten directamente en tu inventario y, cuando el
-  inventario está lleno, el resto se elimina en vez de quedar tirado por el suelo. Con la Bolsa del
-  Vacío **activa** no cambia nada: el bloque suelta sus drops normalmente y la bolsa los intercepta
-  al recogerlos, así que los contenedores enlazados y el almacenamiento interno funcionan igual que
-  antes. Qué ítems suelta cada bloque no cambia.
-
----
-
