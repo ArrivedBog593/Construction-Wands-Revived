@@ -173,6 +173,9 @@ public class ItemVoidSack extends Item
             if (remaining == 0) return 0;
         }
 
+        // Inactive: it only forwards to the linked container, it does not store anything itself.
+        if (!isActive(sack)) return remaining;
+
         ItemStack leftover = toInsert.copy();
         leftover.setCount(remaining);
         return insertToInternalInventory(sack, leftover);

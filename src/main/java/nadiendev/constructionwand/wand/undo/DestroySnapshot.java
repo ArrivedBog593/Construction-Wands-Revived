@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import nadiendev.constructionwand.basics.WandUtil;
-import nadiendev.constructionwand.items.containeritems.ItemVoidSack;
 import nadiendev.constructionwand.wand.action.ActionDestruction;
 
 import javax.annotation.Nullable;
@@ -61,7 +60,9 @@ public class DestroySnapshot implements ISnapshot
 
         ServerPlayer serverPlayer = player instanceof ServerPlayer sp ? sp : null;
 
-        if(hasActiveVoidSack(player)) {
+        // With a Void Sack in the inventory the drops are dropped in the world and the sack intercepts them
+        // (see ActionDestruction.VoidSackCapturingSnapshot / VoidSackDropHandler).
+        if(!ActionDestruction.findActiveSack(player).isEmpty()) {
             return serverLevel.destroyBlock(pos, true, serverPlayer, 512);
         }
 
@@ -77,11 +78,6 @@ public class DestroySnapshot implements ISnapshot
         }
 
         return true;
-    }
-
-    private static boolean hasActiveVoidSack(Player player) {
-        ItemStack sack = ActionDestruction.findSack(player);
-        return !sack.isEmpty() && ItemVoidSack.isActive(sack);
     }
 
     @Override

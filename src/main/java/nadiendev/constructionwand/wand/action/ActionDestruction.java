@@ -137,8 +137,9 @@ public class ActionDestruction implements IWandAction
                 // Skip if anything goes wrong.
             }
         }
+        // Wrap the snapshots with the context of an active Void Sack in the inventory
         if (!world.isClientSide && player instanceof ServerPlayer serverPlayer) {
-            ItemStack voidSack = findSack(serverPlayer);
+            ItemStack voidSack = findActiveSack(serverPlayer);
             if (!voidSack.isEmpty()) {
                 List<ISnapshot> wrapped = new ArrayList<>(destroySnapshots.size());
                 for (ISnapshot s : destroySnapshots)
@@ -169,6 +170,30 @@ public class ActionDestruction implements IWandAction
             if (s.getItem() instanceof ItemVoidSack) return s;
         }
         return ItemStack.EMPTY;
+    }
+
+    /**
+     * Finds the first Void Sack that must capture drops, in the main hand, the off hand or the inventory:
+     * an active one, or an inactive one that sends to a linked container.
+     */
+    public static ItemStack findActiveSack(Player player) {
+        ItemStack main = player.getMainHandItem();
+        if (capturesDrops(main)) return main;
+
+        ItemStack off = player.getOffhandItem();
+        if (capturesDrops(off)) return off;
+
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack s = player.getInventory().getItem(i);
+            if (capturesDrops(s)) return s;
+        }
+        return ItemStack.EMPTY;
+    }
+
+    private static boolean capturesDrops(ItemStack stack) {
+        if (!(stack.getItem() instanceof ItemVoidSack)) return false;
+        if (ItemVoidSack.isActive(stack)) return true;
+        return ItemVoidSack.isSendToContainer(stack) && ItemVoidSack.getLinkedPos(stack) != null;
     }
 
     private static class VoidSackCapturingSnapshot implements ISnapshot
