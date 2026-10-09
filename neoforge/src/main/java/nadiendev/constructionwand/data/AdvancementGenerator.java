@@ -56,6 +56,7 @@ public class AdvancementGenerator extends AdvancementProvider {
             onHasItem(consumer, ModItems.WAND_INFINITY, AdvancementType.GOAL, root);
             onHasItem(consumer, ModItems.CORE_ANGEL,     AdvancementType.TASK, root);
             onHasItem(consumer, ModItems.CORE_DESTRUCTION, AdvancementType.TASK, root);
+            onHasItem(consumer, ModItems.CORE_EXCHANGE, AdvancementType.TASK, root);
             onHasItem(consumer, ModItems.VOID_SACK,        AdvancementType.TASK, root);
         }
 
