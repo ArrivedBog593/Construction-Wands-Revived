@@ -70,7 +70,7 @@ public class ActionDestruction implements IWandAction
             BlockPos currentCandidate = candidates.removeFirst();
 
             // Only break blocks facing the player, with no collidable blocks in between
-            if(!WandUtil.isBlockPermeable(world, currentCandidate.offset(breakFace.getNormal()))) continue;
+            if(!WandUtil.isBlockPermeable(world, currentCandidate.offset(breakFace.getUnitVec3i()))) continue;
 
             try {
                 BlockState candidateBlock = world.getBlockState(currentCandidate);
@@ -86,52 +86,52 @@ public class ActionDestruction implements IWandAction
                         case DOWN:
                         case UP:
                             if(options.testLock(WandOptions.LOCK.NORTHSOUTH)) {
-                                candidates.add(currentCandidate.offset(Direction.NORTH.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.SOUTH.getNormal()));
+                                candidates.add(currentCandidate.offset(Direction.NORTH.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.SOUTH.getUnitVec3i()));
                             }
                             if(options.testLock(WandOptions.LOCK.EASTWEST)) {
-                                candidates.add(currentCandidate.offset(Direction.EAST.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.WEST.getNormal()));
+                                candidates.add(currentCandidate.offset(Direction.EAST.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.WEST.getUnitVec3i()));
                             }
                             if(options.testLock(WandOptions.LOCK.NORTHSOUTH) && options.testLock(WandOptions.LOCK.EASTWEST)) {
-                                candidates.add(currentCandidate.offset(Direction.NORTH.getNormal()).offset(Direction.EAST.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.NORTH.getNormal()).offset(Direction.WEST.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.SOUTH.getNormal()).offset(Direction.EAST.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.SOUTH.getNormal()).offset(Direction.WEST.getNormal()));
+                                candidates.add(currentCandidate.offset(Direction.NORTH.getUnitVec3i()).offset(Direction.EAST.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.NORTH.getUnitVec3i()).offset(Direction.WEST.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.SOUTH.getUnitVec3i()).offset(Direction.EAST.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.SOUTH.getUnitVec3i()).offset(Direction.WEST.getUnitVec3i()));
                             }
                             break;
                         case NORTH:
                         case SOUTH:
                             if(options.testLock(WandOptions.LOCK.HORIZONTAL)) {
-                                candidates.add(currentCandidate.offset(Direction.EAST.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.WEST.getNormal()));
+                                candidates.add(currentCandidate.offset(Direction.EAST.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.WEST.getUnitVec3i()));
                             }
                             if(options.testLock(WandOptions.LOCK.VERTICAL)) {
-                                candidates.add(currentCandidate.offset(Direction.UP.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.DOWN.getNormal()));
+                                candidates.add(currentCandidate.offset(Direction.UP.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.DOWN.getUnitVec3i()));
                             }
                             if(options.testLock(WandOptions.LOCK.HORIZONTAL) && options.testLock(WandOptions.LOCK.VERTICAL)) {
-                                candidates.add(currentCandidate.offset(Direction.UP.getNormal()).offset(Direction.EAST.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.UP.getNormal()).offset(Direction.WEST.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.DOWN.getNormal()).offset(Direction.EAST.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.DOWN.getNormal()).offset(Direction.WEST.getNormal()));
+                                candidates.add(currentCandidate.offset(Direction.UP.getUnitVec3i()).offset(Direction.EAST.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.UP.getUnitVec3i()).offset(Direction.WEST.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.DOWN.getUnitVec3i()).offset(Direction.EAST.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.DOWN.getUnitVec3i()).offset(Direction.WEST.getUnitVec3i()));
                             }
                             break;
                         case EAST:
                         case WEST:
                             if(options.testLock(WandOptions.LOCK.HORIZONTAL)) {
-                                candidates.add(currentCandidate.offset(Direction.NORTH.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.SOUTH.getNormal()));
+                                candidates.add(currentCandidate.offset(Direction.NORTH.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.SOUTH.getUnitVec3i()));
                             }
                             if(options.testLock(WandOptions.LOCK.VERTICAL)) {
-                                candidates.add(currentCandidate.offset(Direction.UP.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.DOWN.getNormal()));
+                                candidates.add(currentCandidate.offset(Direction.UP.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.DOWN.getUnitVec3i()));
                             }
                             if(options.testLock(WandOptions.LOCK.HORIZONTAL) && options.testLock(WandOptions.LOCK.VERTICAL)) {
-                                candidates.add(currentCandidate.offset(Direction.UP.getNormal()).offset(Direction.NORTH.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.UP.getNormal()).offset(Direction.SOUTH.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.DOWN.getNormal()).offset(Direction.NORTH.getNormal()));
-                                candidates.add(currentCandidate.offset(Direction.DOWN.getNormal()).offset(Direction.SOUTH.getNormal()));
+                                candidates.add(currentCandidate.offset(Direction.UP.getUnitVec3i()).offset(Direction.NORTH.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.UP.getUnitVec3i()).offset(Direction.SOUTH.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.DOWN.getUnitVec3i()).offset(Direction.NORTH.getUnitVec3i()));
+                                candidates.add(currentCandidate.offset(Direction.DOWN.getUnitVec3i()).offset(Direction.SOUTH.getUnitVec3i()));
                             }
                             break;
                     }

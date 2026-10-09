@@ -7,7 +7,7 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 //? if <1.21.4
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+//import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.recipes.RecipeProvider;
 import java.util.List;
@@ -24,15 +24,15 @@ import java.util.concurrent.CompletableFuture;
 public class ModData
 {
     //? if >=1.21.4 {
-    /*@SubscribeEvent
+    @SubscribeEvent
     public static void gatherData(GatherDataEvent.Client event) {
         //? if >=26.3 {
-        /^event.createReloadableRegistryObjects(new net.minecraft.core.RegistrySetBuilder()
+        /*event.createReloadableRegistryObjects(new net.minecraft.core.RegistrySetBuilder()
                 .add(RecipeProvider.asBootstrap(RecipeGenerator::new))
                 .add(net.minecraft.core.registries.Registries.ADVANCEMENT,
                         new AdvancementProvider(List.of(WandAdvancementSubProvider::new))),
                 java.util.Set.of(nadiendev.constructionwand.ConstructionWand.MODID), "Construction Wand Recipes/Advancements");
-        ^///?} else {
+        *///?} else {
         event.createProvider((output, lookup) -> new AdvancementProvider(output, lookup, List.of(new WandAdvancementSubProvider())));
         event.createProvider(RecipeGenerator.Runner::new);
         //?}
@@ -52,8 +52,8 @@ public class ModData
         event.createProvider((output, lookup) -> new LanguageGenerator.ZHCN(output));
         event.createProvider((output, lookup) -> new LanguageGenerator.DEDE(output));
     }
-    *///?} else {
-    @SubscribeEvent
+    //?} else {
+    /*@SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         PackOutput packOutput = generator.getPackOutput();
@@ -83,6 +83,6 @@ public class ModData
             generator.addProvider(true, new LanguageGenerator.DEDE(packOutput)); // German
         }
     }
-//?}
+*///?}
 }
 //?}

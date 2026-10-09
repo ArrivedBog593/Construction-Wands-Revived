@@ -15,7 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 //? if <1.21.2
-import net.minecraft.world.InteractionResultHolder;
+//import net.minecraft.world.InteractionResultHolder;
 
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -255,15 +255,15 @@ public class ItemVoidSack extends Item
     }
 
     //? if >=1.21.2 {
-    /*@Override
+    @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             openGui(serverPlayer, hand);
         }
         return InteractionResult.SUCCESS;
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack sack = player.getItemInHand(hand);
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
@@ -271,7 +271,7 @@ public class ItemVoidSack extends Item
         }
         return InteractionResultHolder.sidedSuccess(sack, level.isClientSide());
     }
-    //?}
+    *///?}
 
     public static void openGui(ServerPlayer player, InteractionHand hand) {
         Services.PLATFORM.openMenu(player, new MenuProvider() {
