@@ -27,10 +27,6 @@
 - **The Fabric mixin configuration was malformed.** The extra client mixins were joined with a literal
   `\n` instead of a line break, which is not valid JSON.
 
-### Changes
-
-- The files are now named `ConstructionWandsRevived-26.1.2-4.0.7-<NeoForge|Fabric>.jar`.
-
 ## 4.0.7 — Minecraft 26.1.2 / NeoForge and Fabric (Español)
 
 ### Anadido
@@ -59,10 +55,6 @@
 
 - **La configuracion de mixins de Fabric estaba mal formada.** Los mixins extra del cliente se unian con
   un `\n` literal en vez de un salto de linea, lo cual no es JSON valido.
-
-### Cambios
-
-- Los archivos ahora se llaman `ConstructionWandsRevived-26.1.2-4.0.7-<NeoForge|Fabric>.jar`.
 
 ## 4.0.5 — Minecraft 26.1 / NeoForge
 
