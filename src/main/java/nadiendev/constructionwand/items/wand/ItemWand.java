@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 //? if <1.21.2
-import net.minecraft.world.InteractionResultHolder;
+//import net.minecraft.world.InteractionResultHolder;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -55,7 +55,7 @@ public abstract class ItemWand extends Item
     }
 
     //? if >=1.21.2 {
-    /*@Nonnull
+    @Nonnull
     @Override
     public InteractionResult use(@Nonnull Level world, Player player, @Nonnull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
@@ -70,8 +70,8 @@ public abstract class ItemWand extends Item
         }
         return InteractionResult.FAIL;
     }
-    *///?} else {
-    @Nonnull
+    //?} else {
+    /*@Nonnull
     @Override
     public InteractionResultHolder<ItemStack> use(@Nonnull Level world, Player player, @Nonnull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
@@ -86,7 +86,7 @@ public abstract class ItemWand extends Item
         }
         return InteractionResultHolder.fail(stack);
     }
-    //?}
+    *///?}
 
     public static WandJob getWandJob(Player player, Level world, @Nullable BlockHitResult rayTraceResult, ItemStack wand) {
         WandJob wandJob = new WandJob(player, world, rayTraceResult, wand);
@@ -100,30 +100,30 @@ public abstract class ItemWand extends Item
     }
 
     //? if <1.21.2 {
-    @Override
+    /*@Override
     public boolean isValidRepairItem(@Nonnull ItemStack toRepair, @Nonnull ItemStack repair) {
         return false;
     }
-    //?}
+    *///?}
 
     public int remainingDurability(ItemStack stack) {
         return Integer.MAX_VALUE;
     }
 
     //? if >=1.21.5 {
-    /*@Override
+    @Override
     public void appendHoverText(@Nonnull ItemStack itemstack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
                                 java.util.function.Consumer<Component> consumer, @Nonnull TooltipFlag extraInfo) {
         List<Component> lines = new java.util.ArrayList<>();
         collectTooltip(itemstack, lines);
         lines.forEach(consumer);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public void appendHoverText(@Nonnull ItemStack itemstack, TooltipContext context, @Nonnull List<Component> lines, @Nonnull TooltipFlag extraInfo) {
         collectTooltip(itemstack, lines);
     }
-    //?}
+    *///?}
 
     private void collectTooltip(ItemStack itemstack, List<Component> lines) {
         WandOptions options = new WandOptions(itemstack);
