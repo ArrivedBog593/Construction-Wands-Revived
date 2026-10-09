@@ -81,22 +81,22 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
             Component tooltipText = Component.translatable("gui.constructionwand.void_sack.toggle_tooltip");
             List<FormattedCharSequence> lines = font.split(tooltipText, 150);
             //? if >=1.21.6 {
-            /*gfx.setTooltipForNextFrame(lines, mouseX, mouseY);
-            *///?} else {
-            gfx.renderTooltip(font, lines, mouseX, mouseY);
-            //?}
+            gfx.setTooltipForNextFrame(lines, mouseX, mouseY);
+            //?} else {
+            /*gfx.renderTooltip(font, lines, mouseX, mouseY);
+            *///?}
         }
     }
 
     @Override
     protected void renderBg(GuiGraphics gfx, float partialTick, int mouseX, int mouseY) {
         //? if >=1.21.6 {
-        /*gfx.blit(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
-        *///?} elif >=1.21.2 {
+        gfx.blit(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
+        //?} elif >=1.21.2 {
         /*gfx.blit(net.minecraft.client.renderer.RenderType::guiTextured, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
         *///?} else {
-        gfx.blit(TEXTURE, leftPos, topPos, 0, 0, GUI_WIDTH, GUI_HEIGHT);
-        //?}
+        /*gfx.blit(TEXTURE, leftPos, topPos, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+        *///?}
     }
 
     @Override
