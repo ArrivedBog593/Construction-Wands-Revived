@@ -1,6 +1,86 @@
 # Changelog
 
-## 4.0.5 — Minecraft 1.21.1 / NeoForge
+## 4.0.7 — Minecraft 26.2 / NeoForge and Fabric
+
+### Additions
+
+- **Fabric build for Minecraft 26.2.** This version now ships a NeoForge jar and a Fabric
+  jar built from the same code. The Fabric build supports the recipe viewers (JEI, REI, EMI) that exist
+  for this version. The integrations with other mods (storage mods, Curios, Botania) are NeoForge only.
+
+- **Applied Energistics 2 support is back** (NeoForge): wireless terminals and portable cells, plus
+  AE2 Wireless Terminals and Sophisticated Backpacks.
+
+- **Botania Revived support is back** (NeoForge): the Black Hole Talisman and the Rod of the Lands and
+  Depths supply blocks to the wand, consuming one block per placement.
+
+- **The Exchange Core now has an advancement.** It was the only core without one.
+
+### Fixes
+
+- **The Destruction core captures drops with the Void Sack again.** The sack is found anywhere in the
+  inventory, not only in your hand. An active sack stores the drops, or sends them to its linked
+  container. An inactive sack that is linked to a container still sends to it. Without either, the
+  drops go straight to your inventory.
+
+- **The Void Sack advancement showed the wrong text.** Its title and description were swapped, so the
+  toast showed the whole sentence as the title. It also left the Destruction Core name untranslated in
+  every language. The title is now "Void Sack" and the sentence is the description.
+
+- **Sophisticated Backpacks are read through the same inventory layer as the other containers**, which
+  also works with the item transfer API of this version.
+
+- **The Fabric mixin configuration was malformed.** The extra client mixins were joined with a literal
+  `\n` instead of a line break, which is not valid JSON.
+
+### Changes
+
+- The files are now named `ConstructionWandsRevived-26.2-4.0.7-<NeoForge|Fabric>.jar`.
+
+## 4.0.7 — Minecraft 26.2 / NeoForge and Fabric (Español)
+
+### Anadido
+
+- **Build de Fabric para Minecraft 26.2.** Esta version trae ahora un jar de NeoForge y
+  otro de Fabric hechos con el mismo codigo. El build de Fabric soporta los visores de recetas (JEI, REI,
+  EMI) que existen para esta version. Las integraciones con otros mods (mods de almacenamiento, Curios,
+  Botania) son solo de NeoForge.
+
+- **Vuelve el soporte de Applied Energistics 2** (NeoForge): terminales inalambricas y celdas portatiles,
+  ademas de AE2 Wireless Terminals y Sophisticated Backpacks.
+
+- **Vuelve el soporte de Botania Revived** (NeoForge): el Black Hole Talisman y la Rod of the Lands y
+  Depths suministran bloques a la varita, consumiendo un bloque por colocacion.
+
+- **El Nucleo de Intercambio ahora tiene avance.** Era el unico nucleo que no tenia.
+
+### Corregido
+
+- **El nucleo de Destruccion vuelve a capturar los drops con la Bolsa del Vacio.** La bolsa se encuentra
+  en cualquier parte del inventario, no solo en la mano. Una bolsa activa guarda los drops, o los envia a
+  su contenedor vinculado. Una bolsa inactiva vinculada a un contenedor sigue enviando a el. Sin ninguna
+  de las dos cosas, los drops van directo al inventario.
+
+- **El avance de la Bolsa del Vacio mostraba el texto equivocado.** El titulo y la descripcion estaban
+  intercambiados, asi que el aviso mostraba la frase completa como titulo. Ademas dejaba sin traducir el
+  nombre del Destruction Core en todos los idiomas. Ahora el titulo es "Bolsa del Vacio" y la frase es la
+  descripcion.
+
+- **Las Sophisticated Backpacks se leen con la misma capa de inventarios que el resto de contenedores**,
+  lo que tambien funciona con la API de transferencia de items de esta version.
+
+- **La configuracion de mixins de Fabric estaba mal formada.** Los mixins extra del cliente se unian con
+  un `\n` literal en vez de un salto de linea, lo cual no es JSON valido.
+
+### Cambios
+
+- Los archivos ahora se llaman `ConstructionWandsRevived-26.2-4.0.7-<NeoForge|Fabric>.jar`.
+
+## 4.0.3 — Minecraft 26.2 / NeoForge
+
+This release is a port of the 1.21 line, brought over for parity across versions: the fixes and
+changes below were developed on 1.21.1 and 26.1 and carried here so every supported version
+behaves the same.
 
 ### Additions
 
@@ -31,10 +111,6 @@
   prediction that makes those mods refresh their model data. The wand now tells the client which
   positions to refresh, retrying for the block entities the client has not created yet.
 
-- **The wand preview did not appear when pointing at a drawer.** Titanium, the library behind
-  Functional Storage, cancels the block highlight event on its own blocks to draw its per-slot
-  outline, and the preview handler was not receiving canceled events, so it never ran.
-
 - **The golden wand had no translation.** Its name showed as `item.constructionwand.gold_wand`
   and it had no advancement, in every language.
 
@@ -50,6 +126,10 @@
 
 - **JEI updated to the latest build for this Minecraft version.**
 
+- **Mod icon added**, so the mod shows its own icon in the mods list instead of the default block.
+
+- **Minimum NeoForge raised to what the bundled JEI requires:** NeoForge `26.2.0.67` / JEI `30.32.0.221`.
+
 ### Documentation
 
 - The README wand table was missing wood, gold and, in some versions, netherite, and several of its
@@ -59,7 +139,11 @@
 
 ---
 
-## 4.0.5 — Minecraft 1.21.1 / NeoForge (Español)
+## 4.0.3 — Minecraft 26.2 / NeoForge (Español)
+
+Esta version es un port de la linea 1.21, traido para mantener la paridad entre versiones: las
+correcciones y cambios de abajo se desarrollaron en 1.21.1 y 26.1 y se trasladaron aqui para que
+todas las versiones soportadas se comporten igual.
 
 ### Anadido
 
@@ -91,11 +175,6 @@
   que hace que esos mods refresquen su model data. Ahora la varita le indica al cliente que
   posiciones refrescar, reintentando con los block entities que el cliente todavia no creo.
 
-- **El preview de la varita no aparecia al apuntar a un cajon.** Titanium, la libreria sobre la que
-  esta hecho Functional Storage, cancela el evento de resaltado en sus bloques para dibujar su
-  propio recuadro de slots, y nuestro handler no recibia eventos cancelados, asi que nunca llegaba
-  a ejecutarse.
-
 - **La varita dorada no tenia traduccion.** Su nombre salia como `item.constructionwand.gold_wand`
   y no tenia avance, en todos los idiomas.
 
@@ -112,6 +191,11 @@
 
 - **JEI actualizado a la ultima build para esta version de Minecraft.**
 
+- **Icono del mod agregado**, para que el mod muestre su propio icono en la lista de mods en vez
+  del bloque por defecto.
+
+- **NeoForge minimo subido al que exige el JEI que acompana esta version:** NeoForge `26.2.0.67` / JEI `30.32.0.221`.
+
 ### Documentacion
 
 - La tabla de varitas del README no incluia madera, oro ni, en algunas versiones, netherita, y
@@ -121,7 +205,7 @@
 
 ---
 
-## 4.0.4 — Minecraft 1.21.1 / NeoForge
+## 4.0.2 — Minecraft 26.2 / NeoForge
 
 ### Changes
 
@@ -143,7 +227,7 @@
 
 ---
 
-## 4.0.4 — Minecraft 1.21.1 / NeoForge (Español)
+## 4.0.2 — Minecraft 26.2 / NeoForge (Español)
 
 ### Cambios
 
@@ -165,3 +249,104 @@
 
 ---
 
+## 4.1.0 — Minecraft 26.2 / NeoForge
+
+Port to Minecraft 26.2. See the [NeoForge 26.2 primer](https://docs.neoforged.net/primer/docs/26.2/).
+
+### Ported
+
+- **Block preview rendering rewritten for the new feature/submit-node system.** 26.2 deleted
+  `MultiBufferSource` and `ShapeRenderer` outright, so the wand preview no longer grabs a
+  `VertexConsumer` and draws into it. It now submits a `ShapeOutline` node per block through
+  `SubmitNodeCollector#submitShapeOutline`, matching how vanilla draws the block highlight.
+  `CustomBlockOutlineRenderer#render` also changed signature (no more buffer source, no more
+  translucent-pass flag), so all the per-frame work — reading the held wand, asking the server for
+  the preview — moved into the `ExtractBlockOutlineRenderStateEvent` handler, which is where 26.2
+  wants it: the renderer now only receives data already copied out of the level.
+- **Advancement classes moved packages.** `Criterion` and `InventoryChangeTrigger` are now in
+  `net.minecraft.advancements.triggers`, and `ItemPredicate` in `net.minecraft.advancements.predicates`.
+- **`Minecraft#setScreen` is gone.** Screens are opened through `Minecraft#gui.setScreen` now
+  (the whole screen/HUD split of 26.2).
+- Recipe JSONs regenerated with the 26.2 data generators.
+
+### Removed (temporarily)
+
+These integrations do not ship in this version:
+
+| Integration | Mod | Reason |
+|---|---|---|
+| Wireless Terminal, Portable Cell | Applied Energistics 2 | no 26.2 build |
+| Wireless terminals (all variants) | AE2 Wireless Terminal Library | no 26.2 build |
+| Wireless Grid | Refined Storage | no 26.2 build |
+| — | Refined Storage Curios Integration | no 26.2 build |
+| Pulling blocks from Curios slots | Curios | 26.2 build exists but is broken on this NeoForge |
+
+The code is not deleted: it sits in `src/disabled-integrations/`, outside the source set, together
+with a README explaining how to switch each one back on. Shulker boxes, bundles, capability
+inventories and Sophisticated Backpacks are unaffected.
+
+### Build
+
+- Minecraft `26.2`, NeoForge `26.2.0.53-beta` (declared range: `[26.2.0.40-beta,26.3.0)`).
+  The compile target is `.53-beta` and not `.40-beta` only because Sophisticated Core/Backpacks
+  for 26.2 refuse to load below it.
+- JEI `30.24.0.173`, Sophisticated Core `1.4.101`, Sophisticated Backpacks `3.25.90`.
+- NeoGradle `7.1.38`.
+- Parchment mappings disabled: there is no 26.2 export yet (latest is 1.21.11 / 26.1). The lines are
+  commented in `gradle.properties`, ready to re-enable.
+- `neoforge.mods.toml` now declares real version ranges instead of bare versions, which previously
+  meant no constraint at all, and uses `bannerFile` instead of the deprecated `logoFile`
+  (26.2 split it into `bannerFile` for wide banners and `iconFile` for square icons).
+
+---
+
+## 4.1.0 — Minecraft 26.2 / NeoForge (Español)
+
+Port a Minecraft 26.2. Ver el [primer de NeoForge 26.2](https://docs.neoforged.net/primer/docs/26.2/).
+
+### Portado
+
+- **El render del preview de bloques reescrito al nuevo sistema de submit nodes.** 26.2 eliminó
+  `MultiBufferSource` y `ShapeRenderer`, así que el preview de la varita ya no pide un
+  `VertexConsumer` para dibujar en él. Ahora envía un nodo `ShapeOutline` por bloque mediante
+  `SubmitNodeCollector#submitShapeOutline`, igual que hace el juego con el contorno del bloque
+  apuntado. `CustomBlockOutlineRenderer#render` también cambió de firma (sin buffer source y sin
+  el flag de pasada translúcida), así que todo el trabajo por frame — leer la varita en mano y
+  pedir el preview al servidor — se movió al handler de `ExtractBlockOutlineRenderStateEvent`,
+  que es donde 26.2 lo quiere: el renderer solo recibe datos ya copiados fuera del nivel.
+- **Las clases de logros cambiaron de paquete.** `Criterion` e `InventoryChangeTrigger` están ahora
+  en `net.minecraft.advancements.triggers`, e `ItemPredicate` en `net.minecraft.advancements.predicates`.
+- **`Minecraft#setScreen` ya no existe.** Las pantallas se abren con `Minecraft#gui.setScreen`
+  (la separación pantalla/HUD de 26.2).
+- JSONs de recetas regenerados con los data generators de 26.2.
+
+### Quitado (temporalmente)
+
+Estas integraciones no van en esta versión:
+
+| Integración | Mod | Motivo |
+|---|---|---|
+| Terminal inalámbrica, celda portátil | Applied Energistics 2 | sin build para 26.2 |
+| Terminales inalámbricas (todas) | AE2 Wireless Terminal Library | sin build para 26.2 |
+| Wireless Grid | Refined Storage | sin build para 26.2 |
+| — | Refined Storage Curios Integration | sin build para 26.2 |
+| Sacar bloques de los slots de Curios | Curios | hay build 26.2 pero está roto en este NeoForge |
+
+El código no se borró: está en `src/disabled-integrations/`, fuera del source set, con un README que
+explica cómo reactivar cada uno. Shulker boxes, bundles, inventarios por capability y Sophisticated
+Backpacks no cambian.
+
+### Build
+
+- Minecraft `26.2`, NeoForge `26.2.0.53-beta` (rango declarado: `[26.2.0.40-beta,26.3.0)`).
+  Se compila contra `.53-beta` y no `.40-beta` solo porque Sophisticated Core/Backpacks para 26.2
+  se niegan a cargar por debajo.
+- JEI `30.24.0.173`, Sophisticated Core `1.4.101`, Sophisticated Backpacks `3.25.90`.
+- NeoGradle `7.1.38`.
+- Parchment desactivado: todavía no hay export para 26.2 (el último es 1.21.11 / 26.1). Las líneas
+  quedan comentadas en `gradle.properties`, listas para reactivar.
+- `neoforge.mods.toml` declara ahora rangos de versión reales en vez de versiones sueltas, que en la
+  práctica no restringían nada, y usa `bannerFile` en vez del deprecado `logoFile`
+  (26.2 lo partió en `bannerFile` para banners apaisados e `iconFile` para iconos cuadrados).
+
+---
