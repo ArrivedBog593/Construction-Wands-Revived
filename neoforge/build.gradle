@@ -1,214 +1,186 @@
 plugins {
+    id 'java-library'
+    id 'eclipse'
+    id 'idea'
     id 'net.neoforged.moddev' version '2.0.147'
 }
 
-def propOrNull = { String key -> findProperty(key)?.toString() }
-def prop = { String key ->
-    def value = propOrNull(key)
-    if (value == null) throw new IllegalStateException("Missing property ${key}")
-    value
-}
-def propOr = { String key, String fallback -> propOrNull(key) ?: fallback }
-
-def mc = prop('minecraft_version')
-
-// Compares dotted Minecraft versions numerically, e.g. mcAtLeast('1.21.4')
-def mcAtLeast = { String other ->
-    def a = mc.split('\\.').collect { it as int }
-    def b = other.split('\\.').collect { it as int }
-    for (int i = 0; i < Math.max(a.size(), b.size()); i++) {
-        int diff = (i < a.size() ? a[i] : 0) - (i < b.size() ? b[i] : 0)
-        if (diff != 0) return diff > 0
-    }
-    return true
-}
-
+// The code and the resources shared by both loaders live in the common folder
 def common = project(':common')
 
-version = "${mc}-${prop('mod.version')}-NeoForge".toString()
-group = prop('mod.group')
-base.archivesName = prop('mod.named')
+version = "${mcversion}-${mod_version}-${tag_lanzador}"
+group = "${mod_group}"
+base {
+    archivesName = "${mod_named}"
+}
 
-def requiredJava = mcAtLeast('26.1') ? JavaVersion.VERSION_25
-        : mcAtLeast('1.20.5') ? JavaVersion.VERSION_21
-        : JavaVersion.VERSION_17
+// Minecraft 1.21.2 needs Java 21
+java.toolchain {
+    vendor = JvmVendorSpec.ADOPTIUM
+    languageVersion = JavaLanguageVersion.of(java_version.toInteger())
+}
+
+// Genera tambien <nombre>-sources.jar junto al jar del mod
+java {
+    withSourcesJar()
+}
+
+neoForge {
+    version = "${neoversion}"
+
+    runs {
+        client {
+            client()
+            gameDirectory = rootProject.file('run')
+        }
+
+        server {
+            server()
+            gameDirectory = rootProject.file('run')
+            programArgument '--nogui'
+        }
+
+        data {
+            data()
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            programArguments.addAll '--mod', "${modid}", '--all', '--output', common.file('src/generated/resources').getAbsolutePath(), '--existing', common.file('src/main/resources').getAbsolutePath()
+        }
+    }
+
+    mods {
+        "${modid}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+// The code and the resources shared by both loaders, and the generated data
+sourceSets.main {
+    java.srcDir(common.file('src/main/java'))
+    resources {
+        srcDir(common.file('src/main/resources'))
+        srcDir(common.file('src/generated/resources'))
+    }
+}
 
 repositories {
-    maven { url = 'https://maven.blamejared.com' }
-    maven { url = 'https://maven.theillusivec4.top/' }
-    maven { url = 'https://maven.terraformersmc.com/' }
-    maven { url = 'https://maven.shedaniel.me' }
+    mavenCentral()
     maven {
         url = 'https://maven.creeperhost.net'
-        content { includeGroup 'com.refinedmods.refinedstorage' }
-    }
-    maven {
-        name = 'Curse Maven'
-        url = 'https://cursemaven.com'
-        content { includeGroup 'curse.maven' }
-    }
-    maven {
-        url = 'https://api.modrinth.com/maven'
-        content { includeGroup 'maven.modrinth' }
-    }
-    maven {
-        url = 'https://modmaven.dev/'
         content {
-            includeGroup 'appeng'
-            includeGroup 'de.mari_023'
+            includeGroup("com.refinedmods.refinedstorage")
+        }
+    }
+    maven {
+        url = "https://maven.blamejared.com"
+    }
+    maven {
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+    }
+    maven { url "https://maven.shedaniel.me" }
+    maven {
+        name = "Curse Maven"
+        url = "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    maven {
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
+    maven {
+        url = uri("https://modmaven.dev/")
+        content {
+            includeGroup "appeng"
+            includeGroup "de.mari_023"
         }
     }
 }
 
 dependencies {
-    // JEI skips some Minecraft versions; its API is compatible with the neighbouring build
-    def jeiMc = propOrNull('deps.jei_mc') ?: mc
+    //rei (Roughly Enough Items)
+    compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"
+    compileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:${rei_version}"
 
-    // Adds the dependency only if the version declares a version for the key
-    def optional = { String key, Closure add ->
-        def value = propOrNull(key)
-        if (value != null) add(value)
-    }
-
-    // Optional mods are only put on the dev runtime for versions that declare matching builds (deps.runtime)
-    def runtimeMods = propOrNull('deps.runtime') == 'true'
-    def runtimeAndCompile = { String notation ->
-        if (runtimeMods) implementation(notation) else compileOnly(notation)
+    switch (runtime_itemlist_mod) {
+        case "rei":
+            runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+            break
     }
 
-    // Recipe viewers
-    optional('deps.jei') {
-        compileOnly "mezz.jei:jei-${jeiMc}-common-api:${it}"
-        compileOnly "mezz.jei:jei-${jeiMc}-neoforge-api:${it}"
-        if (runtimeMods) runtimeOnly "mezz.jei:jei-${jeiMc}-neoforge:${it}"
-    }
-    optional('deps.rei') {
-        compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${it}"
-        compileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:${it}"
-        if (runtimeMods) runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${it}"
-    }
-    optional('deps.emi') {
-        compileOnly "dev.emi:emi-neoforge:${it}:api"
-        if (runtimeMods) runtimeOnly "dev.emi:emi-neoforge:${it}"
-    }
+    //sophisticated backpacks
+    compileOnly "curse.maven:sophisticated-backpacks-422301:${sophisticatedbackpacks_version}"
 
-    // Storage mod integrations
-    optional('deps.ae2') { runtimeAndCompile("org.appliedenergistics:appliedenergistics2:${it}".toString()) }
-    optional('deps.guideme') { runtimeAndCompile("org.appliedenergistics:guideme:${it}".toString()) }
-    optional('deps.refinedstorage') { runtimeAndCompile("com.refinedmods.refinedstorage:refinedstorage-neoforge:${it}".toString()) }
-    optional('deps.refinedstorage_curios') { runtimeAndCompile("curse.maven:refined-storage-curios-integration-1230729:${it}".toString()) }
-    // CurseForge file ids for the older builds, Modrinth version numbers (e.g. 26.2-3.26.9.2191) for the newer ones
-    def sophisticated = { String key, String slug, String curseProject ->
-        optional(key) { String version ->
-            if (version ==~ /\d+/) runtimeAndCompile("curse.maven:${slug}-${curseProject}:${version}".toString())
-            else runtimeAndCompile("maven.modrinth:${slug}:${version}".toString())
-        }
-    }
-    sophisticated('deps.sophisticatedbackpacks', 'sophisticated-backpacks', '422301')
-    sophisticated('deps.sophisticatedcore', 'sophisticated-core', '618298')
+    //sophisticated core
+    compileOnly "curse.maven:sophisticated-core-618298:${sophisticatedcore_version}"
 
-    // Curios and AE2 wireless terminals
-    optional('deps.curios') {
-        compileOnly "top.theillusivec4.curios:curios-neoforge:${it}:api"
-        if (runtimeMods) runtimeOnly "top.theillusivec4.curios:curios-neoforge:${it}"
-    }
-    optional('deps.ae2wtlib') {
-        runtimeAndCompile("de.mari_023:ae2wtlib_api:${it}".toString())
-        if (runtimeMods) runtimeOnly "de.mari_023:ae2wtlib:${it}"
-    }
+    // Curios API
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
 }
 
-neoForge {
-    version = prop('deps.neo_loader')
-
-    mods {
-        "${prop('mod.id')}" {
-            sourceSet sourceSets.main
-        }
-    }
-
-    runs {
-        client {
-            gameDirectory = rootProject.file('run')
-            client()
-        }
-
-        server {
-            gameDirectory = rootProject.file('run')
-            server()
-            programArgument '--nogui'
-        }
-
-        // 1.21.4 split the data run into client and server flavours; the client one also covers the server data
-        "${mcAtLeast('1.21.4') ? 'clientData' : 'data'}" {
-            if (mcAtLeast('1.21.4')) clientData() else data()
-            programArguments.addAll '--mod', prop('mod.id'), '--all',
-                    '--output', common.file('src/generated/resources').absolutePath,
-                    '--existing', common.file('src/main/resources').absolutePath
-        }
-    }
+test {
+    enabled = false
 }
 
-// The code and resources shared by both loaders, plus the data generated for this Minecraft version
-// (recipes, advancements, models, lang)
-sourceSets.main {
-    java.srcDir common.file('src/main/java')
-    resources.srcDir common.file('src/main/resources')
-    resources.srcDir common.file('src/generated/resources')
-}
-
-java {
-    withSourcesJar()
-    targetCompatibility = requiredJava
-    sourceCompatibility = requiredJava
-
-    toolchain {
-        vendor = JvmVendorSpec.ADOPTIUM
-        languageVersion = JavaLanguageVersion.of(requiredJava.majorVersion)
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": mod_named,
+                "Specification-Vendor": "${author}",
+                "Specification-Version": "1", // We are version 1 of ourselves
+                "Implementation-Title": mod_named,
+                "Implementation-Version": "${version}",
+                "Implementation-Vendor" :"${author}",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
     }
-}
-
-processResources {
-    def props = [
-            mod_id                        : prop('mod.id'),
-            mod_name                      : prop('mod.name'),
-            mod_author                    : prop('mod.author'),
-            version                       : prop('mod.version'),
-            license                       : prop('mod.license'),
-            description                   : prop('mod.description'),
-            credits                       : '',
-            minecraft_version_range       : prop('mod.mc_compat'),
-            neoforge_version              : prop('deps.neo_loader'),
-            neoforge_loader_version_range : prop('deps.neo_loader_range'),
-            jei_version                   : propOr('deps.jei', '0'),
-            guideme_version               : propOr('deps.guideme', '0'),
-            ae2_version                   : propOr('deps.ae2', '0'),
-            refinedstorage_version        : propOr('deps.refinedstorage', '0'),
-            sophisticatedcore_version     : propOr('deps.sophisticatedcore', '0'),
-            sophisticatedbackpacks_version: propOr('deps.sophisticatedbackpacks', '0'),
-            curios_version                : propOr('deps.curios', '0'),
-            ae2wtlib_version              : propOr('deps.ae2wtlib', '0'),
-    ]
-    inputs.properties(props)
-
-    filesMatching('META-INF/neoforge.mods.toml') { expand props }
-    filesMatching('pack.mcmeta') { expand pack_format: prop('mod.pack_format') }
-
-    exclude 'fabric.mod.json', '*.mixins.json'
 }
 
 // Includes the license file in the built mod
 tasks.withType(Jar).configureEach {
-    def modId = prop('mod.id')
-    inputs.property('mod_id', modId)
-    from(rootProject.file('LICENSE')) { rename { "${it}-${modId}" } }
+    from(rootProject.file('LICENSE')) { rename { "${it}-${modid}" } }
 }
 
-tasks.register('buildAndCollect', Copy) {
-    group = 'build'
-    description = 'Builds mod jars and copies results to build/libs/{mod version}/'
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            mod_id                        : modid,
+            mod_name                      : mod_name,
+            mod_author                    : author,
+            version                       : mod_version,
+            license                       : license,
+            description                   : project.description,
+            credits                       : '',
+            minecraft_version_range       : minecraft_version_range,
+            neoforge_version              : neoversion,
+            neoforge_loader_version_range : loader_version,
+            jei_version                    : '0',
+            guideme_version                : '0',
+            ae2_version                    : '0',
+            refinedstorage_version         : '0',
+            sophisticatedcore_version      : sophisticatedcore_version,
+            sophisticatedbackpacks_version : sophisticatedbackpacks_version,
+            curios_version                 : curios_version,
+            ae2wtlib_version               : '0',
+    ]
+    inputs.properties replaceProperties
 
-    inputs.property('version', prop('mod.version'))
-    from(tasks.named('jar').flatMap { it.archiveFile }, tasks.named('sourcesJar').flatMap { it.archiveFile })
-    into(rootProject.layout.buildDirectory.file("libs/${prop('mod.version')}"))
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+    filesMatching(['pack.mcmeta']) {
+        expand pack_format: pack_format
+    }
+
+    exclude 'fabric.mod.json', '*.mixins.json'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
