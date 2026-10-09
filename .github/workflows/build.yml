@@ -5,11 +5,11 @@ on:
     branches:
       - "Multi/1.21.2"
     paths:
-      - "src/**"
-      - "generated/**"
-      - "build.*.gradle.kts"
-      - "settings.gradle.kts"
-      - "stonecutter.*"
+      - "common/**"
+      - "neoforge/**"
+      - "fabric/**"
+      - "*.gradle"
+      - "gradle.properties"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,7 +35,7 @@ jobs:
       - name: Read Version
         id: mod_props
         run: |
-          VERSION=$(grep -m1 '^mod.version' stonecutter.properties.toml | cut -d'"' -f2)
+          VERSION=$(grep -m1 '^mod.version' gradle.properties | cut -d= -f2 | tr -d " ")
           echo "mod_version=$VERSION" >> $GITHUB_OUTPUT
           echo "release_version=${VERSION}+1.21.2-build.${{ github.run_number }}" >> $GITHUB_OUTPUT
 
@@ -52,7 +52,7 @@ jobs:
       - name: Collect jars
         run: |
           mkdir -p dist
-          find loaders -path '*/build/libs/*.jar' ! -name '*-sources.jar' -exec cp {} dist/ \;
+          find neoforge fabric -path '*/build/libs/*.jar' ! -name '*-sources.jar' -exec cp {} dist/ \;
           ls dist
 
       - name: Create Tag
