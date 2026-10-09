@@ -9,7 +9,7 @@
   ],
   "client": [
     "MinecraftMixin",
-    "MouseHandlerMixin"${extra_client_mixins}
+    "MouseHandlerMixin"
   ],
   "server": [],
   "injectors": {
