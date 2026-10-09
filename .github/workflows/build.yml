@@ -11,6 +11,7 @@ on:
       - "*.gradle"
       - "gradle.properties"
       - "CHANGELOG.md"
+      - ".github/workflows/build.yml"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -96,6 +97,13 @@ jobs:
           [ -n "$CHANGELOG" ] || CHANGELOG="Construction Wands Revived $MOD_VERSION for Minecraft $MC."
 
           for loader in neoforge fabric; do
+            # A jar that is already on CurseForge (marked with a tag once it was uploaded) is not uploaded again
+            tag="curseforge-$loader-$MC-$MOD_VERSION"
+            if git rev-parse -q --verify "refs/tags/$tag" > /dev/null; then
+              echo "$loader $MC $MOD_VERSION is already on CurseForge (tag $tag), not uploading it again"
+              continue
+            fi
+
             jar=$(ls "$loader"/build/libs/*.jar | grep -v -- '-sources' | head -n1)
             if [ "$loader" = neoforge ]; then loader_name=NeoForge; relations='[]'
             else loader_name=Fabric; relations='[{"slug":"fabric-api","type":"requiredDependency"}]'; fi
@@ -107,7 +115,8 @@ jobs:
               --arg mc "$MC" --arg loader "$loader_name" \
               --argjson relations "$relations" \
               '{changelog: $changelog, changelogType: "markdown", releaseType: $type, displayName: $name,
-                gameVersionNames: [$mc, $loader], relations: {projects: $relations}}')
+                gameVersionNames: [$mc, $loader, "Client", "Server"]}
+              + (if ($relations | length) > 0 then {relations: {projects: $relations}} else {} end)')
 
             echo "Uploading $jar to CurseForge as a $RELEASE_TYPE for $loader_name $MC"
             curl -sS --fail-with-body -X POST \
@@ -115,4 +124,6 @@ jobs:
               -H "X-Api-Token: $CURSEFORGE_TOKEN" \
               -F "metadata=$metadata" -F "file=@$jar"
             echo
+            git tag "$tag"
+            git push origin "$tag"
           done
