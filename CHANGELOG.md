@@ -24,10 +24,6 @@
   toast showed the whole sentence as the title. It also left the Destruction Core name untranslated in
   every language. The title is now "Void Sack" and the sentence is the description.
 
-### Changes
-
-- The files are now named `ConstructionWandsRevived-1.21.1-4.0.7-<NeoForge|Fabric>.jar`.
-
 ## 4.0.7 — Minecraft 1.21.1 / NeoForge and Fabric (Español)
 
 ### Anadido
@@ -53,10 +49,6 @@
   intercambiados, asi que el aviso mostraba la frase completa como titulo. Ademas dejaba sin traducir el
   nombre del Destruction Core en todos los idiomas. Ahora el titulo es "Bolsa del Vacio" y la frase es la
   descripcion.
-
-### Cambios
-
-- Los archivos ahora se llaman `ConstructionWandsRevived-1.21.1-4.0.7-<NeoForge|Fabric>.jar`.
 
 ## 4.0.5 — Minecraft 1.21.1 / NeoForge
 
