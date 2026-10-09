@@ -22,58 +22,30 @@ plugins {
 stonecutter {
     create(rootProject) {
         /**
-         * Creates one node per loader for a Minecraft version: `versions/{version}-{loader}`.
+         * Creates one node per loader for a Minecraft version: `loaders/{loader}`.
          * Every node uses `build.{loader}.gradle.kts` as its build script.
          */
         fun match(version: String, vararg loaders: String) {
             for (loader in loaders) version("$version-$loader", version).buildscript("build.$loader.gradle.kts")
         }
 
-        match("1.21.1", "neoforge", "fabric")
-        match("1.21.2", "neoforge", "fabric")
-        match("1.21.3", "neoforge", "fabric")
-        match("1.21.4", "neoforge", "fabric")
-        match("1.21.5", "neoforge", "fabric")
-        match("1.21.6", "neoforge", "fabric")
         match("1.21.7", "neoforge", "fabric")
-        match("1.21.8", "neoforge", "fabric")
-        match("1.21.9", "neoforge", "fabric")
-        match("1.21.10", "neoforge", "fabric")
-        match("1.21.11", "neoforge", "fabric")
-        match("26.1", "neoforge", "fabric")
-        match("26.1.1", "neoforge", "fabric")
-        match("26.1.2", "neoforge", "fabric")
-        match("26.2", "neoforge", "fabric")
-        match("26.3", "neoforge", "fabric")
 
-        vcsVersion = "1.21.1-neoforge"
+        vcsVersion = "1.21.7-neoforge"
     }
 }
 
 rootProject.name = "Construction-Wands-Revived"
 
-// Stonecutter looks for the shared sources at `../../src` relative to every node. With the nodes nested one level
-// deeper that resolves to `versions/src`, so link it to the real `src` folder (a junction on Windows).
-val sharedSources = file("versions/src")
-if (!sharedSources.exists()) {
-    sharedSources.parentFile.mkdirs()
-    val realSources = file("src")
-    if (System.getProperty("os.name").lowercase().contains("win")) {
-        ProcessBuilder("cmd", "/c", "mklink", "/J", sharedSources.absolutePath, realSources.absolutePath)
-            .redirectErrorStream(true).start().also { it.inputStream.readAllBytes() }.waitFor()
-    } else {
-        java.nio.file.Files.createSymbolicLink(sharedSources.toPath(), realSources.toPath())
-    }
-}
-
-// Group the nodes by Minecraft version: `versions/{version}/{loader}` instead of `versions/{version}-{loader}`
+// Nodes live in `loaders/{loader}`: Stonecutter looks for the shared sources at `../../src` relative to every node.
 for (node in rootProject.children) {
-    val (version, loader) = node.name.split('-', limit = 2)
+    val loader = node.name.substringAfter('-')
     file("versions/${node.name}").delete() // the empty default folder Stonecutter created
-    node.projectDir = file("versions/$version/$loader").also { it.mkdirs() }
+    node.projectDir = file("loaders/$loader").also { it.mkdirs() }
     // Stonecutter points the node at its build script relative to the default directory depth
-    node.buildFileName = "../../../build.$loader.gradle.kts"
+    node.buildFileName = "../../build.$loader.gradle.kts"
 }
+file("versions").delete() // only removed while empty
 
 // Shortcuts: `./gradlew runNeo 1.21.1`, `runFabric 1.21.1`, `runNeoServer 1.21.1`, `runFabricServer 1.21.1`.
 // The version is a plain argument, so it is rewritten into the matching node's run task before Gradle parses it.

@@ -15,12 +15,12 @@ public final class AdvancementCompat {
         return Optional.of(new net.minecraft.core.ClientAsset.ResourceTexture(texture));
     }
     *///?} elif >=1.21.5 {
-    /*public static Optional<net.minecraft.core.ClientAsset> background(ResourceLocation texture) {
+    public static Optional<net.minecraft.core.ClientAsset> background(ResourceLocation texture) {
         return Optional.of(new net.minecraft.core.ClientAsset(texture));
     }
-    *///?} else {
-    public static Optional<ResourceLocation> background(ResourceLocation texture) {
+    //?} else {
+    /*public static Optional<ResourceLocation> background(ResourceLocation texture) {
         return Optional.of(texture);
     }
-    //?}
+    *///?}
 }
