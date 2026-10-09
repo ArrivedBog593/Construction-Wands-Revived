@@ -1,0 +1,132 @@
+plugins {
+    id 'fabric-loom' version '1.18-SNAPSHOT'
+}
+
+// The code and the resources shared by both loaders live in the common folder
+def common = project(':common')
+
+version = "${mcversion}-${mod_version}-${tag_lanzador}"
+base {
+    archivesName = "${mod_named}"
+}
+
+// Minecraft 1.20.1 needs Java 17
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.toVersion(java_version)
+    targetCompatibility = JavaVersion.toVersion(java_version)
+
+    toolchain {
+        vendor = JvmVendorSpec.ADOPTIUM
+        languageVersion = JavaLanguageVersion.of(java_version.toInteger())
+    }
+}
+
+repositories {
+    maven { url = "https://maven.blamejared.com" }
+    maven { url = "https://maven.shedaniel.me" }
+    maven { url = "https://maven.terraformersmc.com/" }
+    maven {
+        url = "https://maven.architectury.dev/"
+        content {
+            includeGroup "dev.architectury"
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${mcversion}"
+    mappings loom.officialMojangMappings()
+
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    // The full Fabric API
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+    // Nullability annotations used by the shared code
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+    compileOnly 'org.jetbrains:annotations:24.1.0'
+
+    // Recipe viewers (compile-only, so the dev environment is not tied to their own dependencies)
+    //jei
+    modCompileOnly "mezz.jei:jei-${mcversion}-common-api:${jei_version}"
+    modCompileOnly "mezz.jei:jei-${mcversion}-fabric-api:${jei_version}"
+
+    //architectury: REI needs it on the compile classpath
+    modCompileOnly "dev.architectury:architectury-fabric:${architectury_version}"
+
+    //rei (Roughly Enough Items)
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
+
+    //emi
+    modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+
+    switch (runtime_itemlist_mod) {
+        case "emi":
+            modRuntimeOnly "dev.emi:emi-fabric:${emi_version}"
+            break
+        case "rei":
+            modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+            modRuntimeOnly "dev.architectury:architectury-fabric:${architectury_version}"
+            modRuntimeOnly "me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}"
+            break
+        case "jei":
+            modRuntimeOnly "mezz.jei:jei-${mcversion}-fabric:${jei_version}"
+            modRuntimeOnly "net.mezzdev.config:mezz_config-${mcversion}-fabric:${mezz_config_version}"
+            break
+    }
+}
+
+loom {
+    runs {
+        client {
+            client()
+            runDir "../run"
+        }
+        server {
+            server()
+            runDir "../run"
+            programArg "--nogui"
+        }
+    }
+}
+
+// The code and the resources shared by both loaders, and the generated data
+sourceSets.main {
+    java.srcDir(common.file('src/main/java'))
+    resources {
+        srcDir(common.file('src/main/resources'))
+        srcDir(common.file('src/generated/resources'))
+    }
+}
+
+// Includes the license file in the built mod
+tasks.withType(Jar).configureEach {
+    from(rootProject.file('LICENSE')) { rename { "${it}-${modid}" } }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+processResources {
+    var replaceProperties = [
+            mod_id               : modid,
+            mod_name             : mod_name,
+            mod_author           : author,
+            version              : mod_version,
+            license              : license,
+            description          : project.description,
+            minecraft_version_range: minecraft_version_range,
+            fabric_loader_version: (fabric_loader_version =~ /\d+\.\d+/)[0],
+            java_version         : java_version,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['fabric.mod.json']) {
+        expand replaceProperties
+    }
+    filesMatching(['*.mixins.json']) {
+        expand java: "JAVA_${java_version}".toString()
+    }
+}
