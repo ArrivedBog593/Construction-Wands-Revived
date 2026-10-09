@@ -1,0 +1,113 @@
+plugins {
+    // This plugin applies the correct loom variant based on the Minecraft version
+    id 'dev.kikugie.loom-back-compat'
+}
+
+// The code and the resources shared by both loaders live in the common folder
+def common = project(':common')
+
+version = "${mcversion}-${mod_version}-${tag_lanzador}"
+base {
+    archivesName = "${mod_named}"
+}
+
+// Minecraft 1.21.7 needs Java 21
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.toVersion(java_version)
+    targetCompatibility = JavaVersion.toVersion(java_version)
+
+    toolchain {
+        vendor = JvmVendorSpec.ADOPTIUM
+        languageVersion = JavaLanguageVersion.of(java_version.toInteger())
+    }
+}
+
+repositories {
+    maven { url = "https://maven.blamejared.com" }
+    maven { url = "https://maven.shedaniel.me" }
+    maven { url = "https://maven.terraformersmc.com/" }
+    maven {
+        url = "https://maven.architectury.dev/"
+        content {
+            includeGroup "dev.architectury"
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${mcversion}"
+    // Applies Mojang Mappings on obfuscated versions
+    loomx.applyMojangMappings()
+
+    // Use `mod{dependency type}` even on 26.1+ - loom-back-compat converts them
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    // The full Fabric API
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+    // Nullability annotations used by the shared code
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+    compileOnly 'org.jetbrains:annotations:24.1.0'
+
+    // Recipe viewers (compile-only, so the dev environment is not tied to their own dependencies)
+    //jei
+    modCompileOnly("mezz.jei:jei-${mcversion}-common-api-intermediary:${jei_version}") { transitive = false }
+    modCompileOnly "mezz.jei:jei-${mcversion}-fabric-api:${jei_version}"
+
+    //rei (Roughly Enough Items)
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
+}
+
+loom {
+    decompilerOptions.named('vineflower') {
+        options.put('mark-corresponding-synthetics', '1') // Adds names to lambdas - useful for mixins
+    }
+
+    runConfigs.configureEach {
+        preferGradleTask = true
+        generateRunConfig = true
+        runDirectory = rootProject.file('run') // Shares the run directory between versions
+    }
+}
+
+// The code and the resources shared by both loaders, and the generated data
+sourceSets.main {
+    java.srcDir(common.file('src/main/java'))
+    resources {
+        srcDir(common.file('src/main/resources'))
+        srcDir(common.file('src/generated/resources'))
+    }
+}
+
+// Includes the license file in the built mod
+tasks.withType(Jar).configureEach {
+    from(rootProject.file('LICENSE')) { rename { "${it}-${modid}" } }
+}
+
+processResources {
+    var replaceProperties = [
+            mod_id               : modid,
+            mod_name             : mod_name,
+            mod_author           : author,
+            version              : mod_version,
+            license              : license,
+            description          : description,
+            minecraft_version    : minecraft_version_range,
+            fabric_loader_version: (fabric_loader_version =~ /\d+\.\d+/)[0],
+            java_version         : java_version,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['fabric.mod.json']) {
+        expand replaceProperties
+    }
+    filesMatching(['*.mixins.json']) {
+        expand java: "JAVA_${java_version}".toString()
+    }
+    filesMatching(['pack.mcmeta']) {
+        expand pack_format: pack_format
+    }
+
+    exclude 'META-INF/neoforge.mods.toml'
+}
