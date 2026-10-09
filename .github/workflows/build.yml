@@ -36,7 +36,7 @@ jobs:
       - name: Read Version
         id: mod_props
         run: |
-          VERSION=$(grep -m1 '^mod.version' gradle.properties | cut -d= -f2 | tr -d " ")
+          VERSION=$(grep -m1 '^mod_version=' gradle.properties | cut -d= -f2 | tr -d " ")
           echo "mod_version=$VERSION" >> $GITHUB_OUTPUT
           echo "release_version=${VERSION}+26.2-build.${{ github.run_number }}" >> $GITHUB_OUTPUT
 
