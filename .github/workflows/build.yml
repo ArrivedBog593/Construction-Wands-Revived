@@ -5,11 +5,12 @@ on:
     branches:
       - "Multi/1.21.10"
     paths:
-      - "src/**"
-      - "generated/**"
-      - "build.*.gradle.kts"
-      - "settings.gradle.kts"
-      - "stonecutter.*"
+      - "common/**"
+      - "neoforge/**"
+      - "fabric/**"
+      - "*.gradle"
+      - "gradle.properties"
+      - "CHANGELOG.md"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,7 +36,7 @@ jobs:
       - name: Read Version
         id: mod_props
         run: |
-          VERSION=$(grep -m1 '^mod.version' stonecutter.properties.toml | cut -d'"' -f2)
+          VERSION=$(grep -m1 '^mod_version=' gradle.properties | cut -d= -f2 | tr -d " ")
           echo "mod_version=$VERSION" >> $GITHUB_OUTPUT
           echo "release_version=${VERSION}+1.21.10-build.${{ github.run_number }}" >> $GITHUB_OUTPUT
 
@@ -52,7 +53,7 @@ jobs:
       - name: Collect jars
         run: |
           mkdir -p dist
-          find loaders -path '*/build/libs/*.jar' ! -name '*-sources.jar' -exec cp {} dist/ \;
+          find neoforge fabric -path '*/build/libs/*.jar' ! -name '*-sources.jar' -exec cp {} dist/ \;
           ls dist
 
       - name: Create Tag
@@ -70,3 +71,48 @@ jobs:
             dist/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Publishes the jars to CurseForge only when the pushed commit message contains [curseforge], optionally with a
+      # release type: [curseforge], [curseforge beta] or [curseforge alpha]. Needs the CURSEFORGE_TOKEN secret and the
+      # CURSEFORGE_PROJECT_ID variable of the repository.
+      - name: Publish to CurseForge
+        if: ${{ contains(github.event.head_commit.message, '[curseforge') }}
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          CURSEFORGE_PROJECT_ID: ${{ vars.CURSEFORGE_PROJECT_ID }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          MOD_VERSION: ${{ steps.mod_props.outputs.mod_version }}
+        run: |
+          set -euo pipefail
+          : "${CURSEFORGE_TOKEN:?Add the CURSEFORGE_TOKEN secret to the repository}"
+          : "${CURSEFORGE_PROJECT_ID:?Add the CURSEFORGE_PROJECT_ID variable to the repository}"
+          MC="1.21.10"
+
+          RELEASE_TYPE=release
+          if [[ "$COMMIT_MESSAGE" =~ \[curseforge\ (alpha|beta|release)\] ]]; then RELEASE_TYPE="${BASH_REMATCH[1]}"; fi
+
+          # The changelog section of this mod version, or a plain line when it has none
+          CHANGELOG=$(awk -v v="$MOD_VERSION" '/^## /{ if (found) exit; if (index($0, "## " v " ") == 1 && $0 !~ /\(Español\)/) found=1 } found' CHANGELOG.md)
+          [ -n "$CHANGELOG" ] || CHANGELOG="Construction Wands Revived $MOD_VERSION for Minecraft $MC."
+
+          for loader in neoforge fabric; do
+            jar=$(ls "$loader"/build/libs/*.jar | grep -v -- '-sources' | head -n1)
+            if [ "$loader" = neoforge ]; then loader_name=NeoForge; relations='[]'
+            else loader_name=Fabric; relations='[{"slug":"fabric-api","type":"requiredDependency"}]'; fi
+
+            metadata=$(jq -nc \
+              --arg changelog "$CHANGELOG" \
+              --arg type "$RELEASE_TYPE" \
+              --arg name "ConstructionWandsRevived $MOD_VERSION ($loader_name $MC)" \
+              --arg mc "$MC" --arg loader "$loader_name" \
+              --argjson relations "$relations" \
+              '{changelog: $changelog, changelogType: "markdown", releaseType: $type, displayName: $name,
+                gameVersionNames: [$mc, $loader], relations: {projects: $relations}}')
+
+            echo "Uploading $jar to CurseForge as a $RELEASE_TYPE for $loader_name $MC"
+            curl -sS --fail-with-body -X POST \
+              "https://minecraft.curseforge.com/api/projects/$CURSEFORGE_PROJECT_ID/upload-file" \
+              -H "X-Api-Token: $CURSEFORGE_TOKEN" \
+              -F "metadata=$metadata" -F "file=@$jar"
+            echo
+          done
