@@ -118,21 +118,6 @@ java {
     }
 }
 
-// Recipe viewer entrypoints, listed only for the viewers this version builds a plugin for.
-def extraEntrypoints = { ->
-    def entries = []
-    if (propOrNull('deps.jei') != null) {
-        entries << '"jei_mod_plugin": ["nadiendev.constructionwand.integrations.jei.ConstructionWandJeiPlugin"]'
-    }
-    if (propOrNull('deps.emi') != null) {
-        entries << '"emi": ["nadiendev.constructionwand.integrations.emi.ConstructionWandEmiPlugin"]'
-    }
-    if (propOrNull('deps.rei') != null) {
-        entries << '"rei_client": ["nadiendev.constructionwand.integrations.rei.ConstructionWandReiPlugin"]'
-    }
-    return entries.collect { ",\n        " + it }.join('')
-}
-
 processResources {
     def props = [
             mod_id               : prop('mod.id'),
@@ -144,20 +129,12 @@ processResources {
             minecraft_version    : prop('mod.mc_compat'),
             fabric_loader_version: (prop('deps.fabric_loader') =~ /\d+\.\d+/)[0],
             java_version         : requiredJava.majorVersion,
-            extra_entrypoints    : extraEntrypoints(),
     ]
     inputs.properties(props)
 
     filesMatching('fabric.mod.json') { expand props }
     filesMatching('pack.mcmeta') { expand pack_format: prop('mod.pack_format') }
-
-    def extraMixins = ''
-    if (mcAtLeast('1.21.4')) extraMixins += ',\n    "SelectItemModelPropertiesMixin"'
-    if (mcAtLeast('1.21.9')) extraMixins += ',\n    "LevelRendererMixin"'
-    inputs.property('extra_client_mixins', extraMixins)
-    filesMatching('*.mixins.json') {
-        expand java: "JAVA_${requiredJava.majorVersion}".toString(), extra_client_mixins: extraMixins
-    }
+    filesMatching('*.mixins.json') { expand java: "JAVA_${requiredJava.majorVersion}".toString() }
 
     exclude 'META-INF/neoforge.mods.toml'
 }
