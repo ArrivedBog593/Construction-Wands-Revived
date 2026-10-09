@@ -160,4 +160,4 @@ Dependency versions are declared in `gradle.properties` (shared), `neoforge/grad
 `common/src/generated/resources`. Recipe viewers (JEI, REI, EMI) and the storage integrations (AE2, Refined Storage,
 Sophisticated Backpacks, Curios) are only built for the loaders they exist for.
 
-Other Minecraft versions live in the `Multi/<version>` branches.
+Other Minecraft versions live in the `multiloader/<version>` branches.
