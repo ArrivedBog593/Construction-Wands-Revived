@@ -5,10 +5,10 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 //? if >=26.2 {
 /*import net.minecraft.client.renderer.SubmitNodeCollector;
 *///?} elif >=1.21.2 {
-/*import net.minecraft.client.renderer.ShapeRenderer;
-*///?} else {
-import net.minecraft.client.renderer.LevelRenderer;
-//?}
+import net.minecraft.client.renderer.ShapeRenderer;
+//?} else {
+/*import net.minecraft.client.renderer.LevelRenderer;
+*///?}
 //? if <26.2
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -125,10 +125,10 @@ public class RenderBlockPreview
             *///?} elif >=1.21.9 {
             /*ShapeRenderer.renderLineBox(ms.last(), lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
             *///?} elif >=1.21.2 {
-            /*ShapeRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
-            *///?} else {
-            LevelRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
-            //?}
+            ShapeRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
+            //?} else {
+            /*LevelRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
+            *///?}
         }
 
         return true;

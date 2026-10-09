@@ -1,5 +1,5 @@
 //? if jei {
-package nadiendev.constructionwand.integrations.jei;
+/*package nadiendev.constructionwand.integrations.jei;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import mezz.jei.api.IModPlugin;
@@ -79,4 +79,4 @@ public class ConstructionWandJeiPlugin implements IModPlugin
                 Component.translatable(baseKey + "void_sack", mKeyComponent));
     }
 }
-//?}
+*///?}

@@ -38,7 +38,7 @@ public class ActionAngel implements IWandAction
         BlockState supportingBlock = world.getBlockState(currentPos);
 
         for(int i = 0; i < limit; i++) {
-            currentPos = currentPos.offset(placeDirection.getOpposite().getNormal());
+            currentPos = currentPos.offset(placeDirection.getOpposite().getUnitVec3i());
 
             PlaceSnapshot snapshot = supplier.getPlaceSnapshot(world, currentPos, rayTraceResult, supportingBlock);
             if(snapshot != null) {
