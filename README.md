@@ -143,20 +143,21 @@ under `src/main/resources/assets/constructionwand/lang/`.
 
 ## Building
 
-Minecraft 26.1.2 and both loaders (NeoForge and Fabric) are built from the shared sources
-in `src/` with [Stonecutter](https://stonecutter.kikugie.dev/). Gradle needs JDK 25; the matching Java toolchain for
-each Minecraft version is picked automatically.
+Minecraft 26.1.2 for NeoForge and Fabric, laid out like the
+[MultiLoader template](https://github.com/jaredlll08/MultiLoader-Template): the code shared by both loaders is in
+`common/`, the loader specific code in `neoforge/` and `fabric/`. Gradle needs JDK 25; the matching Java toolchain is
+picked automatically.
 
 ```
 ./gradlew build                          # both loaders
-./gradlew :26.1.2-neoforge:build         # a single node
-./gradlew runNeo 26.1.2                 # NeoForge client of one version (runNeoServer for a server)
-./gradlew runFabric 26.1.2              # Fabric client of one version (runFabricServer for a server)
+./gradlew :neoforge:build                # a single loader
+./gradlew :neoforge:runClient            # NeoForge client (runServer for a server)
+./gradlew :fabric:runClient              # Fabric client (runServer for a server)
 ```
 
-Versions and dependency versions are declared in `stonecutter.properties.toml`, the nodes live in
-`loaders/<loader>`, and the generated recipes, advancements, models and language files of each
-version are in `generated/<minecraft version>`. Recipe viewers (JEI, REI, EMI) and the storage integrations
-(AE2, Refined Storage, Sophisticated Backpacks, Curios) are only built for the versions and loaders they exist for.
+Dependency versions are declared in `gradle.properties` (shared), `neoforge/gradle.properties` and
+`fabric/gradle.properties`. The generated recipes, advancements, models and language files are in
+`common/src/generated/resources`. Recipe viewers (JEI, REI, EMI) and the storage integrations (AE2, Refined Storage,
+Sophisticated Backpacks, Curios) are only built for the loaders they exist for.
 
-Other Minecraft versions live in the `Multi/<version>` branches (all of them in `Chore/MultiLoader`).
+Other Minecraft versions live in the `Multi/<version>` branches.
