@@ -12,22 +12,22 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 //? if >=1.21.4
-//import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
+import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
 
 //? if >=1.21.6 {
-/*@EventBusSubscriber(modid = ConstructionWand.MODID, value = Dist.CLIENT)
-*///?} else {
-@EventBusSubscriber(modid = ConstructionWand.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-//?}
+@EventBusSubscriber(modid = ConstructionWand.MODID, value = Dist.CLIENT)
+//?} else {
+/*@EventBusSubscriber(modid = ConstructionWand.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+*///?}
 public class ClientHandler {
 
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {
         ConstructionWand.instance.renderBlockPreview = new RenderBlockPreview();
         //? if <1.21.4 {
-        // ItemProperties#register is not thread-safe, must run inside enqueueWork
+        /*// ItemProperties#register is not thread-safe, must run inside enqueueWork
         event.enqueueWork(SelectWandCore::register);
-        //?}
+        *///?}
     }
 
     @SubscribeEvent
@@ -40,11 +40,11 @@ public class ClientHandler {
     }
 
     //? if >=1.21.4 {
-    /*@SubscribeEvent
+    @SubscribeEvent
     public static void registerModelProperties(RegisterSelectItemModelPropertyEvent event) {
         event.register(SelectWandCore.ID, SelectWandCore.TYPE);
     }
-    *///?}
+    //?}
 
     @SubscribeEvent
     public static void registerMenuScreens(RegisterMenuScreensEvent event) {
