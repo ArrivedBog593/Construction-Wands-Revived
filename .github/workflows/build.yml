@@ -108,7 +108,8 @@ jobs:
               --arg mc "$MC" --arg loader "$loader_name" \
               --argjson relations "$relations" \
               '{changelog: $changelog, changelogType: "markdown", releaseType: $type, displayName: $name,
-                gameVersionNames: [$mc, $loader], relations: {projects: $relations}}')
+                gameVersionNames: [$mc, $loader]}
+              + (if ($relations | length) > 0 then {relations: {projects: $relations}} else {} end)')
 
             echo "Uploading $jar to CurseForge as a $RELEASE_TYPE for $loader_name $MC"
             curl -sS --fail-with-body -X POST \
