@@ -1,5 +1,5 @@
 //? if neoforge && refinedstorage {
-package nadiendev.constructionwand.containers.handlers;
+/*package nadiendev.constructionwand.containers.handlers;
 
 import com.refinedmods.refinedstorage.api.core.Action;
 import com.refinedmods.refinedstorage.api.network.Network;
@@ -15,7 +15,7 @@ import com.refinedmods.refinedstorage.common.grid.WirelessGridItem;
 import com.refinedmods.refinedstorage.common.support.resource.ItemResource;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -40,7 +40,7 @@ public class HandlerWirelessGrid implements IContainerHandler {
         int x = pos.pos().getX();
         int y = pos.pos().getY();
         int z = pos.pos().getZ();
-        String dim = pos.dimension().location().toString();
+        String dim = pos.dimension().identifier().toString();
         return (x * 31 + y * 17 + z) ^ dim.hashCode();
     }
 
@@ -165,8 +165,8 @@ public class HandlerWirelessGrid implements IContainerHandler {
 
     private boolean isCreativeWirelessGrid(ItemStack stack) {
         Item item = stack.getItem();
-        ResourceLocation location = BuiltInRegistries.ITEM.getKey(item);
+        Identifier location = BuiltInRegistries.ITEM.getKey(item);
         return location != null && location.toString().equals("refinedstorage:creative_wireless_grid");
     }
 }
-//?}
+*///?}

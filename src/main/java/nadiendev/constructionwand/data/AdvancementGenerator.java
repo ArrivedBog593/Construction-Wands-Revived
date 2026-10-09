@@ -1,5 +1,5 @@
 //? if neo_legacy_items {
-package nadiendev.constructionwand.data;
+/*package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.items.ModItems;
@@ -12,7 +12,7 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
@@ -70,7 +70,7 @@ public class AdvancementGenerator extends AdvancementProvider {
                     .save(consumer, rootID(path));
         }
 
-        private static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {
+        private static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, Identifier background) {
             return new DisplayInfo(
                     new ItemStack(icon),
                     Component.translatable(titleKey),
@@ -96,13 +96,13 @@ public class AdvancementGenerator extends AdvancementProvider {
             return modLoc(name).toString();
         }
 
-        private static ResourceLocation modLoc(String path) {
+        private static Identifier modLoc(String path) {
             return ConstructionWand.loc(path);
         }
 
-        private static ResourceLocation mcLoc(String path) {
-            return ResourceLocation.withDefaultNamespace(path);
+        private static Identifier mcLoc(String path) {
+            return Identifier.withDefaultNamespace(path);
         }
     }
 }
-//?}
+*///?}

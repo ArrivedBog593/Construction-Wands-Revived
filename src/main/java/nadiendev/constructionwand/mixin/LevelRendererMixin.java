@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.LevelRenderer;
 ^///?} else {
 import net.minecraft.client.renderer.MultiBufferSource;
 //?}
-import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.world.phys.BlockHitResult;
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.client.RenderBlockPreview;

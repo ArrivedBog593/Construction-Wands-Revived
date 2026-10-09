@@ -51,9 +51,9 @@ public class ConstructionWandFabric implements ModInitializer {
     private static <T extends CustomPacketPayload> void registerPacket(ModMessages.Definition<T> definition) {
         if (definition.toClient()) {
             // The client side receiver is registered by ConstructionWandFabricClient
-            PayloadTypeRegistry.playS2C().register(definition.type(), definition.codec());
+            PayloadTypeRegistry.clientboundPlay().register(definition.type(), definition.codec());
         } else {
-            PayloadTypeRegistry.playC2S().register(definition.type(), definition.codec());
+            PayloadTypeRegistry.serverboundPlay().register(definition.type(), definition.codec());
             ServerPlayNetworking.registerGlobalReceiver(definition.type(), (payload, context) ->
                     definition.handler().accept(payload, new FabricPayloadContext(
                             context.player(), context.server(), reason -> context.responseSender().disconnect(reason))));
