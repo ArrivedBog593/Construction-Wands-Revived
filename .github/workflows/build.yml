@@ -8,7 +8,7 @@ on:
       - "common/**"
       - "neoforge/**"
       - "fabric/**"
-      - "*.gradle.kts"
+      - "*.gradle"
       - "gradle.properties"
 jobs:
   build:
