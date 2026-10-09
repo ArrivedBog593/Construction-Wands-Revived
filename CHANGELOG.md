@@ -1,6 +1,70 @@
 # Changelog
 
-## 4.0.5 — Minecraft 1.21.1 / NeoForge
+## 4.0.7 — Minecraft 26.1.2 / NeoForge and Fabric
+
+### Additions
+
+- **Fabric build for Minecraft 26.1.2.** This version now ships a NeoForge jar and a Fabric
+  jar built from the same code. The Fabric build supports the recipe viewers (JEI, REI, EMI) that exist
+  for this version. The integrations with other mods (storage mods, Curios, Botania) are NeoForge only.
+
+- **Botania Revived support is back** (NeoForge): the Black Hole Talisman and the Rod of the Lands and
+  Depths supply blocks to the wand, consuming one block per placement.
+
+- **The Exchange Core now has an advancement.** It was the only core without one.
+
+### Fixes
+
+- **The Destruction core captures drops with the Void Sack again.** The sack is found anywhere in the
+  inventory, not only in your hand. An active sack stores the drops, or sends them to its linked
+  container. An inactive sack that is linked to a container still sends to it. Without either, the
+  drops go straight to your inventory.
+
+- **The Void Sack advancement showed the wrong text.** Its title and description were swapped, so the
+  toast showed the whole sentence as the title. It also left the Destruction Core name untranslated in
+  every language. The title is now "Void Sack" and the sentence is the description.
+
+- **The Fabric mixin configuration was malformed.** The extra client mixins were joined with a literal
+  `\n` instead of a line break, which is not valid JSON.
+
+### Changes
+
+- The files are now named `ConstructionWandsRevived-26.1.2-4.0.7-<NeoForge|Fabric>.jar`.
+
+## 4.0.7 — Minecraft 26.1.2 / NeoForge and Fabric (Español)
+
+### Anadido
+
+- **Build de Fabric para Minecraft 26.1.2.** Esta version trae ahora un jar de NeoForge y
+  otro de Fabric hechos con el mismo codigo. El build de Fabric soporta los visores de recetas (JEI, REI,
+  EMI) que existen para esta version. Las integraciones con otros mods (mods de almacenamiento, Curios,
+  Botania) son solo de NeoForge.
+
+- **Vuelve el soporte de Botania Revived** (NeoForge): el Black Hole Talisman y la Rod of the Lands y
+  Depths suministran bloques a la varita, consumiendo un bloque por colocacion.
+
+- **El Nucleo de Intercambio ahora tiene avance.** Era el unico nucleo que no tenia.
+
+### Corregido
+
+- **El nucleo de Destruccion vuelve a capturar los drops con la Bolsa del Vacio.** La bolsa se encuentra
+  en cualquier parte del inventario, no solo en la mano. Una bolsa activa guarda los drops, o los envia a
+  su contenedor vinculado. Una bolsa inactiva vinculada a un contenedor sigue enviando a el. Sin ninguna
+  de las dos cosas, los drops van directo al inventario.
+
+- **El avance de la Bolsa del Vacio mostraba el texto equivocado.** El titulo y la descripcion estaban
+  intercambiados, asi que el aviso mostraba la frase completa como titulo. Ademas dejaba sin traducir el
+  nombre del Destruction Core en todos los idiomas. Ahora el titulo es "Bolsa del Vacio" y la frase es la
+  descripcion.
+
+- **La configuracion de mixins de Fabric estaba mal formada.** Los mixins extra del cliente se unian con
+  un `\n` literal en vez de un salto de linea, lo cual no es JSON valido.
+
+### Cambios
+
+- Los archivos ahora se llaman `ConstructionWandsRevived-26.1.2-4.0.7-<NeoForge|Fabric>.jar`.
+
+## 4.0.5 — Minecraft 26.1 / NeoForge
 
 ### Additions
 
@@ -31,10 +95,6 @@
   prediction that makes those mods refresh their model data. The wand now tells the client which
   positions to refresh, retrying for the block entities the client has not created yet.
 
-- **The wand preview did not appear when pointing at a drawer.** Titanium, the library behind
-  Functional Storage, cancels the block highlight event on its own blocks to draw its per-slot
-  outline, and the preview handler was not receiving canceled events, so it never ran.
-
 - **The golden wand had no translation.** Its name showed as `item.constructionwand.gold_wand`
   and it had no advancement, in every language.
 
@@ -50,6 +110,8 @@
 
 - **JEI updated to the latest build for this Minecraft version.**
 
+- **Minimum NeoForge raised to what the bundled JEI requires:** NeoForge `26.1.2.99` / JEI `29.37.0.99`.
+
 ### Documentation
 
 - The README wand table was missing wood, gold and, in some versions, netherite, and several of its
@@ -59,7 +121,7 @@
 
 ---
 
-## 4.0.5 — Minecraft 1.21.1 / NeoForge (Español)
+## 4.0.5 — Minecraft 26.1 / NeoForge (Español)
 
 ### Anadido
 
@@ -91,11 +153,6 @@
   que hace que esos mods refresquen su model data. Ahora la varita le indica al cliente que
   posiciones refrescar, reintentando con los block entities que el cliente todavia no creo.
 
-- **El preview de la varita no aparecia al apuntar a un cajon.** Titanium, la libreria sobre la que
-  esta hecho Functional Storage, cancela el evento de resaltado en sus bloques para dibujar su
-  propio recuadro de slots, y nuestro handler no recibia eventos cancelados, asi que nunca llegaba
-  a ejecutarse.
-
 - **La varita dorada no tenia traduccion.** Su nombre salia como `item.constructionwand.gold_wand`
   y no tenia avance, en todos los idiomas.
 
@@ -112,6 +169,8 @@
 
 - **JEI actualizado a la ultima build para esta version de Minecraft.**
 
+- **NeoForge minimo subido al que exige el JEI que acompana esta version:** NeoForge `26.1.2.99` / JEI `29.37.0.99`.
+
 ### Documentacion
 
 - La tabla de varitas del README no incluia madera, oro ni, en algunas versiones, netherita, y
@@ -121,7 +180,7 @@
 
 ---
 
-## 4.0.4 — Minecraft 1.21.1 / NeoForge
+## 4.0.4 — Minecraft 26.1 / NeoForge
 
 ### Changes
 
@@ -143,7 +202,7 @@
 
 ---
 
-## 4.0.4 — Minecraft 1.21.1 / NeoForge (Español)
+## 4.0.4 — Minecraft 26.1 / NeoForge (Español)
 
 ### Cambios
 
@@ -165,3 +224,54 @@
 
 ---
 
+## 4.0.3 — Minecraft 26.1 / NeoForge
+
+### Additions
+
+- **AE2 Wireless Terminal Library support.** Wands can now pull blocks straight from the terminals added by AE2WTLib (wireless terminal, crafting terminal, pattern terminal, universal terminal...), the same way they already worked with the vanilla AE2 wireless terminal. The integration only loads when `ae2wtlib` is present, so nothing changes if you don't have the mod.
+- The AE2WTLib API is now a proper build dependency (`de.mari_023:ae2wtlib_api`), which is what makes the above integration actually ship.
+
+### Fixes
+
+- **Wand cores showed raw translation keys in the tooltip.** With Shift held, the core list read `constructionwand.option.cores.CoreDefault`, `...ItemCoreDestruction`, `...ItemCoreExchange` instead of their names. The tooltip was building the key from the Java class name rather than the core's registry name, so it never matched any language file.
+- **The wand tooltip was printed twice.** The whole block (Restriction, Direction, Replacement, Matching, Random, plus the core list) was added both by the item itself and by a client tooltip event, so it appeared a second time below the item ID line.
+
+### Translations
+
+All 14 languages are now at parity — same 116 keys everywhere. Filled in what was missing:
+
+| Language | Added |
+|---|---|
+| Spanish (CL) | 16 advancements + the full Void Sack set (32 keys) |
+| Spanish (CO) | the full Void Sack set (16 keys) |
+| Portuguese (BR) | 16 advancements + Void Sack guide entry (17 keys) |
+| Spanish (ES, MX), Japanese, Korean, Russian | Void Sack guide entry |
+
+Spanish (AR), German, Swedish, Turkish and Chinese (Simplified) were already complete.
+
+---
+
+## 4.0.3 — Minecraft 26.1 / NeoForge (Español)
+
+### Añadido
+
+- **Compatibilidad con AE2 Wireless Terminal Library.** Las varitas ya pueden sacar bloques directamente de las terminales que añade AE2WTLib (terminal inalámbrica, de fabricación, de patrones, universal...), igual que ya funcionaba con la terminal inalámbrica de AE2. La integración solo se carga si `ae2wtlib` está instalado, así que nada cambia si no tienes el mod.
+- La API de AE2WTLib pasa a ser una dependencia real de compilación (`de.mari_023:ae2wtlib_api`), que es lo que hace que la integración anterior llegue realmente al jar.
+
+### Corregido
+
+- **Los núcleos mostraban la clave de traducción en cruda en el tooltip.** Con Shift pulsado, la lista de núcleos ponía `constructionwand.option.cores.CoreDefault`, `...ItemCoreDestruction`, `...ItemCoreExchange` en vez de sus nombres. El tooltip construía la clave a partir del nombre de la clase Java y no del nombre de registro del núcleo, así que nunca coincidía con ningún archivo de idioma.
+- **El tooltip de la varita salía duplicado.** El bloque entero (Restricción, Dirección, Reemplazo, Coincidencia, Aleatorio y la lista de núcleos) lo añadían tanto el propio ítem como un evento de tooltip del cliente, y aparecía otra vez debajo de la línea del ID del ítem.
+
+### Traducciones
+
+Los 14 idiomas quedan igualados: las mismas 116 claves en todos. Se completó lo que faltaba:
+
+| Idioma | Añadido |
+|---|---|
+| Español (CL) | 16 logros + todo el bloque de la Bolsa del Vacío (32 claves) |
+| Español (CO) | todo el bloque de la Bolsa del Vacío (16 claves) |
+| Portugués (BR) | 16 logros + entrada de guía de la Bolsa del Vacío (17 claves) |
+| Español (ES, MX), japonés, coreano, ruso | entrada de guía de la Bolsa del Vacío |
+
+Español (AR), alemán, sueco, turco y chino simplificado ya estaban completos.
