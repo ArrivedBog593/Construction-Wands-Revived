@@ -26,8 +26,8 @@ def mcAtLeast = { String other ->
 def common = project(':common')
 
 // DO NOT set group = ...!
-version = "${prop('mod.version')}+${mc}".toString()
-base.archivesName = "${prop('mod.id')}-fabric".toString()
+version = "${mc}-${prop('mod.version')}-Fabric".toString()
+base.archivesName = prop('mod.named')
 
 def requiredJava = mcAtLeast('26.1') ? JavaVersion.VERSION_25
         : mcAtLeast('1.20.5') ? JavaVersion.VERSION_21
