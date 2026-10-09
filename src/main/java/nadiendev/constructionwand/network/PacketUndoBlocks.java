@@ -5,7 +5,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import nadiendev.constructionwand.ConstructionWand;
 
 import java.util.HashSet;
@@ -18,7 +18,7 @@ public record PacketUndoBlocks(HashSet<BlockPos> undoBlocks) implements CustomPa
     public static final StreamCodec<FriendlyByteBuf, PacketUndoBlocks> CODEC = CustomPacketPayload.codec(
             PacketUndoBlocks::encode,
             PacketUndoBlocks::new);
-    public static final Type<PacketUndoBlocks> ID = new Type<>(ResourceLocation.fromNamespaceAndPath(MODID, "undo_blocks"));
+    public static final Type<PacketUndoBlocks> ID = new Type<>(Identifier.fromNamespaceAndPath(MODID, "undo_blocks"));
 
     public PacketUndoBlocks(FriendlyByteBuf buffer) {
         this(getSet(buffer));

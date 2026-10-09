@@ -3,7 +3,7 @@ package nadiendev.constructionwand.network;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import nadiendev.constructionwand.ConstructionWand;
@@ -13,7 +13,7 @@ public record PacketToggleVoidSack(InteractionHand hand) implements CustomPacket
 {
     public static final CustomPacketPayload.Type<PacketToggleVoidSack> TYPE =
             new CustomPacketPayload.Type<>(
-                    ResourceLocation.fromNamespaceAndPath(ConstructionWand.MODID, "toggle_void_sack"));
+                    Identifier.fromNamespaceAndPath(ConstructionWand.MODID, "toggle_void_sack"));
 
     public static final StreamCodec<FriendlyByteBuf, PacketToggleVoidSack> CODEC =
             StreamCodec.composite(

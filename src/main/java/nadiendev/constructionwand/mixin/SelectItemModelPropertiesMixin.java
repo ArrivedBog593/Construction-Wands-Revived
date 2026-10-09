@@ -3,7 +3,7 @@
 
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 import nadiendev.constructionwand.client.property.SelectWandCore;
 import org.spongepowered.asm.mixin.Final;
@@ -19,7 +19,7 @@ public abstract class SelectItemModelPropertiesMixin {
 
     @Shadow
     @Final
-    private static ExtraCodecs.LateBoundIdMapper<ResourceLocation, SelectItemModelProperty.Type<?, ?>> ID_MAPPER;
+    private static ExtraCodecs.LateBoundIdMapper<Identifier, SelectItemModelProperty.Type<?, ?>> ID_MAPPER;
 
     @Inject(method = "bootstrap", at = @At("TAIL"))
     private static void constructionwand$registerWandCore(CallbackInfo ci) {

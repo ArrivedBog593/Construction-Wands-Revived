@@ -9,13 +9,13 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 //? if <1.21.2
-import net.minecraft.world.InteractionResultHolder;
+//import net.minecraft.world.InteractionResultHolder;
 
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -125,14 +125,14 @@ public class ItemVoidSack extends Item
     }
 
     @Nullable
-    public static ResourceLocation getLinkedDim(ItemStack sack) {
+    public static Identifier getLinkedDim(ItemStack sack) {
         CompoundTag tag = getData(sack);
         if (!NbtCompat.has(tag, TAG_LINKED_DIM, Tag.TAG_STRING)) return null;
-        return ResourceLocation.tryParse(NbtCompat.str(tag, TAG_LINKED_DIM));
+        return Identifier.tryParse(NbtCompat.str(tag, TAG_LINKED_DIM));
     }
 
     public static void setLinkedPos(ItemStack sack, @Nullable BlockPos pos,
-                                    @Nullable ResourceLocation dim) {
+                                    @Nullable Identifier dim) {
         CompoundTag tag = getData(sack).copy();
         if (pos == null) {
             tag.remove(TAG_LINKED_POS);
@@ -206,8 +206,8 @@ public class ItemVoidSack extends Item
         BlockPos pos = getLinkedPos(sack);
         if (pos == null) return toInsert.getCount();
 
-        ResourceLocation dim = getLinkedDim(sack);
-        if (dim != null && !dim.equals(level.dimension().location()))
+        Identifier dim = getLinkedDim(sack);
+        if (dim != null && !dim.equals(level.dimension().identifier()))
             return toInsert.getCount();
 
         BlockEntity be = level.getBlockEntity(pos);
@@ -239,7 +239,7 @@ public class ItemVoidSack extends Item
             if (be != null) {
                 IItemInventory handler = Services.PLATFORM.getBlockInventory(level, pos, be);
                 if (handler != null) {
-                    ResourceLocation dim = level.dimension().location();
+                    Identifier dim = level.dimension().identifier();
                     setLinkedPos(sack, pos, dim);
                     if (player instanceof ServerPlayer sp) {
                         sp.sendSystemMessage(Component.translatable(
@@ -255,15 +255,15 @@ public class ItemVoidSack extends Item
     }
 
     //? if >=1.21.2 {
-    /*@Override
+    @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             openGui(serverPlayer, hand);
         }
         return InteractionResult.SUCCESS;
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack sack = player.getItemInHand(hand);
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
@@ -271,7 +271,7 @@ public class ItemVoidSack extends Item
         }
         return InteractionResultHolder.sidedSuccess(sack, level.isClientSide());
     }
-    //?}
+    *///?}
 
     public static void openGui(ServerPlayer player, InteractionHand hand) {
         Services.PLATFORM.openMenu(player, new MenuProvider() {
@@ -290,21 +290,21 @@ public class ItemVoidSack extends Item
     // ─── Tooltip ──────────────────────────────────────────────────────────────
 
     //? if >=1.21.5 {
-    /*@Override
+    @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
                                 java.util.function.Consumer<Component> consumer, TooltipFlag flag) {
         List<Component> lines = new java.util.ArrayList<>();
         collectTooltip(stack, lines);
         lines.forEach(consumer);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public void appendHoverText(ItemStack stack, TooltipContext context,
                                 List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
         collectTooltip(stack, tooltip);
     }
-    //?}
+    *///?}
 
     private void collectTooltip(ItemStack stack, List<Component> tooltip) {
 

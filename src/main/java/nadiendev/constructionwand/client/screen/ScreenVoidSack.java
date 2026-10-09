@@ -1,9 +1,9 @@
 package nadiendev.constructionwand.client.screen;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import nadiendev.constructionwand.ConstructionWand;
@@ -14,8 +14,8 @@ import java.util.List;
 
 public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
 {
-    private static final ResourceLocation TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(ConstructionWand.MODID, "textures/gui/sprites/basket_4x4.png");
+    private static final Identifier TEXTURE =
+            Identifier.fromNamespaceAndPath(ConstructionWand.MODID, "textures/gui/sprites/basket_4x4.png");
 
     private static final int GUI_WIDTH  = 176;
     private static final int GUI_HEIGHT = 192;
@@ -30,25 +30,25 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
 
     public ScreenVoidSack(MenuVoidSack menu, Inventory playerInv, Component title) {
         //? if >=26.1 {
-        /*super(menu, playerInv, title, GUI_WIDTH, GUI_HEIGHT);
-        *///?} else {
-        super(menu, playerInv, title);
+        super(menu, playerInv, title, GUI_WIDTH, GUI_HEIGHT);
+        //?} else {
+        /*super(menu, playerInv, title);
         this.imageWidth      = GUI_WIDTH;
         this.imageHeight     = GUI_HEIGHT;
-        //?}
+        *///?}
         this.sendToContainer = menu.isSendToContainer();
         this.hasLinked       = menu.hasLinkedContainer();
     }
 
     //? if >=26.1 {
-    /*@Override
-    public void extractBackground(GuiGraphics gfx, int mouseX, int mouseY, float partialTick) {
+    @Override
+    public void extractBackground(GuiGraphicsExtractor gfx, int mouseX, int mouseY, float partialTick) {
         super.extractBackground(gfx, mouseX, mouseY, partialTick);
         gfx.blit(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
     }
 
     @Override
-    public void extractRenderState(GuiGraphics gfx, int mouseX, int mouseY, float partialTick) {
+    public void extractRenderState(GuiGraphicsExtractor gfx, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(gfx, mouseX, mouseY, partialTick);
 
         if (hasLinked && isOverButton(mouseX, mouseY)) {
@@ -59,7 +59,7 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
     }
 
     @Override
-    protected void extractLabels(GuiGraphics gfx, int mouseX, int mouseY) {
+    protected void extractLabels(GuiGraphicsExtractor gfx, int mouseX, int mouseY) {
         gfx.text(font, title, titleLabelX, titleLabelY, 0xFF404040, false);
         gfx.text(font, playerInventoryTitle, 8, 100, 0xFF404040, false);
 
@@ -70,9 +70,9 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
             gfx.text(font, statusLabel, 8, GUI_HEIGHT - 6, 0xFF404040, false);
         }
     }
-    *///?} else {
-    @Override
-    public void render(GuiGraphics gfx, int mouseX, int mouseY, float partialTick) {
+    //?} else {
+    /*@Override
+    public void render(GuiGraphicsExtractor gfx, int mouseX, int mouseY, float partialTick) {
         renderBackground(gfx, mouseX, mouseY, partialTick);
         super.render(gfx, mouseX, mouseY, partialTick);
         renderTooltip(gfx, mouseX, mouseY);
@@ -81,26 +81,26 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
             Component tooltipText = Component.translatable("gui.constructionwand.void_sack.toggle_tooltip");
             List<FormattedCharSequence> lines = font.split(tooltipText, 150);
             //? if >=1.21.6 {
-            /*gfx.setTooltipForNextFrame(lines, mouseX, mouseY);
-            *///?} else {
-            gfx.renderTooltip(font, lines, mouseX, mouseY);
-            //?}
+            gfx.setTooltipForNextFrame(lines, mouseX, mouseY);
+            //?} else {
+            /^gfx.renderTooltip(font, lines, mouseX, mouseY);
+            ^///?}
         }
     }
 
     @Override
-    protected void renderBg(GuiGraphics gfx, float partialTick, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphicsExtractor gfx, float partialTick, int mouseX, int mouseY) {
         //? if >=1.21.6 {
-        /*gfx.blit(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
-        *///?} elif >=1.21.2 {
-        /*gfx.blit(net.minecraft.client.renderer.RenderType::guiTextured, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
-        *///?} else {
-        gfx.blit(TEXTURE, leftPos, topPos, 0, 0, GUI_WIDTH, GUI_HEIGHT);
-        //?}
+        gfx.blit(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
+        //?} elif >=1.21.2 {
+        /^gfx.blit(net.minecraft.client.renderer.rendertype.RenderType::guiTextured, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
+        ^///?} else {
+        /^gfx.blit(TEXTURE, leftPos, topPos, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+        ^///?}
     }
 
     @Override
-    protected void renderLabels(GuiGraphics gfx, int mouseX, int mouseY) {
+    protected void renderLabels(GuiGraphicsExtractor gfx, int mouseX, int mouseY) {
         gfx.drawString(font, title, titleLabelX, titleLabelY, 0x404040, false);
         gfx.drawString(font, playerInventoryTitle, 8, 100, 0x404040, false);
 
@@ -111,10 +111,10 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
             gfx.drawString(font, statusLabel, 8, GUI_HEIGHT - 6, 0x404040, false);
         }
     }
-    //?}
+    *///?}
 
     //? if >=1.21.9 {
-    /*@Override
+    @Override
     public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent event, boolean doubleClick) {
         if (event.button() == 0 && hasLinked && isOverButton((int) event.x(), (int) event.y())) {
             PacketToggleVoidSack.send(menu.getHand());
@@ -123,8 +123,8 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
         }
         return super.mouseClicked(event, doubleClick);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == 0 && hasLinked && isOverButton((int) mouseX, (int) mouseY)) {
             PacketToggleVoidSack.send(menu.getHand());
@@ -133,7 +133,7 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }
-    //?}
+    *///?}
 
     private boolean isOverButton(int mouseX, int mouseY) {
         int bx = leftPos + TOGGLE_BTN_X;

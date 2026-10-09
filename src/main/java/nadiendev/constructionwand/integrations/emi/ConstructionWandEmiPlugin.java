@@ -1,5 +1,5 @@
 //? if emi {
-package nadiendev.constructionwand.integrations.emi;
+/*package nadiendev.constructionwand.integrations.emi;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.emi.emi.api.EmiPlugin;
@@ -10,7 +10,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import nadiendev.constructionwand.registry.RegistryObject;
 import nadiendev.constructionwand.ConstructionWand;
@@ -65,7 +65,7 @@ public class ConstructionWandEmiPlugin implements EmiPlugin
     }
 
     private void addInfo(EmiRegistry registry, Item item, Component text) {
-        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(item);
+        Identifier itemId = BuiltInRegistries.ITEM.getKey(item);
         if(itemId == null) return;
 
         registry.addRecipe(new EmiInfoRecipe(
@@ -74,4 +74,4 @@ public class ConstructionWandEmiPlugin implements EmiPlugin
                 ConstructionWand.loc("info/" + itemId.getPath())));
     }
 }
-//?}
+*///?}

@@ -1,6 +1,6 @@
 package nadiendev.constructionwand.items.core;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.api.IWandAction;
 import nadiendev.constructionwand.wand.action.ActionDestruction;
@@ -22,7 +22,7 @@ public class ItemCoreDestruction extends ItemCore
     }
 
     @Override
-    public ResourceLocation getRegistryName() {
+    public Identifier getRegistryName() {
         return ConstructionWand.loc("core_destruction");
     }
 }
