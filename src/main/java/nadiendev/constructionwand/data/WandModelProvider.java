@@ -1,5 +1,5 @@
 //? if neo_client_items {
-/*package nadiendev.constructionwand.data;
+package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.client.property.SelectWandCore;
@@ -23,7 +23,7 @@ import net.minecraft.world.item.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-/^* Generates the item model definitions; wands switch their model by the installed core. ^/
+/** Generates the item model definitions; wands switch their model by the installed core. */
 public class WandModelProvider extends ModelProvider {
 
     private static final ModelTemplate TWO_LAYERED_HANDHELD =
@@ -54,9 +54,9 @@ public class WandModelProvider extends ModelProvider {
         for (String core : List.of("core_angel", "core_destruction", "core_exchange")) {
             ResourceLocation model = TWO_LAYERED_HANDHELD.create(location.withSuffix("_" + core),
                     //? if >=26.1 {
-                    /^TextureMapping.layered(new net.minecraft.client.resources.model.sprite.Material(location),
+                    /*TextureMapping.layered(new net.minecraft.client.resources.model.sprite.Material(location),
                             new net.minecraft.client.resources.model.sprite.Material(overlay))
-                    ^///?} else {
+                    *///?} else {
                     TextureMapping.layered(location, overlay)
                     //?}
                     , itemModels.modelOutput);
@@ -66,4 +66,4 @@ public class WandModelProvider extends ModelProvider {
         itemModels.itemModelOutput.accept(wand, ItemModelUtils.select(new SelectWandCore(), base, cases));
     }
 }
-*///?}
+//?}

@@ -71,19 +71,19 @@ public class RecipeWandUpgrade extends CustomRecipe
     }
 
     //? if <1.21.2 {
-    @Override
+    /*@Override
     public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 2;
     }
-    //?}
+    *///?}
 
     @Nonnull
     @Override
     //? if >=1.21.2 {
-    /*public RecipeSerializer<? extends CustomRecipe> getSerializer() {
-    *///?} else {
-    public RecipeSerializer<?> getSerializer() {
-    //?}
+    public RecipeSerializer<? extends CustomRecipe> getSerializer() {
+    //?} else {
+    /*public RecipeSerializer<?> getSerializer() {
+    *///?}
         return ModRecipes.WAND_UPGRADE.get();
     }
 }

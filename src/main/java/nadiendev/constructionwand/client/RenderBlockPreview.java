@@ -5,10 +5,10 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 //? if >=26.2 {
 /*import net.minecraft.client.renderer.SubmitNodeCollector;
 *///?} elif >=1.21.2 {
-/*import net.minecraft.client.renderer.ShapeRenderer;
-*///?} else {
-import net.minecraft.client.renderer.LevelRenderer;
-//?}
+import net.minecraft.client.renderer.ShapeRenderer;
+//?} else {
+/*import net.minecraft.client.renderer.LevelRenderer;
+*///?}
 //? if <26.2
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -97,18 +97,18 @@ public class RenderBlockPreview
         double d1 = camera.position().y();
         double d2 = camera.position().z();
         *///?} elif >=1.21.9 {
-        /*VertexConsumer lineBuilder = buffer.getBuffer(RenderType.lines());
+        VertexConsumer lineBuilder = buffer.getBuffer(RenderType.lines());
 
         double d0 = camera.position().x();
         double d1 = camera.position().y();
         double d2 = camera.position().z();
-        *///?} else {
-        VertexConsumer lineBuilder = buffer.getBuffer(RenderType.LINES);
+        //?} else {
+        /*VertexConsumer lineBuilder = buffer.getBuffer(RenderType.LINES);
 
         double d0 = player.xOld + (player.getX() - player.xOld) * partialTicks;
         double d1 = player.yOld + player.getEyeHeight() + (player.getY() - player.yOld) * partialTicks;
         double d2 = player.zOld + (player.getZ() - player.zOld) * partialTicks;
-        //?}
+        *///?}
 
         for(BlockPos block : blocks) {
             AABB aabb = new AABB(block).move(-d0, -d1, -d2);
@@ -123,12 +123,12 @@ public class RenderBlockPreview
             /*ShapeRenderer.renderShape(ms, lineBuilder, net.minecraft.world.phys.shapes.Shapes.create(aabb), 0, 0, 0,
                     net.minecraft.util.ARGB.colorFromFloat(0.4F, colorR, colorG, colorB), 1.0F);
             *///?} elif >=1.21.9 {
-            /*ShapeRenderer.renderLineBox(ms.last(), lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
-            *///?} elif >=1.21.2 {
+            ShapeRenderer.renderLineBox(ms.last(), lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
+            //?} elif >=1.21.2 {
             /*ShapeRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
             *///?} else {
-            LevelRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
-            //?}
+            /*LevelRenderer.renderLineBox(ms, lineBuilder, aabb, colorR, colorG, colorB, 0.4F);
+            *///?}
         }
 
         return true;

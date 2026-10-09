@@ -1,5 +1,5 @@
 //? if neo_client_items {
-/*package nadiendev.constructionwand.data;
+package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.items.ModItems;
@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 //? if >=26.3 {
-/^public class WandAdvancementSubProvider extends AdvancementSubProvider
+/*public class WandAdvancementSubProvider extends AdvancementSubProvider
 {
     public WandAdvancementSubProvider(BootstrapContext<Advancement> output) {
         super(output);
@@ -36,7 +36,7 @@ import java.util.function.Consumer;
     }
 
     private static void build(BootstrapContext<Advancement> consumer, HolderGetter<Item> items) {
-^///?} else {
+*///?} else {
 public class WandAdvancementSubProvider implements AdvancementSubProvider
 {
     @Override
@@ -70,9 +70,9 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
     }
 
     //? if >=26.3 {
-    /^private static void onHasItem(BootstrapContext<Advancement> consumer, RegistryObject<Item> item,
+    /*private static void onHasItem(BootstrapContext<Advancement> consumer, RegistryObject<Item> item,
                                   AdvancementType type, AdvancementHolder parent) {
-    ^///?} else {
+    *///?} else {
     private static void onHasItem(Consumer<AdvancementHolder> consumer, RegistryObject<Item> item,
                                   AdvancementType type, AdvancementHolder parent) {
     //?}
@@ -95,10 +95,10 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
     }
 
     //? if >=26.1 {
-    /^private static net.minecraft.world.item.ItemStackTemplate iconStack(ItemLike icon) {
+    /*private static net.minecraft.world.item.ItemStackTemplate iconStack(ItemLike icon) {
         return new net.minecraft.world.item.ItemStackTemplate(icon.asItem());
     }
-    ^///?} else {
+    *///?} else {
     private static ItemStack iconStack(ItemLike icon) {
         return new ItemStack(icon);
     }
@@ -108,4 +108,4 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
         return "advancement." + ConstructionWand.MODID + "." + name;
     }
 }
-*///?}
+//?}

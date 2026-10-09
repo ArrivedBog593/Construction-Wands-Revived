@@ -65,14 +65,14 @@ public class DestroySnapshot implements ISnapshot
         // Silk Touch via Holder<Enchantment> (1.21.1)
         ItemStack silkTool = new ItemStack(Items.NETHERITE_PICKAXE);
         //? if >=1.21.2 {
-        /*Holder<Enchantment> silkHolder = serverLevel.registryAccess()
+        Holder<Enchantment> silkHolder = serverLevel.registryAccess()
                 .lookupOrThrow(Registries.ENCHANTMENT)
                 .getOrThrow(Enchantments.SILK_TOUCH);
-        *///?} else {
-        Holder<Enchantment> silkHolder = serverLevel.registryAccess()
+        //?} else {
+        /*Holder<Enchantment> silkHolder = serverLevel.registryAccess()
                 .registryOrThrow(Registries.ENCHANTMENT)
                 .getHolderOrThrow(Enchantments.SILK_TOUCH);
-        //?}
+        *///?}
         silkTool.enchant(silkHolder, 1);
 
         ServerPlayer serverPlayer = player instanceof ServerPlayer sp ? sp : null;
