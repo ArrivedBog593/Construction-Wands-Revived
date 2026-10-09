@@ -1,12 +1,84 @@
 # Changelog
 
-## 4.0.5 — Minecraft 1.21.1 / NeoForge
+## 4.0.7 — Minecraft 1.21.8 / NeoForge and Fabric
+
+### Additions
+
+- **Fabric build for Minecraft 1.21.8.** This version now ships a NeoForge jar and a Fabric
+  jar built from the same code. The Fabric build supports the recipe viewers (JEI, REI, EMI) that exist
+  for this version. The integrations with other mods (storage mods, Curios, Botania) are NeoForge only.
+
+- **Botania Revived support is back** (NeoForge): the Black Hole Talisman and the Rod of the Lands and
+  Depths supply blocks to the wand, consuming one block per placement.
+
+- **The Exchange Core now has an advancement.** It was the only core without one.
+
+### Fixes
+
+- **The Destruction core captures drops with the Void Sack again.** The sack is found anywhere in the
+  inventory, not only in your hand. An active sack stores the drops, or sends them to its linked
+  container. An inactive sack that is linked to a container still sends to it. Without either, the
+  drops go straight to your inventory.
+
+- **The Void Sack advancement showed the wrong text.** Its title and description were swapped, so the
+  toast showed the whole sentence as the title. It also left the Destruction Core name untranslated in
+  every language. The title is now "Void Sack" and the sentence is the description.
+
+- **The Fabric mixin configuration was malformed.** The extra client mixins were joined with a literal
+  `\n` instead of a line break, which is not valid JSON.
+
+### Changes
+
+- The files are now named `ConstructionWandsRevived-1.21.8-4.0.7-<NeoForge|Fabric>.jar`.
+
+## 4.0.7 — Minecraft 1.21.8 / NeoForge and Fabric (Español)
+
+### Anadido
+
+- **Build de Fabric para Minecraft 1.21.8.** Esta version trae ahora un jar de NeoForge y
+  otro de Fabric hechos con el mismo codigo. El build de Fabric soporta los visores de recetas (JEI, REI,
+  EMI) que existen para esta version. Las integraciones con otros mods (mods de almacenamiento, Curios,
+  Botania) son solo de NeoForge.
+
+- **Vuelve el soporte de Botania Revived** (NeoForge): el Black Hole Talisman y la Rod of the Lands y
+  Depths suministran bloques a la varita, consumiendo un bloque por colocacion.
+
+- **El Nucleo de Intercambio ahora tiene avance.** Era el unico nucleo que no tenia.
+
+### Corregido
+
+- **El nucleo de Destruccion vuelve a capturar los drops con la Bolsa del Vacio.** La bolsa se encuentra
+  en cualquier parte del inventario, no solo en la mano. Una bolsa activa guarda los drops, o los envia a
+  su contenedor vinculado. Una bolsa inactiva vinculada a un contenedor sigue enviando a el. Sin ninguna
+  de las dos cosas, los drops van directo al inventario.
+
+- **El avance de la Bolsa del Vacio mostraba el texto equivocado.** El titulo y la descripcion estaban
+  intercambiados, asi que el aviso mostraba la frase completa como titulo. Ademas dejaba sin traducir el
+  nombre del Destruction Core en todos los idiomas. Ahora el titulo es "Bolsa del Vacio" y la frase es la
+  descripcion.
+
+- **La configuracion de mixins de Fabric estaba mal formada.** Los mixins extra del cliente se unian con
+  un `\n` literal en vez de un salto de linea, lo cual no es JSON valido.
+
+### Cambios
+
+- Los archivos ahora se llaman `ConstructionWandsRevived-1.21.8-4.0.7-<NeoForge|Fabric>.jar`.
+
+## 4.0.0 — Minecraft 1.21.8 / NeoForge
+
+This release is a port of the 1.21 line, brought over for parity across versions: the fixes and
+changes below were developed on 1.21.1 and 26.1 and carried here so every supported version
+behaves the same.
 
 ### Additions
 
 - **Wooden wand.** A new entry-tier wand, below stone: 59 uses, 5 blocks per placement, and no
   core slots at all. It is crafted from **cherry or birch planks** only, and its texture uses the
   same silhouette and shading as the rest of the set, in cherry tones.
+
+- **Golden wand.** It did not exist in this version. It has been added in full - item, config
+  entry, texture, recipe, advancement and translations - with the same values as the other
+  versions: 32 uses, 60 blocks per placement, angel range 5, destruction limit 15, upgradeable.
 
 ### Fixes
 
@@ -35,12 +107,8 @@
   Functional Storage, cancels the block highlight event on its own blocks to draw its per-slot
   outline, and the preview handler was not receiving canceled events, so it never ran.
 
-- **The golden wand had no translation.** Its name showed as `item.constructionwand.gold_wand`
-  and it had no advancement, in every language.
-
 - **The Void Sack tooltip showed a raw `%1$s`** instead of the toggle key, because the
   translation argument was never passed.
-
 
 ### Changes
 
@@ -59,13 +127,21 @@
 
 ---
 
-## 4.0.5 — Minecraft 1.21.1 / NeoForge (Español)
+## 4.0.0 — Minecraft 1.21.8 / NeoForge (Español)
+
+Esta version es un port de la linea 1.21, traido para mantener la paridad entre versiones: las
+correcciones y cambios de abajo se desarrollaron en 1.21.1 y 26.1 y se trasladaron aqui para que
+todas las versiones soportadas se comporten igual.
 
 ### Anadido
 
 - **Varita de madera.** Nueva varita de entrada, por debajo de la de piedra: 59 usos, 5 bloques
   por colocacion y sin ranuras para nucleos. Se fabrica solo con **tablas de cerezo o abedul**, y su
   textura usa la misma silueta y sombreado que el resto de la familia, en tonos de cerezo.
+
+- **Varita dorada.** No existia en esta version. Se agrego entera - item, entrada de config,
+  textura, receta, avance y traducciones - con los mismos valores que en las demas versiones:
+  32 usos, 60 bloques por colocacion, alcance de angel 5, limite de destruccion 15, mejorable.
 
 ### Corregido
 
@@ -96,12 +172,8 @@
   propio recuadro de slots, y nuestro handler no recibia eventos cancelados, asi que nunca llegaba
   a ejecutarse.
 
-- **La varita dorada no tenia traduccion.** Su nombre salia como `item.constructionwand.gold_wand`
-  y no tenia avance, en todos los idiomas.
-
 - **El tooltip de la Void Sack mostraba un `%1$s` crudo** en vez de la tecla, porque nunca se
   pasaba el argumento de la traduccion.
-
 
 ### Cambios
 
@@ -120,48 +192,3 @@
 - Imagenes nuevas: las recetas de la varita de madera y la dorada, y un cuadro de estadisticas.
 
 ---
-
-## 4.0.4 — Minecraft 1.21.1 / NeoForge
-
-### Changes
-
-- **Exchange core: replacement now stops under a covered block instead of going around it.**
-  When the exchange flood-fill reached a block with something sitting on top of it, that block was
-  correctly skipped — but the fill kept spreading through the diagonal neighbours, wrapped around
-  the obstruction and carried on replacing on the far side. Diagonals now only propagate when both
-  orthogonal neighbours are themselves uncovered, so the exchange cuts off right below the covered
-  block and stops there. Straight propagation already behaved this way; this only closes the
-  diagonal bypass.
-
-- **Destruction core: broken blocks go straight to your inventory when you have no Void Sack.**
-  Previously the drops were spawned in the world and you had to walk over them. Now, if you are not
-  holding an active Void Sack, the drops are inserted directly into your inventory, and once the
-  inventory is full the remainder is discarded instead of littering the ground. Nothing changes when
-  a Void Sack **is** active: the block still drops normally and the sack intercepts the pickup, so
-  linked containers and internal storage work exactly as before. Which items a block drops is
-  unchanged.
-
----
-
-## 4.0.4 — Minecraft 1.21.1 / NeoForge (Español)
-
-### Cambios
-
-- **Núcleo de intercambio: el reemplazo ahora se corta debajo de un bloque tapado en vez de rodearlo.**
-  Cuando el relleno del intercambio llegaba a un bloque que tenía algo encima, ese bloque se saltaba
-  correctamente, pero el relleno seguía extendiéndose por los vecinos diagonales, rodeaba el
-  obstáculo y continuaba reemplazando al otro lado. Ahora las diagonales solo se propagan si los dos
-  vecinos ortogonales están a su vez descubiertos, así que el intercambio se corta justo debajo del
-  bloque tapado y se detiene ahí. La propagación recta ya funcionaba así; esto solo cierra el atajo
-  por diagonal.
-
-- **Núcleo de destrucción: los bloques rotos van directos al inventario si no llevas la Bolsa del Vacío.**
-  Antes los drops aparecían en el mundo y había que pasar por encima a recogerlos. Ahora, si no
-  llevas una Bolsa del Vacío activa, los drops se meten directamente en tu inventario y, cuando el
-  inventario está lleno, el resto se elimina en vez de quedar tirado por el suelo. Con la Bolsa del
-  Vacío **activa** no cambia nada: el bloque suelta sus drops normalmente y la bolsa los intercepta
-  al recogerlos, así que los contenedores enlazados y el almacenamiento interno funcionan igual que
-  antes. Qué ítems suelta cada bloque no cambia.
-
----
-
