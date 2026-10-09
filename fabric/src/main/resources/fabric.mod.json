@@ -20,7 +20,8 @@
         ],
         "client": [
             "nadiendev.constructionwand.ConstructionWandFabricClient"
-        ]${extra_entrypoints}
+        ],
+        "rei_client": ["nadiendev.constructionwand.integrations.rei.ConstructionWandReiPlugin"]
     },
     "mixins": [
         "${mod_id}.mixins.json"
