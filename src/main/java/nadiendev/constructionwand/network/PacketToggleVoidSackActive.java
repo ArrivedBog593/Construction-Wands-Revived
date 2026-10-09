@@ -5,7 +5,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +16,7 @@ public record PacketToggleVoidSackActive(InteractionHand hand) implements Custom
 {
     public static final CustomPacketPayload.Type<PacketToggleVoidSackActive> TYPE =
             new CustomPacketPayload.Type<>(
-                    ResourceLocation.fromNamespaceAndPath(ConstructionWand.MODID, "toggle_void_sack_active"));
+                    Identifier.fromNamespaceAndPath(ConstructionWand.MODID, "toggle_void_sack_active"));
 
     public static final StreamCodec<FriendlyByteBuf, PacketToggleVoidSackActive> CODEC =
             StreamCodec.composite(

@@ -1,21 +1,21 @@
 package nadiendev.constructionwand.registry;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.function.Supplier;
 
 /** A registry entry that is created and bound when the loader runs the registration phase. */
 public final class RegistryObject<T> implements Supplier<T> {
-    private final ResourceLocation id;
+    private final Identifier id;
     private final Supplier<? extends T> factory;
     private T value;
 
-    RegistryObject(ResourceLocation id, Supplier<? extends T> factory) {
+    RegistryObject(Identifier id, Supplier<? extends T> factory) {
         this.id = id;
         this.factory = factory;
     }
 
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return id;
     }
 

@@ -30,7 +30,7 @@ public class ConstructionWandReiPlugin implements REIClientPlugin
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        Component optkeyComponent = Component.translatable(InputConstants.Type.KEYSYM.getOrCreate(ConfigClient.OPT_KEY.get()).getName())
+        Component optkeyComponent = Component.translatable(InputConstants.Type.KEYBOARD.getOrCreate(ConfigClient.OPT_KEY.get()).getName())
                 .withStyle(ChatFormatting.BLUE);
         Component wandModeComponent = keyComboComponent(ConfigClient.SHIFTOPT_MODE.get(), optkeyComponent);
         Component wandGuiComponent = keyComboComponent(ConfigClient.SHIFTOPT_GUI.get(), optkeyComponent);

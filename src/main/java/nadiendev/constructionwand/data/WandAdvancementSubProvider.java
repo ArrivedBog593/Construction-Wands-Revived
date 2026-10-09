@@ -1,5 +1,5 @@
 //? if neo_client_items {
-/*package nadiendev.constructionwand.data;
+package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.items.ModItems;
@@ -8,14 +8,14 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 //? if >=26.3 {
-/^public class WandAdvancementSubProvider extends AdvancementSubProvider
+public class WandAdvancementSubProvider extends AdvancementSubProvider
 {
     public WandAdvancementSubProvider(BootstrapContext<Advancement> output) {
         super(output);
@@ -36,8 +36,8 @@ import java.util.function.Consumer;
     }
 
     private static void build(BootstrapContext<Advancement> consumer, HolderGetter<Item> items) {
-^///?} else {
-public class WandAdvancementSubProvider implements AdvancementSubProvider
+//?} else {
+/*public class WandAdvancementSubProvider implements AdvancementSubProvider
 {
     @Override
     public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> consumer) {
@@ -45,15 +45,15 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
     }
 
     private static void build(Consumer<AdvancementHolder> consumer, HolderGetter<Item> items) {
-//?}
+*///?}
         AdvancementHolder root = Advancement.Builder.advancement()
                 .display(rootDisplay(
                         ModItems.WAND_STONE.get(),
                         advancementPrefix("root.title"),
                         advancementPrefix("root.desc"),
-                        ResourceLocation.withDefaultNamespace("textures/block/oak_planks.png")))
+                        Identifier.withDefaultNamespace("textures/block/oak_planks.png")))
                 .addCriterion("wand", InventoryChangeTrigger.TriggerInstance.hasItems(
-                        net.minecraft.advancements.critereon.ItemPredicate.Builder.item().of(items, ModItems.WAND_STONE.get()).build()))
+                        net.minecraft.advancements.predicates.ItemPredicate.Builder.item().of(items, ModItems.WAND_STONE.get()).build()))
                 .save(consumer, ConstructionWand.loc("root").toString());
 
         onHasItem(consumer, ModItems.WAND_WOOD, AdvancementType.TASK, root);
@@ -70,12 +70,12 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
     }
 
     //? if >=26.3 {
-    /^private static void onHasItem(BootstrapContext<Advancement> consumer, RegistryObject<Item> item,
+    private static void onHasItem(BootstrapContext<Advancement> consumer, RegistryObject<Item> item,
                                   AdvancementType type, AdvancementHolder parent) {
-    ^///?} else {
-    private static void onHasItem(Consumer<AdvancementHolder> consumer, RegistryObject<Item> item,
+    //?} else {
+    /*private static void onHasItem(Consumer<AdvancementHolder> consumer, RegistryObject<Item> item,
                                   AdvancementType type, AdvancementHolder parent) {
-    //?}
+    *///?}
         String path = item.getId().getPath();
         Advancement.Builder.advancement()
                 .display(simpleDisplay(item.get(), path, type))
@@ -84,7 +84,7 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
                 .save(consumer, ConstructionWand.loc(path).toString());
     }
 
-    private static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {
+    private static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, Identifier background) {
         return new DisplayInfo(iconStack(icon), Component.translatable(titleKey), Component.translatable(descKey),
                 AdvancementCompat.background(background), AdvancementType.TASK, false, false, false);
     }
@@ -95,17 +95,17 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
     }
 
     //? if >=26.1 {
-    /^private static net.minecraft.world.item.ItemStackTemplate iconStack(ItemLike icon) {
+    private static net.minecraft.world.item.ItemStackTemplate iconStack(ItemLike icon) {
         return new net.minecraft.world.item.ItemStackTemplate(icon.asItem());
     }
-    ^///?} else {
-    private static ItemStack iconStack(ItemLike icon) {
+    //?} else {
+    /*private static ItemStack iconStack(ItemLike icon) {
         return new ItemStack(icon);
     }
-    //?}
+    *///?}
 
     private static String advancementPrefix(String name) {
         return "advancement." + ConstructionWand.MODID + "." + name;
     }
 }
-*///?}
+//?}

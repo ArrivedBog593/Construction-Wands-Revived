@@ -3,7 +3,7 @@ name: Build and Release
 on:
   push:
     branches:
-      - "main"
+      - "Multi/26.3"
     paths:
       - "src/**"
       - "generated/**"
@@ -37,7 +37,7 @@ jobs:
         run: |
           VERSION=$(grep -m1 '^mod.version' stonecutter.properties.toml | cut -d'"' -f2)
           echo "mod_version=$VERSION" >> $GITHUB_OUTPUT
-          echo "release_version=${VERSION}-build.${{ github.run_number }}" >> $GITHUB_OUTPUT
+          echo "release_version=${VERSION}+26.3-build.${{ github.run_number }}" >> $GITHUB_OUTPUT
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
@@ -45,14 +45,14 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      # Builds NeoForge and Fabric for every Minecraft version (one node per version and loader)
+      # Builds NeoForge and Fabric for Minecraft 26.3
       - name: Build
         run: ./gradlew build
 
       - name: Collect jars
         run: |
           mkdir -p dist
-          find versions -path '*/build/libs/*.jar' ! -name '*-sources.jar' -exec cp {} dist/ \;
+          find loaders -path '*/build/libs/*.jar' ! -name '*-sources.jar' -exec cp {} dist/ \;
           ls dist
 
       - name: Create Tag

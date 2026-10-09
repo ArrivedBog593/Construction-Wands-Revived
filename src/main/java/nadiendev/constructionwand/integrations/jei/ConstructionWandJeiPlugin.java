@@ -8,7 +8,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import nadiendev.constructionwand.registry.RegistryObject;
@@ -23,13 +23,13 @@ import javax.annotation.Nonnull;
 
 public class ConstructionWandJeiPlugin implements IModPlugin
 {
-    private static final ResourceLocation pluginId = ResourceLocation.fromNamespaceAndPath(ConstructionWand.MODID, ConstructionWand.MODID);
+    private static final Identifier pluginId = Identifier.fromNamespaceAndPath(ConstructionWand.MODID, ConstructionWand.MODID);
     private static final String baseKey = ConstructionWand.MODID + ".description.";
     private static final String baseKeyItem = "item." + ConstructionWand.MODID + ".";
 
     @Nonnull
     @Override
-    public ResourceLocation getPluginUid() {
+    public Identifier getPluginUid() {
         return pluginId;
     }
 
@@ -40,7 +40,7 @@ public class ConstructionWandJeiPlugin implements IModPlugin
 
     @Override
     public void registerRecipes(@NotNull IRecipeRegistration registration) {
-        Component optkeyComponent = Component.translatable(InputConstants.Type.KEYSYM.getOrCreate(ConfigClient.OPT_KEY.get()).getName())
+        Component optkeyComponent = Component.translatable(InputConstants.Type.KEYBOARD.getOrCreate(ConfigClient.OPT_KEY.get()).getName())
                 .withStyle(ChatFormatting.BLUE);
         Component wandModeComponent = keyComboComponent(ConfigClient.SHIFTOPT_MODE.get(), optkeyComponent);
         Component wandGuiComponent = keyComboComponent(ConfigClient.SHIFTOPT_GUI.get(), optkeyComponent);

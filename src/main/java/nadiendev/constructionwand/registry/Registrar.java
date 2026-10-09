@@ -1,7 +1,7 @@
 package nadiendev.constructionwand.registry;
 
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import nadiendev.constructionwand.ConstructionWand;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public final class Registrar<T> {
     }
 
     /** Creates every entry, binds it and passes it to the loader for registration. */
-    public void registerAll(BiConsumer<ResourceLocation, T> sink) {
+    public void registerAll(BiConsumer<Identifier, T> sink) {
         for (RegistryObject<? extends T> entry : entries) {
             entry.bind();
             sink.accept(entry.getId(), entry.get());

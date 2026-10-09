@@ -1,7 +1,7 @@
 package nadiendev.constructionwand.basics;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -23,7 +23,7 @@ public class ReplacementRegistry
             HashSet<Item> set = new HashSet<>();
 
             for(String id : ((String) key).split(";")) {
-                ResourceLocation itemId = ResourceLocation.tryParse(id);
+                Identifier itemId = Identifier.tryParse(id);
                 Item item = itemId == null ? null : BuiltInRegistries.ITEM.getOptional(itemId).orElse(null);
                 if(item == null || item == Items.AIR) {
                     ConstructionWand.LOGGER.warn("Replacement Registry: Could not find item " + id);

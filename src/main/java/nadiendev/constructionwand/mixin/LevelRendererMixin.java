@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.LevelRenderer;
 ^///?} else {
 import net.minecraft.client.renderer.MultiBufferSource;
 //?}
-import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.world.phys.BlockHitResult;
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.client.RenderBlockPreview;
@@ -31,7 +31,7 @@ public abstract class LevelRendererMixin {
         Minecraft minecraft = Minecraft.getInstance();
         if (!(minecraft.hitResult instanceof BlockHitResult hit)) return;
 
-        if (preview.renderBlockHighlight(hit, minecraft.gameRenderer.getMainCamera(), poseStack, collector, 0)) ci.cancel();
+        if (preview.renderBlockHighlight(hit, minecraft.gameRenderer.mainCamera(), poseStack, collector, 0)) ci.cancel();
     }
     ^///?} else {
     @Inject(method = "renderBlockOutline", at = @At("HEAD"), cancellable = true)
@@ -45,7 +45,7 @@ public abstract class LevelRendererMixin {
 
         boolean handled = translucentPass
                 ? preview.blockOutlineHandled
-                : preview.renderBlockHighlight(hit, minecraft.gameRenderer.getMainCamera(), poseStack, buffer, 0);
+                : preview.renderBlockHighlight(hit, minecraft.gameRenderer.mainCamera(), poseStack, buffer, 0);
         if (handled) ci.cancel();
     }
     //?}

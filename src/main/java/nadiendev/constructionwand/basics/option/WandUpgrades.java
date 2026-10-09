@@ -6,7 +6,7 @@ import nadiendev.constructionwand.basics.NbtCompat;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.api.IWandUpgrade;
@@ -37,7 +37,7 @@ public class WandUpgrades<T extends IWandUpgrade>
 
         for(int i = 0; i < listnbt.size(); i++) {
             String str = NbtCompat.listString(listnbt, i);
-            ResourceLocation itemId = ResourceLocation.tryParse(str);
+            Identifier itemId = Identifier.tryParse(str);
             Item item = itemId == null ? null : BuiltInRegistries.ITEM.getOptional(itemId).orElse(null);
 
             T data;

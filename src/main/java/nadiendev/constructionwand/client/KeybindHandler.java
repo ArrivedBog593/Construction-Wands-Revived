@@ -1,7 +1,7 @@
 package nadiendev.constructionwand.client;
 
 //? if <26.3
-import org.lwjgl.glfw.GLFW;
+//import org.lwjgl.glfw.GLFW;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -16,20 +16,20 @@ import nadiendev.constructionwand.network.PacketToggleVoidSackActive;
 public class KeybindHandler {
 
     //? if >=26.3 {
-    /*// 26.3 reports scancodes instead of GLFW key codes
+    // 26.3 reports scancodes instead of GLFW key codes
     private static final int KEY_M = com.mojang.blaze3d.platform.InputConstants.KEY_M;
     private static final int KEY_K = com.mojang.blaze3d.platform.InputConstants.KEY_K;
     private static final int KEY_KP_7 = com.mojang.blaze3d.platform.InputConstants.KEY_NUMPAD7;
-    *///?} else {
-    private static final int KEY_M = GLFW.GLFW_KEY_M;
+    //?} else {
+    /*private static final int KEY_M = GLFW.GLFW_KEY_M;
     private static final int KEY_K = GLFW.GLFW_KEY_K;
     private static final int KEY_KP_7 = GLFW.GLFW_KEY_KP_7;
-    //?}
+    *///?}
 
     //? if >=1.21.9 {
-    /*public static final KeyMapping.Category CATEGORY = new KeyMapping.Category(ConstructionWand.loc("main"));
+    public static final KeyMapping.Category CATEGORY = new KeyMapping.Category(ConstructionWand.loc("main"));
 
-    *///?}
+    //?}
     public static final KeyMapping KEY_VOID_SACK_TOGGLE = new KeyMapping(
             getKey("void_sack_toggle"),
             KEY_M,
@@ -57,14 +57,14 @@ public class KeybindHandler {
     }
 
     //? if >=1.21.9 {
-    /*private static KeyMapping.Category getCategory(String modid) {
+    private static KeyMapping.Category getCategory(String modid) {
         return CATEGORY;
     }
-    *///?} else {
-    private static String getCategory(String modid) {
+    //?} else {
+    /*private static String getCategory(String modid) {
         return "key.categories." + modid;
     }
-    //?}
+    *///?}
 
     /** Called by the loaders whenever keyboard input is processed (or every client tick). */
     public static void onKey() {

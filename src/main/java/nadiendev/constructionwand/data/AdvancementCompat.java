@@ -1,6 +1,6 @@
 package nadiendev.constructionwand.data;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Optional;
 
@@ -11,16 +11,16 @@ public final class AdvancementCompat {
     }
 
     //? if >=1.21.9 {
-    /*public static Optional<net.minecraft.core.ClientAsset.ResourceTexture> background(ResourceLocation texture) {
+    public static Optional<net.minecraft.core.ClientAsset.ResourceTexture> background(Identifier texture) {
         return Optional.of(new net.minecraft.core.ClientAsset.ResourceTexture(texture));
     }
-    *///?} elif >=1.21.5 {
-    /*public static Optional<net.minecraft.core.ClientAsset> background(ResourceLocation texture) {
+    //?} elif >=1.21.5 {
+    /*public static Optional<net.minecraft.core.ClientAsset> background(Identifier texture) {
         return Optional.of(new net.minecraft.core.ClientAsset(texture));
     }
     *///?} else {
-    public static Optional<ResourceLocation> background(ResourceLocation texture) {
+    /*public static Optional<Identifier> background(Identifier texture) {
         return Optional.of(texture);
     }
-    //?}
+    *///?}
 }

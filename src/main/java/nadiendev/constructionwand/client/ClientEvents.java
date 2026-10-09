@@ -69,18 +69,18 @@ public class ClientEvents
         if(player == null || !guiKeyCombDown(player)) return false;
         if(!(wand.getItem() instanceof ItemWand)) return false;
 
-        Minecraft.getInstance().setScreen(new ScreenWand(wand));
+        Minecraft.getInstance().gui.setScreen(new ScreenWand(wand));
         return true;
     }
 
     private static boolean isKeyDown(int id) {
         //? if >=26.3 {
-        /*return InputConstants.isKeyDown(id);
-        *///?} elif >=1.21.9 {
+        return InputConstants.isKeyDown(id);
+        //?} elif >=1.21.9 {
         /*return InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), id);
         *///?} else {
-        return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), id);
-        //?}
+        /*return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), id);
+        *///?}
     }
 
     public static boolean isOptKeyDown() {

@@ -10,7 +10,7 @@ import nadiendev.constructionwand.containers.handlers.HandlerPortableCell;
 import nadiendev.constructionwand.containers.handlers.HandlerWirelessTerminal;
 //?}
 //? if refinedstorage
-import nadiendev.constructionwand.containers.handlers.HandlerWirelessGrid;
+//import nadiendev.constructionwand.containers.handlers.HandlerWirelessGrid;
 //? if ae2wtlib
 import nadiendev.constructionwand.containers.handlers.HandlerWirelessTerminalAE2WTLib;
 import net.neoforged.fml.ModList;
@@ -26,7 +26,7 @@ public class ContainerRegistrar
         //? if ae2 || ae2wtlib
         registerAppliedEnergistics();
         //? if refinedstorage
-        registerRefinedStorage();
+        //registerRefinedStorage();
     }
 
     private static void registerBotania() {
@@ -84,7 +84,7 @@ public class ContainerRegistrar
     //?}
 
     //? if refinedstorage {
-    private static void registerRefinedStorage() {
+    /*private static void registerRefinedStorage() {
         try {
             boolean loaded = ModList.get().isLoaded("refinedstorage");
             if (loaded) {
@@ -95,6 +95,6 @@ public class ContainerRegistrar
             ConstructionWand.LOGGER.warn("Could not load Refined Storage integration: " + e.getMessage());
         }
     }
-    //?}
+    *///?}
 }
 //?}
