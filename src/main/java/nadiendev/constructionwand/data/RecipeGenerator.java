@@ -99,12 +99,12 @@ import java.util.concurrent.CompletableFuture;
     }
 }
 *///?} elif >=1.21.2 {
-/*public class RecipeGenerator extends RecipeProvider {
+public class RecipeGenerator extends RecipeProvider {
     protected RecipeGenerator(HolderLookup.Provider registries, RecipeOutput output) {
         super(registries, output);
     }
 
-    /^* Vanilla runs recipe providers through a runner that supplies the registries and the output. ^/
+    /** Vanilla runs recipe providers through a runner that supplies the registries and the output. */
     public static class Runner extends RecipeProvider.Runner {
         public Runner(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
             super(packOutput, lookupProvider);
@@ -187,8 +187,8 @@ import java.util.concurrent.CompletableFuture;
                 .save(output, ResourceKey.create(Registries.RECIPE, ConstructionWand.loc("dynamic/" + name.getPath())));
     }
 }
-*///?} else {
-public class RecipeGenerator extends RecipeProvider {
+//?} else {
+/*public class RecipeGenerator extends RecipeProvider {
     public RecipeGenerator(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(packOutput, lookupProvider);
     }
@@ -259,5 +259,5 @@ public class RecipeGenerator extends RecipeProvider {
         SpecialRecipeBuilder.special(RecipeWandUpgrade::new).save(output, ConstructionWand.loc("dynamic/" + name.getPath()).toString());
     }
 }
-//?}
+*///?}
 //?}

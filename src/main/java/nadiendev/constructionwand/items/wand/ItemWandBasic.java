@@ -65,9 +65,9 @@ public class ItemWandBasic extends ItemWand
     }
 
     //? if <1.21.2 {
-    @Override
+    /*@Override
     public boolean isValidRepairItem(@Nonnull ItemStack toRepair, @Nonnull ItemStack repair) {
         return this.tier.isRepairItem(repair);
     }
-    //?}
+    *///?}
 }
