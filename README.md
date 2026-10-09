@@ -153,4 +153,4 @@ Dependency versions are declared in `gradle.properties` (shared), `forge/gradle.
 `common/src/generated/resources`. Recipe viewers (JEI, REI, EMI) are built for both loaders; Botania support is Forge
 only.
 
-Other Minecraft versions live in the `Multi/<version>` branches.
+Other Minecraft versions live in the `multiloader/<version>` branches.
