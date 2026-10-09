@@ -21,10 +21,6 @@
   container. An inactive sack that is linked to a container still sends to it. Without either, the
   drops go straight to your inventory.
 
-### Changes
-
-- The code shared by both loaders now lives in a common module, and the files are named
-  `ConstructionWandsRevived-1.20.1-4.0.0-<Forge|Fabric>.jar`.
 
 ## 4.0.0 — Minecraft 1.20.1 / Forge and Fabric (Español)
 
@@ -47,8 +43,3 @@
   cualquier parte del inventario, no solo en la mano. Una bolsa activa guarda los drops, o los envia a su
   contenedor vinculado. Una bolsa inactiva vinculada a un contenedor sigue enviando a el. Sin ninguna de las
   dos cosas, los drops van directo al inventario.
-
-### Cambios
-
-- El codigo compartido por ambos loaders ahora vive en un modulo comun, y los archivos se llaman
-  `ConstructionWandsRevived-1.20.1-4.0.0-<Forge|Fabric>.jar`.
