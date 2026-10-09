@@ -25,8 +25,9 @@ def mcAtLeast = { String other ->
 
 def common = project(':common')
 
-version = "${prop('mod.version')}+${mc}".toString()
-base.archivesName = "${prop('mod.id')}-neoforge".toString()
+version = "${mc}-${prop('mod.version')}-NeoForge".toString()
+group = prop('mod.group')
+base.archivesName = prop('mod.named')
 
 def requiredJava = mcAtLeast('26.1') ? JavaVersion.VERSION_25
         : mcAtLeast('1.20.5') ? JavaVersion.VERSION_21
