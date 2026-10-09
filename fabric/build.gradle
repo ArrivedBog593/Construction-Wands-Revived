@@ -6,7 +6,7 @@ plugins {
 def propOrNull = { String key -> findProperty(key)?.toString() }
 def prop = { String key ->
     def value = propOrNull(key)
-    if (value == null) throw new GradleException("Missing property ${key}")
+    if (value == null) throw new org.gradle.api.GradleException("Missing property ${key}")
     value
 }
 
