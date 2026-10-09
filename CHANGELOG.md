@@ -1,6 +1,74 @@
 # Changelog
 
-## 4.0.5 — Minecraft 1.21.1 / NeoForge
+## 4.0.7 — Minecraft 1.21.11 / NeoForge and Fabric
+
+### Additions
+
+- **Fabric build for Minecraft 1.21.11.** This version now ships a NeoForge jar and a Fabric
+  jar built from the same code. The Fabric build supports the recipe viewers (JEI, REI, EMI) that exist
+  for this version. The integrations with other mods (storage mods, Curios, Botania) are NeoForge only.
+
+- **Botania Revived support is back** (NeoForge): the Black Hole Talisman and the Rod of the Lands and
+  Depths supply blocks to the wand, consuming one block per placement.
+
+- **The Exchange Core now has an advancement.** It was the only core without one.
+
+### Fixes
+
+- **The Destruction core captures drops with the Void Sack again.** The sack is found anywhere in the
+  inventory, not only in your hand. An active sack stores the drops, or sends them to its linked
+  container. An inactive sack that is linked to a container still sends to it. Without either, the
+  drops go straight to your inventory.
+
+- **The Void Sack advancement showed the wrong text.** Its title and description were swapped, so the
+  toast showed the whole sentence as the title. It also left the Destruction Core name untranslated in
+  every language. The title is now "Void Sack" and the sentence is the description.
+
+- **The Fabric mixin configuration was malformed.** The extra client mixins were joined with a literal
+  `\n` instead of a line break, which is not valid JSON.
+
+### Changes
+
+- The files are now named `ConstructionWandsRevived-1.21.11-4.0.7-<NeoForge|Fabric>.jar`.
+
+## 4.0.7 — Minecraft 1.21.11 / NeoForge and Fabric (Español)
+
+### Anadido
+
+- **Build de Fabric para Minecraft 1.21.11.** Esta version trae ahora un jar de NeoForge y
+  otro de Fabric hechos con el mismo codigo. El build de Fabric soporta los visores de recetas (JEI, REI,
+  EMI) que existen para esta version. Las integraciones con otros mods (mods de almacenamiento, Curios,
+  Botania) son solo de NeoForge.
+
+- **Vuelve el soporte de Botania Revived** (NeoForge): el Black Hole Talisman y la Rod of the Lands y
+  Depths suministran bloques a la varita, consumiendo un bloque por colocacion.
+
+- **El Nucleo de Intercambio ahora tiene avance.** Era el unico nucleo que no tenia.
+
+### Corregido
+
+- **El nucleo de Destruccion vuelve a capturar los drops con la Bolsa del Vacio.** La bolsa se encuentra
+  en cualquier parte del inventario, no solo en la mano. Una bolsa activa guarda los drops, o los envia a
+  su contenedor vinculado. Una bolsa inactiva vinculada a un contenedor sigue enviando a el. Sin ninguna
+  de las dos cosas, los drops van directo al inventario.
+
+- **El avance de la Bolsa del Vacio mostraba el texto equivocado.** El titulo y la descripcion estaban
+  intercambiados, asi que el aviso mostraba la frase completa como titulo. Ademas dejaba sin traducir el
+  nombre del Destruction Core en todos los idiomas. Ahora el titulo es "Bolsa del Vacio" y la frase es la
+  descripcion.
+
+- **La configuracion de mixins de Fabric estaba mal formada.** Los mixins extra del cliente se unian con
+  un `\n` literal en vez de un salto de linea, lo cual no es JSON valido.
+
+### Cambios
+
+- Los archivos ahora se llaman `ConstructionWandsRevived-1.21.11-4.0.7-<NeoForge|Fabric>.jar`.
+
+## 4.0.5 — Minecraft 1.21.11 / NeoForge
+
+This release is a port of the 1.21 line, brought over for parity across versions: the fixes and
+changes below were developed on 1.21.1 and 26.1 and carried here so every supported version
+behaves the same.
 
 ### Additions
 
@@ -31,24 +99,15 @@
   prediction that makes those mods refresh their model data. The wand now tells the client which
   positions to refresh, retrying for the block entities the client has not created yet.
 
-- **The wand preview did not appear when pointing at a drawer.** Titanium, the library behind
-  Functional Storage, cancels the block highlight event on its own blocks to draw its per-slot
-  outline, and the preview handler was not receiving canceled events, so it never ran.
-
-- **The golden wand had no translation.** Its name showed as `item.constructionwand.gold_wand`
-  and it had no advancement, in every language.
-
 - **The Void Sack tooltip showed a raw `%1$s`** instead of the toggle key, because the
   translation argument was never passed.
 
 
 ### Changes
 
-- **Golden wand texture redrawn to match the rest of the set.** It was a flat 4-colour
-  head while every other wand had a fully shaded one; it now uses the same silhouette and
-  the same shading detail as the iron, stone, diamond and netherite wands, in gold.
-
 - **JEI updated to the latest build for this Minecraft version.**
+
+- **Minimum NeoForge raised to what the bundled JEI requires:** NeoForge `21.11.44` / JEI `27.38.0.97`.
 
 ### Documentation
 
@@ -59,7 +118,11 @@
 
 ---
 
-## 4.0.5 — Minecraft 1.21.1 / NeoForge (Español)
+## 4.0.5 — Minecraft 1.21.11 / NeoForge (Español)
+
+Esta version es un port de la linea 1.21, traido para mantener la paridad entre versiones: las
+correcciones y cambios de abajo se desarrollaron en 1.21.1 y 26.1 y se trasladaron aqui para que
+todas las versiones soportadas se comporten igual.
 
 ### Anadido
 
@@ -91,26 +154,15 @@
   que hace que esos mods refresquen su model data. Ahora la varita le indica al cliente que
   posiciones refrescar, reintentando con los block entities que el cliente todavia no creo.
 
-- **El preview de la varita no aparecia al apuntar a un cajon.** Titanium, la libreria sobre la que
-  esta hecho Functional Storage, cancela el evento de resaltado en sus bloques para dibujar su
-  propio recuadro de slots, y nuestro handler no recibia eventos cancelados, asi que nunca llegaba
-  a ejecutarse.
-
-- **La varita dorada no tenia traduccion.** Su nombre salia como `item.constructionwand.gold_wand`
-  y no tenia avance, en todos los idiomas.
-
 - **El tooltip de la Void Sack mostraba un `%1$s` crudo** en vez de la tecla, porque nunca se
   pasaba el argumento de la traduccion.
 
 
 ### Cambios
 
-- **Textura de la varita dorada redibujada al estilo del resto.** Tenia un cabezal plano de
-  4 colores mientras que las demas lo tenian completamente sombreado; ahora usa la misma
-  silueta y el mismo nivel de detalle que las varitas de hierro, piedra, diamante y
-  netherita, en dorado.
-
 - **JEI actualizado a la ultima build para esta version de Minecraft.**
+
+- **NeoForge minimo subido al que exige el JEI que acompana esta version:** NeoForge `21.11.44` / JEI `27.38.0.97`.
 
 ### Documentacion
 
@@ -121,7 +173,7 @@
 
 ---
 
-## 4.0.4 — Minecraft 1.21.1 / NeoForge
+## 4.0.4 — Minecraft 1.21.11 / NeoForge
 
 ### Changes
 
@@ -141,9 +193,13 @@
   linked containers and internal storage work exactly as before. Which items a block drops is
   unchanged.
 
+- **Golden wand added.** The item existed in name only: it had no config entry, no recipe, no
+  advancement and no translations, and its texture was a flat 4-colour head. It is now complete
+  and drawn in the same style as the rest of the set.
+
 ---
 
-## 4.0.4 — Minecraft 1.21.1 / NeoForge (Español)
+## 4.0.4 — Minecraft 1.21.11 / NeoForge (Español)
 
 ### Cambios
 
@@ -163,5 +219,8 @@
   al recogerlos, así que los contenedores enlazados y el almacenamiento interno funcionan igual que
   antes. Qué ítems suelta cada bloque no cambia.
 
----
+- **Varita dorada agregada.** El item existia solo de nombre: no tenia entrada de config, ni
+  receta, ni avance, ni traducciones, y su textura era un cabezal plano de 4 colores. Ahora esta
+  completa y dibujada con el mismo estilo que el resto de la familia.
 
+---
