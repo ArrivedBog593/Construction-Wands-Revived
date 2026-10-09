@@ -1,0 +1,56 @@
+package nadiendev.constructionwand.network;
+
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import nadiendev.constructionwand.basics.WandUtil;
+import nadiendev.constructionwand.basics.option.IOption;
+import nadiendev.constructionwand.basics.option.WandOptions;
+import nadiendev.constructionwand.items.wand.ItemWand;
+
+public class PacketWandOption
+{
+    public final String key;
+    public final String value;
+    public final boolean notify;
+
+    public PacketWandOption(IOption<?> option, boolean notify) {
+        this(option.getKey(), option.getValueString(), notify);
+    }
+
+    private PacketWandOption(String key, String value, boolean notify) {
+        this.key = key;
+        this.value = value;
+        this.notify = notify;
+    }
+
+    public static void encode(PacketWandOption msg, FriendlyByteBuf buffer) {
+        buffer.writeUtf(msg.key);
+        buffer.writeUtf(msg.value);
+        buffer.writeBoolean(msg.notify);
+    }
+
+    public static PacketWandOption decode(FriendlyByteBuf buffer) {
+        return new PacketWandOption(buffer.readUtf(100), buffer.readUtf(100), buffer.readBoolean());
+    }
+
+    public static class Handler
+    {
+        public static void handle(final PacketWandOption msg, final IPayloadContext ctx) {
+            ctx.enqueueWork(() -> {
+                if(!(ctx.player() instanceof ServerPlayer player)) return;
+
+                ItemStack wand = WandUtil.holdingWand(player);
+                if(wand == null) return;
+                WandOptions options = new WandOptions(wand);
+
+                IOption<?> option = options.get(msg.key);
+                if(option == null) return;
+                option.setValueString(msg.value);
+
+                if(msg.notify) ItemWand.optionMessage(player, option);
+                player.getInventory().setChanged();
+            });
+        }
+    }
+}

@@ -1,0 +1,155 @@
+plugins {
+    id 'java-library'
+    id 'eclipse'
+    id 'idea'
+    id 'net.neoforged.moddev.legacyforge' version '2.0.147'
+}
+
+// The code and the resources shared by both loaders live in the common folder
+def common = project(':common')
+
+version = "${mcversion}-${mod_version}-${tag_lanzador}"
+group = "${mod_group}"
+base {
+    archivesName = "${mod_named}"
+}
+
+// Minecraft 1.20.1 needs Java 17
+java.toolchain {
+    vendor = JvmVendorSpec.ADOPTIUM
+    languageVersion = JavaLanguageVersion.of(java_version.toInteger())
+}
+
+// Genera tambien <nombre>-sources.jar junto al jar del mod
+java {
+    withSourcesJar()
+}
+
+legacyForge {
+    version = "${mcversion}-${forgeversion}"
+
+    runs {
+        client {
+            client()
+            gameDirectory = rootProject.file('run')
+        }
+
+        server {
+            server()
+            gameDirectory = rootProject.file('run')
+            programArgument '--nogui'
+        }
+
+        data {
+            data()
+            gameDirectory = rootProject.file('run')
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            programArguments.addAll '--mod', "${modid}", '--all', '--output', common.file('src/generated/resources').getAbsolutePath(), '--existing', common.file('src/main/resources').getAbsolutePath(), '--existing', common.file('src/generated/resources').getAbsolutePath()
+        }
+    }
+
+    mods {
+        "${modid}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+// The code and the resources shared by both loaders, and the generated data
+sourceSets.main {
+    java.srcDir(common.file('src/main/java'))
+    resources {
+        srcDir(common.file('src/main/resources'))
+        srcDir(common.file('src/generated/resources'))
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url = "https://maven.terraformersmc.com/" }
+    maven { url = "https://maven.shedaniel.me/" }
+    maven { url = "https://maven.architectury.dev/" }
+    maven { url = "https://maven.blamejared.com" }
+    maven { url = "https://maven.theillusivec4.top/" }
+}
+
+dependencies {
+    //jei
+    modCompileOnly "mezz.jei:jei-${mcversion}-common-api:${jei_version}"
+    modCompileOnly "mezz.jei:jei-${mcversion}-forge-api:${jei_version}"
+
+    //emi
+    modCompileOnly "dev.emi:emi-forge:${emi_version}:api"
+
+    //architectury: REI needs it on the compile classpath
+    modCompileOnly "dev.architectury:architectury-forge:${architectury_version}"
+
+    //rei (Roughly Enough Items)
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-forge:${rei_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-forge:${rei_version}"
+
+    //botania
+    modCompileOnly "vazkii.botania:Botania:${botania}:api"
+
+    // EMI 1.1.24 does not apply its ItemStack#getTooltip mixin on Forge 47.4.23, and REI needs architectury and
+    // cloth config at runtime. The integrations still compile and activate on their own when the mod is present.
+    switch (runtime_itemlist_mod) {
+        case "emi":
+            modRuntimeOnly "dev.emi:emi-forge:${emi_version}"
+            break
+        case "rei":
+            modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-forge:${rei_version}"
+            modRuntimeOnly "dev.architectury:architectury-forge:${architectury_version}"
+            modRuntimeOnly "me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}"
+            break
+        case "jei":
+            modRuntimeOnly "mezz.jei:jei-${mcversion}-forge:${jei_version}"
+            break
+    }
+}
+
+test {
+    enabled = false
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": mod_named,
+                "Specification-Vendor": "${author}",
+                "Specification-Version": "1", // We are version 1 of ourselves
+                "Implementation-Title": mod_named,
+                "Implementation-Version": "${version}",
+                "Implementation-Vendor" :"${author}",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+    finalizedBy('reobfJar')
+}
+
+// Includes the license file in the built mod
+tasks.withType(Jar).configureEach {
+    from(rootProject.file('LICENSE')) { rename { "${it}-${modid}" } }
+}
+
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            mod_id                : modid,
+            mod_name              : mod_name,
+            mod_author            : author,
+            version               : mod_version,
+            license               : license,
+            description           : project.description,
+            minecraft_version_range: minecraft_version_range,
+            loader_version        : loader_version,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml']) {
+        expand replaceProperties
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
