@@ -3,87 +3,68 @@ plugins {
     id 'dev.kikugie.loom-back-compat'
 }
 
-def propOrNull = { String key -> findProperty(key)?.toString() }
-def prop = { String key ->
-    def value = propOrNull(key)
-    if (value == null) throw new GradleException("Missing property ${key}")
-    value
-}
-
-def mc = prop('minecraft_version')
-
-// Compares dotted Minecraft versions numerically, e.g. mcAtLeast('1.21.4')
-def mcAtLeast = { String other ->
-    def a = mc.split('\\.').collect { it as int }
-    def b = other.split('\\.').collect { it as int }
-    for (int i = 0; i < Math.max(a.size(), b.size()); i++) {
-        int diff = (i < a.size() ? a[i] : 0) - (i < b.size() ? b[i] : 0)
-        if (diff != 0) return diff > 0
-    }
-    return true
-}
-
+// The code and the resources shared by both loaders live in the common folder
 def common = project(':common')
 
-// DO NOT set group = ...!
-version = "${prop('mod.version')}+${mc}".toString()
-base.archivesName = "${prop('mod.id')}-fabric".toString()
+version = "${mcversion}-${mod_version}-${tag_lanzador}"
+base {
+    archivesName = "${mod_named}"
+}
 
-def requiredJava = mcAtLeast('26.1') ? JavaVersion.VERSION_25
-        : mcAtLeast('1.20.5') ? JavaVersion.VERSION_21
-        : JavaVersion.VERSION_17
+// Minecraft 1.21.4 needs Java 21
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.toVersion(java_version)
+    targetCompatibility = JavaVersion.toVersion(java_version)
+
+    toolchain {
+        vendor = JvmVendorSpec.ADOPTIUM
+        languageVersion = JavaLanguageVersion.of(java_version.toInteger())
+    }
+}
 
 repositories {
-    maven { url = 'https://maven.blamejared.com' }
-    maven { url = 'https://maven.shedaniel.me' }
-    maven { url = 'https://maven.terraformersmc.com/' }
+    maven { url = "https://maven.blamejared.com" }
+    maven { url = "https://maven.shedaniel.me" }
+    maven { url = "https://maven.terraformersmc.com/" }
     maven {
-        url = 'https://maven.architectury.dev/'
-        content { includeGroup 'dev.architectury' }
+        url = "https://maven.architectury.dev/"
+        content {
+            includeGroup "dev.architectury"
+        }
     }
 }
 
 dependencies {
-    // JEI skips some Minecraft versions; its API is compatible with the neighbouring build
-    def jeiMc = propOrNull('deps.jei_mc') ?: mc
-    // The unobfuscated versions (26.1+) have no intermediary artifacts
-    def jeiCommonSuffix = mcAtLeast('26.1') ? '' : '-intermediary'
-
-    // Adds the dependency only if the version declares a version for the key
-    def optional = { String key, Closure add ->
-        def value = propOrNull(key)
-        if (value != null) add(value)
-    }
-
-    minecraft "com.mojang:minecraft:${mc}"
+    minecraft "com.mojang:minecraft:${mcversion}"
     // Applies Mojang Mappings on obfuscated versions
     loomx.applyMojangMappings()
 
     // Use `mod{dependency type}` even on 26.1+ - loom-back-compat converts them
-    modImplementation "net.fabricmc:fabric-loader:${prop('deps.fabric_loader')}"
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     // The full Fabric API
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${prop('deps.fabric_api')}"
-
-    // Fabric API 0.145.1 resolves a lifecycle module that predates what its entity events module expects
-    optional('deps.fabric_lifecycle') { modCompileOnly "net.fabricmc.fabric-api:fabric-lifecycle-events-v1:${it}" }
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 
     // Nullability annotations used by the shared code
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
     compileOnly 'org.jetbrains:annotations:24.1.0'
 
     // Recipe viewers (compile-only, so the dev environment is not tied to their own dependencies)
-    optional('deps.jei') {
-        modCompileOnly("mezz.jei:jei-${jeiMc}-common-api${jeiCommonSuffix}:${it}") { transitive = false }
-        modCompileOnly "mezz.jei:jei-${jeiMc}-fabric-api:${it}"
-    }
-    optional('deps.architectury') { modCompileOnly "dev.architectury:architectury-fabric:${it}" }
-    optional('deps.rei') {
-        modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${it}"
-        modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${it}"
-    }
-    optional('deps.emi') {
-        modCompileOnly "dev.emi:emi-fabric:${it}:api"
-        modRuntimeOnly "dev.emi:emi-fabric:${it}"
+    //jei
+    modCompileOnly("mezz.jei:jei-${jei_mcversion}-common-api-intermediary:${jei_version}") { transitive = false }
+    modCompileOnly "mezz.jei:jei-${jei_mcversion}-fabric-api:${jei_version}"
+
+    //rei (Roughly Enough Items)
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
+
+    switch (runtime_itemlist_mod) {
+        case "rei":
+            modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+            break
+        case "jei":
+            modRuntimeOnly "mezz.jei:jei-${jei_mcversion}-fabric:${jei_version}"
+            break
     }
 }
 
@@ -99,82 +80,43 @@ loom {
     }
 }
 
-// The code and resources shared by both loaders, plus the data generated for this Minecraft version
-// (recipes, advancements, models, lang)
+// The code and the resources shared by both loaders, and the generated data
 sourceSets.main {
-    java.srcDir common.file('src/main/java')
-    resources.srcDir common.file('src/main/resources')
-    resources.srcDir common.file('src/generated/resources')
-}
-
-java {
-    withSourcesJar()
-    targetCompatibility = requiredJava
-    sourceCompatibility = requiredJava
-
-    toolchain {
-        vendor = JvmVendorSpec.ADOPTIUM
-        languageVersion = JavaLanguageVersion.of(requiredJava.majorVersion)
+    java.srcDir(common.file('src/main/java'))
+    resources {
+        srcDir(common.file('src/main/resources'))
+        srcDir(common.file('src/generated/resources'))
     }
-}
-
-// Recipe viewer entrypoints, listed only for the viewers this version builds a plugin for.
-def extraEntrypoints = { ->
-    def entries = []
-    if (propOrNull('deps.jei') != null) {
-        entries << '"jei_mod_plugin": ["nadiendev.constructionwand.integrations.jei.ConstructionWandJeiPlugin"]'
-    }
-    if (propOrNull('deps.emi') != null) {
-        entries << '"emi": ["nadiendev.constructionwand.integrations.emi.ConstructionWandEmiPlugin"]'
-    }
-    if (propOrNull('deps.rei') != null) {
-        entries << '"rei_client": ["nadiendev.constructionwand.integrations.rei.ConstructionWandReiPlugin"]'
-    }
-    return entries.collect { ",\n        " + it }.join('')
-}
-
-processResources {
-    def props = [
-            mod_id               : prop('mod.id'),
-            mod_name             : prop('mod.name'),
-            mod_author           : prop('mod.author'),
-            version              : prop('mod.version'),
-            license              : prop('mod.license'),
-            description          : prop('mod.description'),
-            minecraft_version    : prop('mod.mc_compat'),
-            fabric_loader_version: (prop('deps.fabric_loader') =~ /\d+\.\d+/)[0],
-            java_version         : requiredJava.majorVersion,
-            extra_entrypoints    : extraEntrypoints(),
-    ]
-    inputs.properties(props)
-
-    filesMatching('fabric.mod.json') { expand props }
-    filesMatching('pack.mcmeta') { expand pack_format: prop('mod.pack_format') }
-
-    def extraMixins = ''
-    if (mcAtLeast('1.21.4')) extraMixins += ',\n    "SelectItemModelPropertiesMixin"'
-    if (mcAtLeast('1.21.9')) extraMixins += ',\n    "LevelRendererMixin"'
-    inputs.property('extra_client_mixins', extraMixins)
-    filesMatching('*.mixins.json') {
-        expand java: "JAVA_${requiredJava.majorVersion}".toString(), extra_client_mixins: extraMixins
-    }
-
-    exclude 'META-INF/neoforge.mods.toml'
 }
 
 // Includes the license file in the built mod
 tasks.withType(Jar).configureEach {
-    def modId = prop('mod.id')
-    inputs.property('mod_id', modId)
-    from(rootProject.file('LICENSE')) { rename { "${it}-${modId}" } }
+    from(rootProject.file('LICENSE')) { rename { "${it}-${modid}" } }
 }
 
-tasks.register('buildAndCollect', Copy) {
-    group = 'build'
-    description = 'Builds mod jars and copies results to build/libs/{mod version}/'
+processResources {
+    var replaceProperties = [
+            mod_id               : modid,
+            mod_name             : mod_name,
+            mod_author           : author,
+            version              : mod_version,
+            license              : license,
+            description          : project.description,
+            minecraft_version    : minecraft_version_range,
+            fabric_loader_version: (fabric_loader_version =~ /\d+\.\d+/)[0],
+            java_version         : java_version,
+    ]
+    inputs.properties replaceProperties
 
-    inputs.property('version', prop('mod.version'))
-    // loomx.mod(Sources)Jar returns the jar task for the applied loom variant
-    from(loomx.modJar.flatMap { it.archiveFile }, loomx.modSourcesJar.flatMap { it.archiveFile })
-    into(rootProject.layout.buildDirectory.file("libs/${prop('mod.version')}"))
+    filesMatching(['fabric.mod.json']) {
+        expand replaceProperties
+    }
+    filesMatching(['*.mixins.json']) {
+        expand java: "JAVA_${java_version}".toString()
+    }
+    filesMatching(['pack.mcmeta']) {
+        expand pack_format: pack_format
+    }
+
+    exclude 'META-INF/neoforge.mods.toml'
 }
