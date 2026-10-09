@@ -113,7 +113,7 @@ public class ActionExchange implements IWandAction
             BlockPos currentCandidate = candidates.removeFirst();
 
             // Only exchange blocks facing the player, with no collidable blocks in between
-            if(!WandUtil.isBlockPermeable(world, currentCandidate.offset(targetFace.getNormal()))) continue;
+            if(!WandUtil.isBlockPermeable(world, currentCandidate.offset(targetFace.getUnitVec3i()))) continue;
 
             try {
                 BlockState candidateBlock = world.getBlockState(currentCandidate);
