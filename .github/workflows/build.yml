@@ -3,7 +3,7 @@ name: Build and Release
 on:
   push:
     branches:
-      - "Multi/1.21.1"
+      - "multiloader/1.21.1"
     paths:
       - "common/**"
       - "neoforge/**"
