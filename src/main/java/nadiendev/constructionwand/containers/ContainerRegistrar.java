@@ -4,15 +4,15 @@ package nadiendev.constructionwand.containers;
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.containers.handlers.HandlerBotania;
 //? if sophisticatedbackpacks
-import nadiendev.constructionwand.containers.handlers.HandlerSophisticatedBackpack;
+//import nadiendev.constructionwand.containers.handlers.HandlerSophisticatedBackpack;
 //? if ae2 {
-import nadiendev.constructionwand.containers.handlers.HandlerPortableCell;
+/*import nadiendev.constructionwand.containers.handlers.HandlerPortableCell;
 import nadiendev.constructionwand.containers.handlers.HandlerWirelessTerminal;
-//?}
+*///?}
 //? if refinedstorage
-import nadiendev.constructionwand.containers.handlers.HandlerWirelessGrid;
+//import nadiendev.constructionwand.containers.handlers.HandlerWirelessGrid;
 //? if ae2wtlib
-import nadiendev.constructionwand.containers.handlers.HandlerWirelessTerminalAE2WTLib;
+//import nadiendev.constructionwand.containers.handlers.HandlerWirelessTerminalAE2WTLib;
 import net.neoforged.fml.ModList;
 
 /** Registers the container handlers of optional NeoForge-only mods. Vanilla and generic ones live in common. */
@@ -22,11 +22,11 @@ public class ContainerRegistrar
         registerBotania();
 
         //? if sophisticatedbackpacks
-        registerSophisticatedBackpacks();
+        //registerSophisticatedBackpacks();
         //? if ae2 || ae2wtlib
-        registerAppliedEnergistics();
+        //registerAppliedEnergistics();
         //? if refinedstorage
-        registerRefinedStorage();
+        //registerRefinedStorage();
     }
 
     private static void registerBotania() {
@@ -41,7 +41,7 @@ public class ContainerRegistrar
     }
 
     //? if sophisticatedbackpacks {
-    private static void registerSophisticatedBackpacks() {
+    /*private static void registerSophisticatedBackpacks() {
         try {
             boolean loaded = ModList.get().isLoaded("sophisticatedbackpacks");
             if (loaded) {
@@ -52,12 +52,12 @@ public class ContainerRegistrar
             ConstructionWand.LOGGER.warn("Could not load Sophisticated Backpacks integration: " + e.getMessage());
         }
     }
-    //?}
+    *///?}
 
     //? if ae2 || ae2wtlib {
-    private static void registerAppliedEnergistics() {
+    /*private static void registerAppliedEnergistics() {
         //? if ae2 {
-        try {
+        /^try {
             boolean loaded = ModList.get().isLoaded("ae2");
             if (loaded) {
                 ConstructionWand.instance.containerManager.register(new HandlerPortableCell());
@@ -67,10 +67,10 @@ public class ContainerRegistrar
         } catch (Exception e) {
             ConstructionWand.LOGGER.warn("Could not load Applied Energistics 2 integration: " + e.getMessage());
         }
-        //?}
+        ^///?}
 
         //? if ae2wtlib {
-        try {
+        /^try {
             boolean loaded = ModList.get().isLoaded("ae2wtlib");
             if (loaded) {
                 ConstructionWand.instance.containerManager.register(new HandlerWirelessTerminalAE2WTLib());
@@ -79,12 +79,12 @@ public class ContainerRegistrar
         } catch (Exception e) {
             ConstructionWand.LOGGER.warn("Could not load AE2 Wireless Terminals integration: " + e.getMessage());
         }
-        //?}
+        ^///?}
     }
-    //?}
+    *///?}
 
     //? if refinedstorage {
-    private static void registerRefinedStorage() {
+    /*private static void registerRefinedStorage() {
         try {
             boolean loaded = ModList.get().isLoaded("refinedstorage");
             if (loaded) {
@@ -95,6 +95,6 @@ public class ContainerRegistrar
             ConstructionWand.LOGGER.warn("Could not load Refined Storage integration: " + e.getMessage());
         }
     }
-    //?}
+    *///?}
 }
 //?}

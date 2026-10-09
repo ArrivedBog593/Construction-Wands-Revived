@@ -4,7 +4,7 @@ package nadiendev.constructionwand.platform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
@@ -25,7 +25,7 @@ import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.common.util.BlockSnapshot;
 import net.neoforged.neoforge.event.level.BlockEvent;
 //? if <1.21.9
-import net.neoforged.neoforge.items.IItemHandler;
+//import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
 //? if curios
 import nadiendev.constructionwand.integrations.curios.CuriosIntegration;
@@ -56,11 +56,11 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     }
 
     //? if <1.21.4 {
-    @Override
-    public void registerItemProperty(Item item, ResourceLocation name, ItemPropertyFunction function) {
+    /*@Override
+    public void registerItemProperty(Item item, Identifier name, ItemPropertyFunction function) {
         NeoForgeClientHooks.registerItemProperty(item, name, function);
     }
-    //?}
+    *///?}
 
     @Override
     public void requestModelDataUpdate(BlockEntity blockEntity) {
@@ -100,24 +100,24 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Override
     public IItemInventory getItemInventory(ItemStack stack) {
         //? if >=1.21.9 {
-        /*var handler = net.neoforged.neoforge.transfer.access.ItemAccess.forStack(stack).getCapability(Capabilities.Item.ITEM);
+        var handler = net.neoforged.neoforge.transfer.access.ItemAccess.forStack(stack).getCapability(Capabilities.Item.ITEM);
         return handler == null ? null : new NeoItemInventory(handler);
-        *///?} else {
-        IItemHandler handler = stack.getCapability(Capabilities.ItemHandler.ITEM);
+        //?} else {
+        /*IItemHandler handler = stack.getCapability(Capabilities.ItemHandler.ITEM);
         return handler == null ? null : new NeoItemInventory(handler);
-        //?}
+        *///?}
     }
 
     @Nullable
     @Override
     public IItemInventory getBlockInventory(Level level, BlockPos pos, BlockEntity blockEntity) {
         //? if >=1.21.9 {
-        /*var handler = level.getCapability(Capabilities.Item.BLOCK, pos, blockEntity.getBlockState(), blockEntity, null);
+        var handler = level.getCapability(Capabilities.Item.BLOCK, pos, blockEntity.getBlockState(), blockEntity, null);
         return handler == null ? null : new NeoItemInventory(handler);
-        *///?} else {
-        IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, blockEntity.getBlockState(), blockEntity, null);
+        //?} else {
+        /*IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, blockEntity.getBlockState(), blockEntity, null);
         return handler == null ? null : new NeoItemInventory(handler);
-        //?}
+        *///?}
     }
 
     @Override

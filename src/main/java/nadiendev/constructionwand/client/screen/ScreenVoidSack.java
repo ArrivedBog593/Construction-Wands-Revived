@@ -3,7 +3,7 @@ package nadiendev.constructionwand.client.screen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import nadiendev.constructionwand.ConstructionWand;
@@ -14,8 +14,8 @@ import java.util.List;
 
 public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
 {
-    private static final ResourceLocation TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(ConstructionWand.MODID, "textures/gui/sprites/basket_4x4.png");
+    private static final Identifier TEXTURE =
+            Identifier.fromNamespaceAndPath(ConstructionWand.MODID, "textures/gui/sprites/basket_4x4.png");
 
     private static final int GUI_WIDTH  = 176;
     private static final int GUI_HEIGHT = 192;
@@ -81,22 +81,22 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
             Component tooltipText = Component.translatable("gui.constructionwand.void_sack.toggle_tooltip");
             List<FormattedCharSequence> lines = font.split(tooltipText, 150);
             //? if >=1.21.6 {
-            /*gfx.setTooltipForNextFrame(lines, mouseX, mouseY);
-            *///?} else {
-            gfx.renderTooltip(font, lines, mouseX, mouseY);
-            //?}
+            gfx.setTooltipForNextFrame(lines, mouseX, mouseY);
+            //?} else {
+            /*gfx.renderTooltip(font, lines, mouseX, mouseY);
+            *///?}
         }
     }
 
     @Override
     protected void renderBg(GuiGraphics gfx, float partialTick, int mouseX, int mouseY) {
         //? if >=1.21.6 {
-        /*gfx.blit(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
-        *///?} elif >=1.21.2 {
-        /*gfx.blit(net.minecraft.client.renderer.RenderType::guiTextured, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
+        gfx.blit(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
+        //?} elif >=1.21.2 {
+        /*gfx.blit(net.minecraft.client.renderer.rendertype.RenderType::guiTextured, TEXTURE, leftPos, topPos, 0f, 0f, GUI_WIDTH, GUI_HEIGHT, 256, 256);
         *///?} else {
-        gfx.blit(TEXTURE, leftPos, topPos, 0, 0, GUI_WIDTH, GUI_HEIGHT);
-        //?}
+        /*gfx.blit(TEXTURE, leftPos, topPos, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+        *///?}
     }
 
     @Override
@@ -114,7 +114,7 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
     //?}
 
     //? if >=1.21.9 {
-    /*@Override
+    @Override
     public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent event, boolean doubleClick) {
         if (event.button() == 0 && hasLinked && isOverButton((int) event.x(), (int) event.y())) {
             PacketToggleVoidSack.send(menu.getHand());
@@ -123,8 +123,8 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
         }
         return super.mouseClicked(event, doubleClick);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == 0 && hasLinked && isOverButton((int) mouseX, (int) mouseY)) {
             PacketToggleVoidSack.send(menu.getHand());
@@ -133,7 +133,7 @@ public class ScreenVoidSack extends AbstractContainerScreen<MenuVoidSack>
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }
-    //?}
+    *///?}
 
     private boolean isOverButton(int mouseX, int mouseY) {
         int bx = leftPos + TOGGLE_BTN_X;

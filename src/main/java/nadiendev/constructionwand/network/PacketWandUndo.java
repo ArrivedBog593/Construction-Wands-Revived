@@ -6,7 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import nadiendev.constructionwand.ConstructionWand;
 import nadiendev.constructionwand.basics.WandUtil;
@@ -24,7 +24,7 @@ public record PacketWandUndo() implements CustomPacketPayload
             PacketWandUndo::new);
 
     public static final Type<PacketWandUndo> ID = new Type<>(
-            ResourceLocation.fromNamespaceAndPath(MODID, "wand_undo"));
+            Identifier.fromNamespaceAndPath(MODID, "wand_undo"));
 
     /** Constructor de decodificación — no hay datos que leer. */
     public PacketWandUndo(FriendlyByteBuf buffer) {

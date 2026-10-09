@@ -26,7 +26,7 @@ public class ModItems
         return ITEMS.register(name, () -> {
             Item.Properties properties = new Item.Properties();
             //? if >=1.21.2
-            //properties.setId(ResourceKey.create(Registries.ITEM, ConstructionWand.loc(name)));
+            properties.setId(ResourceKey.create(Registries.ITEM, ConstructionWand.loc(name)));
             return factory.apply(properties);
         });
     }

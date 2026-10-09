@@ -5,7 +5,7 @@
 // import nadiendev.constructionwand.items.ModItems;
 // import nadiendev.constructionwand.items.core.CoreDefault;
 // import nadiendev.constructionwand.items.wand.ItemWand;
-// import net.minecraft.resources.ResourceLocation;
+// import net.minecraft.resources.Identifier;
 // import net.minecraft.world.item.Item;
 // import net.neoforged.bus.api.SubscribeEvent;
 // import net.neoforged.fml.common.EventBusSubscriber;
@@ -17,7 +17,7 @@
 // @EventBusSubscriber(modid = ConstructionWand.MODID, bus = EventBusSubscriber.Bus.MOD, value = net.minecraft.client.Minecraft.class)
 // public class HasCoreProperty
 // {
-//     public static final ResourceLocation USING_CORE = ResourceLocation.fromNamespaceAndPath(ConstructionWand.MODID, "using_core");
+//     public static final Identifier USING_CORE = Identifier.fromNamespaceAndPath(ConstructionWand.MODID, "using_core");
 
 //     @SubscribeEvent
 //     public static void registerPredicates(net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent event) {

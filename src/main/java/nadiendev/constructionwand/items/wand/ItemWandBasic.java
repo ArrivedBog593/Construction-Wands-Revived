@@ -38,19 +38,19 @@ public class ItemWandBasic extends ItemWand
     }
 
     //? if >=1.21.5 {
-    /*@Override
+    @Override
     public void inventoryTick(ItemStack stack, net.minecraft.server.level.ServerLevel level, Entity entity, net.minecraft.world.entity.EquipmentSlot slot) {
         super.inventoryTick(stack, level, entity, slot);
         syncMaxDamage(stack);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, level, entity, slot, selected);
         if(level.isClientSide()) return;
         syncMaxDamage(stack);
     }
-    //?}
+    *///?}
 
     private void syncMaxDamage(ItemStack stack) {
         int max = getMaxDamage(stack);
@@ -65,9 +65,9 @@ public class ItemWandBasic extends ItemWand
     }
 
     //? if <1.21.2 {
-    @Override
+    /*@Override
     public boolean isValidRepairItem(@Nonnull ItemStack toRepair, @Nonnull ItemStack repair) {
         return this.tier.isRepairItem(repair);
     }
-    //?}
+    *///?}
 }

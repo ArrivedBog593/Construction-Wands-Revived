@@ -6,7 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
@@ -23,7 +23,7 @@ public record PacketExchangeSelect() implements CustomPacketPayload
             PacketExchangeSelect::new);
 
     public static final Type<PacketExchangeSelect> ID = new Type<>(
-            ResourceLocation.fromNamespaceAndPath(MODID, "exchange_select"));
+            Identifier.fromNamespaceAndPath(MODID, "exchange_select"));
 
     /** Constructor de decodificación — no hay datos que leer. */
     public PacketExchangeSelect(FriendlyByteBuf buffer) {

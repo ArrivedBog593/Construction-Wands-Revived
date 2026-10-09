@@ -60,7 +60,7 @@ public class ScreenWand extends Screen {
     //?}
 
     //? if >=1.21.9 {
-    /*@Override
+    @Override
     public boolean keyPressed(net.minecraft.client.input.KeyEvent event) {
         if (Minecraft.getInstance().options.keyInventory.matches(event)) {
             this.onClose();
@@ -69,8 +69,8 @@ public class ScreenWand extends Screen {
             return super.keyPressed(event);
         }
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (Minecraft.getInstance().options.keyInventory.matches(keyCode, scanCode)) {
             this.onClose();
@@ -79,7 +79,7 @@ public class ScreenWand extends Screen {
             return super.keyPressed(keyCode, scanCode, modifiers);
         }
     }
-    //?}
+    *///?}
 
     private void createButton(int cx, int cy, IOption<?> option) {
         Button button = Button.builder(getButtonLabel(option), bt -> clickButton(bt, option))
