@@ -30,4 +30,4 @@ forge*changelog.txt
 .cache
 logs
 
-generated/*/.cache
+common/src/generated/.cache

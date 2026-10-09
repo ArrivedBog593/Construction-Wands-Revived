@@ -1,0 +1,176 @@
+plugins {
+    // This plugin applies the correct loom variant based on the Minecraft version
+    id("dev.kikugie.loom-back-compat")
+}
+
+fun propOrNull(key: String): String? = findProperty(key)?.toString()
+fun prop(key: String): String = propOrNull(key) ?: error("Missing property $key")
+
+val mc = prop("minecraft_version")
+
+/** Compares dotted Minecraft versions numerically, e.g. `mcAtLeast("1.21.4")`. */
+fun mcAtLeast(other: String): Boolean {
+    val a = mc.split('.').map { it.toInt() }
+    val b = other.split('.').map { it.toInt() }
+    for (i in 0 until maxOf(a.size, b.size)) {
+        val diff = a.getOrElse(i) { 0 } - b.getOrElse(i) { 0 }
+        if (diff != 0) return diff > 0
+    }
+    return true
+}
+
+val common = project(":common")
+
+// DO NOT set group = ...!
+version = "${prop("mod.version")}+$mc"
+base.archivesName = "${prop("mod.id")}-fabric"
+
+val requiredJava: JavaVersion = when {
+    mcAtLeast("26.1") -> JavaVersion.VERSION_25
+    mcAtLeast("1.20.5") -> JavaVersion.VERSION_21
+    else -> JavaVersion.VERSION_17
+}
+
+repositories {
+    maven("https://maven.blamejared.com")
+    maven("https://maven.shedaniel.me")
+    maven("https://maven.terraformersmc.com/")
+    maven("https://maven.architectury.dev/") { content { includeGroup("dev.architectury") } }
+}
+
+dependencies {
+    // JEI skips some Minecraft versions; its API is compatible with the neighbouring build
+    val jeiMc = propOrNull("deps.jei_mc") ?: mc
+    // The unobfuscated versions (26.1+) have no intermediary artifacts
+    val jeiCommonSuffix = if (mcAtLeast("26.1")) "" else "-intermediary"
+
+    fun optional(key: String, add: (String) -> Unit) = propOrNull(key)?.let(add)
+
+    minecraft("com.mojang:minecraft:$mc")
+    // Applies Mojang Mappings on obfuscated versions
+    loomx.applyMojangMappings()
+
+    // Use `mod{dependency type}` even on 26.1+ - loom-back-compat converts them
+    modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric_loader")}")
+    // The full Fabric API
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric_api")}")
+
+    // Fabric API 0.145.1 resolves a lifecycle module that predates what its entity events module expects
+    optional("deps.fabric_lifecycle") { modCompileOnly("net.fabricmc.fabric-api:fabric-lifecycle-events-v1:$it") }
+
+    // Nullability annotations used by the shared code
+    compileOnly("com.google.code.findbugs:jsr305:3.0.2")
+    compileOnly("org.jetbrains:annotations:24.1.0")
+
+    // Recipe viewers (compile-only, so the dev environment is not tied to their own dependencies)
+    optional("deps.jei") {
+        modCompileOnly("mezz.jei:jei-$jeiMc-common-api$jeiCommonSuffix:$it") { isTransitive = false }
+        modCompileOnly("mezz.jei:jei-$jeiMc-fabric-api:$it")
+    }
+    optional("deps.architectury") { modCompileOnly("dev.architectury:architectury-fabric:$it") }
+    optional("deps.rei") {
+        modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:$it")
+        modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:$it")
+    }
+    optional("deps.emi") {
+        modCompileOnly("dev.emi:emi-fabric:$it:api")
+        modRuntimeOnly("dev.emi:emi-fabric:$it")
+    }
+}
+
+loom {
+
+    decompilerOptions.named("vineflower") {
+        options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas - useful for mixins
+    }
+
+    runConfigs.all {
+        preferGradleTask = true
+        generateRunConfig = true
+        runDirectory = rootProject.file("run") // Shares the run directory between versions
+    }
+}
+
+// Data generated for this Minecraft version (recipes, advancements, models, lang), see `common/src/generated`
+sourceSets.main {
+    java.srcDir(common.file("src/main/java"))
+    resources.srcDir(common.file("src/main/resources"))
+    resources.srcDir(common.file("src/generated/resources"))
+}
+
+java {
+    withSourcesJar()
+    targetCompatibility = requiredJava
+    sourceCompatibility = requiredJava
+
+    toolchain {
+        vendor = JvmVendorSpec.ADOPTIUM
+        languageVersion = JavaLanguageVersion.of(requiredJava.majorVersion)
+    }
+}
+
+/** Recipe viewer entrypoints, listed only for the viewers this version builds a plugin for. */
+fun extraEntrypoints(): String {
+    val entries = mutableListOf<String>()
+    if (propOrNull("deps.jei") != null) {
+        entries += """"jei_mod_plugin": ["nadiendev.constructionwand.integrations.jei.ConstructionWandJeiPlugin"]"""
+    }
+    if (propOrNull("deps.emi") != null) {
+        entries += """"emi": ["nadiendev.constructionwand.integrations.emi.ConstructionWandEmiPlugin"]"""
+    }
+    if (propOrNull("deps.rei") != null) {
+        entries += """"rei_client": ["nadiendev.constructionwand.integrations.rei.ConstructionWandReiPlugin"]"""
+    }
+    return entries.joinToString("") { ",\n        $it" }
+}
+
+tasks {
+    processResources {
+        fun MutableMap<String, String>.register(key: String, value: String) {
+            inputs.property(key, value)
+            set(key, value)
+        }
+
+        val props = buildMap {
+            register("mod_id", prop("mod.id"))
+            register("mod_name", prop("mod.name"))
+            register("mod_author", prop("mod.author"))
+            register("version", prop("mod.version"))
+            register("license", prop("mod.license"))
+            register("description", prop("mod.description"))
+            register("minecraft_version", prop("mod.mc_compat"))
+            register("fabric_loader_version", Regex("\\d+\\.\\d+").find(prop("deps.fabric_loader"))!!.value)
+            register("java_version", requiredJava.majorVersion)
+            register("extra_entrypoints", extraEntrypoints())
+        }
+
+        filesMatching("fabric.mod.json") { expand(props) }
+        filesMatching("pack.mcmeta") { expand("pack_format" to prop("mod.pack_format")) }
+
+        val mixinJava = "JAVA_${requiredJava.majorVersion}"
+        val extraMixins = buildString {
+            if (mcAtLeast("1.21.4")) append(""",\n    "SelectItemModelPropertiesMixin"""")
+            if (mcAtLeast("1.21.9")) append(""",\n    "LevelRendererMixin"""")
+        }
+        filesMatching("*.mixins.json") { expand("java" to mixinJava, "extra_client_mixins" to extraMixins) }
+
+        exclude("META-INF/neoforge.mods.toml")
+    }
+
+    // Includes the license file in the built mod
+    withType<Jar> {
+        val name = prop("mod.id")
+        inputs.property("mod_id", name)
+        from(rootProject.file("LICENSE")) { rename { "$it-$name" } }
+    }
+
+    register<Copy>("buildAndCollect") {
+        group = "build"
+        description = "Builds mod jars and copies results to `build/libs/{mod version}/`"
+
+        inputs.property("version", prop("mod.version"))
+        // loomx.mod(Sources)Jar returns the jar task for the applied loom variant
+        from(loomx.modJar.flatMap { it.archiveFile }, loomx.modSourcesJar.flatMap { it.archiveFile })
+        into(rootProject.layout.buildDirectory.file("libs/${prop("mod.version")}"))
+    }
+}
