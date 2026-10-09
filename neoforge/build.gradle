@@ -134,7 +134,7 @@ dependencies {
 
     // Curios API
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
-    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    // Curios 17.0.0-beta.2 was built against an older NeoForge than the one of 26.3 and does not load on it
 
     //Ae2 Wireless Terminals
     implementation "de.mari_023:ae2wtlib_api:${ae2wtlib_version}"
