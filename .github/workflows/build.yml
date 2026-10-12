@@ -112,7 +112,7 @@ jobs:
             metadata=$(jq -nc \
               --arg changelog "$CHANGELOG" \
               --arg type "$RELEASE_TYPE" \
-              --arg name "ConstructionWandsRevived $MOD_VERSION ($loader_name $MC)" \
+              --arg name "ConstructionWandsRevived-$MC-$MOD_VERSION-$loader_name" \
               --arg mc "$MC" --arg loader "$loader_name" \
               --argjson relations "$relations" \
               '{changelog: $changelog, changelogType: "markdown", releaseType: $type, displayName: $name,
