@@ -14,7 +14,12 @@ import java.util.List;
  * Exposes a Fabric Transfer API item storage as a slot based inventory. Each storage view is one slot.
  * Fabric storages are not slot addressed for insertion, so the slot of an insert is ignored.
  */
-public record FabricItemInventory(Storage<ItemVariant> storage) implements IItemInventory {
+public record FabricItemInventory(Storage<ItemVariant> storage, @org.jetbrains.annotations.Nullable Runnable onCommit)
+        implements IItemInventory {
+
+    public FabricItemInventory(Storage<ItemVariant> storage) {
+        this(storage, null);
+    }
 
     private List<StorageView<ItemVariant>> views() {
         List<StorageView<ItemVariant>> views = new ArrayList<>();
@@ -48,7 +53,10 @@ public record FabricItemInventory(Storage<ItemVariant> storage) implements IItem
         ItemVariant resource = view.getResource();
         try (Transaction transaction = Transaction.openOuter()) {
             long extracted = view.extract(resource, amount, transaction);
-            if (!simulate) transaction.commit();
+            if (!simulate) {
+                transaction.commit();
+                if (onCommit != null) onCommit.run();
+            }
             return extracted <= 0 ? ItemStack.EMPTY : resource.toStack((int) extracted);
         }
     }
@@ -58,7 +66,10 @@ public record FabricItemInventory(Storage<ItemVariant> storage) implements IItem
         if (stack.isEmpty()) return ItemStack.EMPTY;
         try (Transaction transaction = Transaction.openOuter()) {
             long inserted = storage.insert(ItemVariant.of(stack), stack.getCount(), transaction);
-            if (!simulate) transaction.commit();
+            if (!simulate) {
+                transaction.commit();
+                if (onCommit != null) onCommit.run();
+            }
             return stack.copyWithCount(stack.getCount() - (int) inserted);
         }
     }
