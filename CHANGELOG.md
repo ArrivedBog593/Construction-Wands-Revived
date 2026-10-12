@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.0.10 — Minecraft 26.2 / NeoForge and Fabric
+
+### Fixes
+
+- **Shulker boxes placed with the wand kept no contents.** A shulker box that held items came out empty when the
+  wand placed it, so its contents were lost. The wand now moves the data of the item (contents, custom name and
+  similar) into the placed block, the same way placing the block by hand does.
+
+## 4.0.10 — Minecraft 26.2 / NeoForge and Fabric (Español)
+
+### Corregido
+
+- **Las cajas de shulker colocadas con la varita perdian su contenido.** Una caja de shulker con objetos salia
+  vacia al colocarla con la varita, y el contenido se perdia. Ahora la varita pasa los datos del objeto (contenido,
+  nombre personalizado y similares) al bloque colocado, igual que al colocarlo a mano.
+
 ## 4.0.9 — Minecraft 26.2 / NeoForge and Fabric
 
 ### Fixes

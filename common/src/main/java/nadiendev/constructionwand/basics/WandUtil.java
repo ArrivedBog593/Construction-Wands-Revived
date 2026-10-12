@@ -139,8 +139,11 @@ public class WandUtil
             player.awardStat(Stats.ITEM_USED.get(item.getItem()));
         }
         BlockItem.updateCustomBlockEntityTag(world, player, pos, stack);
-        block.getBlock().setPlacedBy(world, pos, block, player, stack);
         BlockEntity blockEntity = world.getBlockEntity(pos);
+        // Vanilla does this as a separate step of BlockItem.place: the components of the item (the contents of a
+        // shulker box, the name of a container, ...) are moved into the block entity.
+        if(blockEntity != null) blockEntity.applyComponentsFromItemStack(stack);
+        block.getBlock().setPlacedBy(world, pos, block, player, stack);
         if(blockEntity != null) {
             blockEntity.setChanged();
             world.sendBlockUpdated(pos, block, block, Block.UPDATE_ALL);
