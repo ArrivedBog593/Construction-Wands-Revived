@@ -81,18 +81,17 @@ public class SupplierInventory implements IWandSupplier {
         if (itemCounts.containsKey(entry)) return;
 
         ItemStack template = entry.copyStack();
+        // Stock carried in the inventory, including what is inside containers carried there (creative mode and
+        // handlers that report an unlimited supply come back as Integer.MAX_VALUE).
         int count = WandUtil.countItem(player, template);
-
-        // Si hay algun container handler que reconoce este item, usamos MAX_VALUE
-        // para no limitar por el stock real de la red (que se decrementaria incorrectamente
-        // en getPlaceSnapshot). El verdadero consumo ocurre en takeItemStack().
-        // Esto tambien corrige el bug en modo creativo con terminales wireless:
-        // countItemInContainers devuelve el stock real de la red, pero getPlaceSnapshot
-        // lo va decrementando y se queda sin stock aunque la red tenga miles.
-        if (hasContainerWithItem(template)) {
+        // Containers in Curios slots are not part of the inventory scan. Saturating add: MAX_VALUE must not overflow.
+        if (count != Integer.MAX_VALUE) {
+            count = (int) Math.min((long) count + countItemInCurioContainers(template), Integer.MAX_VALUE);
+        }
+        // The client cannot look inside containers (that needs a server side trace). It only draws the preview, so
+        // assume the carried container can supply it. The server counts what is really there when placing.
+        if (count == 0 && !(player instanceof ServerPlayer) && hasContainerWithItem(template)) {
             count = Integer.MAX_VALUE;
-        } else {
-            count += countItemInContainers(template);
         }
 
         if (count > 0) {
@@ -124,23 +123,20 @@ public class SupplierInventory implements IWandSupplier {
         return false;
     }
 
-    private int countItemInContainers(ItemStack itemStack) {
+    private int countItemInCurioContainers(ItemStack itemStack) {
         if (!(player instanceof ServerPlayer sp)) return 0;
 
         ContainerManager containerManager = ConstructionWand.instance.containerManager;
         ContainerTrace trace = new ContainerTrace(sp);
-        int total = 0;
+        long total = 0;
 
-        for (ItemStack inv : WandUtil.getHotbarWithOffhand(player)) {
-            total += containerManager.countItems(player, trace, itemStack, inv);
-        }
-        for (ItemStack inv : WandUtil.getMainInv(player)) {
-            total += containerManager.countItems(player, trace, itemStack, inv);
-        }
         for (ItemStack inv : getCuriosInv(player)) {
-            total += containerManager.countItems(player, trace, itemStack, inv);
+            if (inv == null || inv.isEmpty()) continue;
+            int amount = containerManager.countItems(player, trace, itemStack, inv);
+            if (amount == Integer.MAX_VALUE) return Integer.MAX_VALUE;
+            total += amount;
         }
-        return total;
+        return (int) Math.min(total, Integer.MAX_VALUE);
     }
 
     @Override
