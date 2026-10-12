@@ -11,8 +11,17 @@ import net.neoforged.neoforge.transfer.transaction.Transaction;
 *///?}
 
 //? if >=1.21.9 {
-/** Exposes a NeoForge item {@link ResourceHandler} as a common inventory. */
-public record NeoItemInventory(ResourceHandler<ItemResource> handler) implements IItemInventory {
+/**
+ * Exposes a NeoForge item {@link ResourceHandler} as a common inventory.
+ *
+ * @param onCommit run after a change was committed, used to copy the result back into the real item stack
+ */
+public record NeoItemInventory(ResourceHandler<ItemResource> handler, @org.jetbrains.annotations.Nullable Runnable onCommit)
+        implements IItemInventory {
+
+    public NeoItemInventory(ResourceHandler<ItemResource> handler) {
+        this(handler, null);
+    }
 
     @Override
     public int getSlots() {
@@ -31,7 +40,10 @@ public record NeoItemInventory(ResourceHandler<ItemResource> handler) implements
         try (Transaction transaction = Transaction.open(null)) {
             int extracted = handler.extract(slot, resource, amount, transaction);
             if (extracted <= 0) return ItemStack.EMPTY;
-            if (!simulate) transaction.commit();
+            if (!simulate) {
+                transaction.commit();
+                if (onCommit != null) onCommit.run();
+            }
             return resource.toStack(extracted);
         }
     }
@@ -42,7 +54,10 @@ public record NeoItemInventory(ResourceHandler<ItemResource> handler) implements
         try (Transaction transaction = Transaction.open(null)) {
             int inserted = handler.insert(slot, ItemResource.of(stack), stack.getCount(), transaction);
             if (inserted <= 0) return stack;
-            if (!simulate) transaction.commit();
+            if (!simulate) {
+                transaction.commit();
+                if (onCommit != null) onCommit.run();
+            }
             return stack.copyWithCount(stack.getCount() - inserted);
         }
     }
