@@ -1,5 +1,28 @@
 # Changelog
 
+## 4.0.9 — Minecraft 1.21.5 / NeoForge and Fabric
+
+### Fixes
+
+- **The wand no longer places unlimited blocks while you carry a container.** Any carried item that exposes an item
+  inventory (backpacks and similar) made the wand treat every block as available. The wand now counts what your
+  inventory and the containers in it really hold, and stops when it runs out.
+
+- **Items taken from carried containers are now really consumed.** On Fabric the wand reported the blocks as taken but
+  the backpack kept them, so they were never used up. The container is now updated when the wand takes blocks from it.
+
+## 4.0.9 — Minecraft 1.21.5 / NeoForge and Fabric (Español)
+
+### Corregido
+
+- **La varita ya no coloca bloques ilimitados mientras llevas un contenedor.** Cualquier objeto con inventario
+  (mochilas y similares) hacia que la varita diera por disponibles todos los bloques. Ahora cuenta lo que de verdad
+  hay en tu inventario y en los contenedores que llevas, y se detiene cuando se acaba.
+
+- **Los objetos que se toman de los contenedores ahora se consumen de verdad.** En Fabric la varita daba los bloques
+  por tomados pero la mochila los conservaba, asi que nunca se gastaban. Ahora el contenedor se actualiza cuando la
+  varita toma bloques de el.
+
 ## 4.0.7 — Minecraft 1.21.5 / NeoForge and Fabric
 
 ### Additions
