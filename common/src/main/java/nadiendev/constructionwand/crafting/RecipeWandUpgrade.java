@@ -86,4 +86,17 @@ public class RecipeWandUpgrade extends CustomRecipe
     *///?}
         return ModRecipes.WAND_UPGRADE.get();
     }
+
+    // The recipe has no state, so any two instances are the same recipe. The network codec of the serializer
+    // compares the recipe it is asked to encode with the instance it was created with, and the recipes that
+    // are decoded from the data packs are other instances.
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof RecipeWandUpgrade;
+    }
+
+    @Override
+    public int hashCode() {
+        return RecipeWandUpgrade.class.hashCode();
+    }
 }

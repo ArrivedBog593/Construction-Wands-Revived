@@ -1,5 +1,29 @@
 # Changelog
 
+## 4.0.8 — Minecraft 26.3 / NeoForge and Fabric
+
+### Fixes
+
+- **Joining a world failed with a network error.** The wand upgrade recipe could not be sent to the client: the
+  recipe synchronization failed with `Can't encode 'RecipeWandUpgrade', expected 'RecipeWandUpgrade'` and every
+  join was disconnected. The recipe has no state, so any two instances are now the same recipe and it is
+  synchronized without errors.
+
+- **Two warnings at startup are gone.** NeoForge no longer reports the deprecated `logoFile` property of the mod,
+  and Minecraft no longer reports that the resource pack metadata lacks `min_format` and `max_format`.
+
+## 4.0.8 — Minecraft 26.3 / NeoForge and Fabric (Español)
+
+### Corregido
+
+- **Entrar a un mundo fallaba con un error de red.** La receta de mejora de la varita no se podia enviar al
+  cliente: la sincronizacion de recetas fallaba con `Can't encode 'RecipeWandUpgrade', expected 'RecipeWandUpgrade'`
+  y cada intento de entrar terminaba desconectado. La receta no tiene estado, asi que ahora dos instancias
+  cualesquiera son la misma receta y se sincroniza sin errores.
+
+- **Desaparecen dos avisos al iniciar.** NeoForge ya no avisa de la propiedad `logoFile`, que esta obsoleta, y
+  Minecraft ya no avisa de que al metadato del paquete de recursos le faltan `min_format` y `max_format`.
+
 ## 4.0.7 — Minecraft 26.3 / NeoForge and Fabric
 
 ### Additions
