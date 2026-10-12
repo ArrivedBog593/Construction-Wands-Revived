@@ -12,7 +12,9 @@ public class HandlerCapability implements IContainerHandler
 {
     @Override
     public boolean matches(Player player, ItemStack itemStack, ItemStack inventoryStack) {
-        return inventoryStack != null && Services.PLATFORM.getItemInventory(inventoryStack) != null;
+        // Empty slots are passed in as well, and the loaders refuse to build an item access for an empty stack
+        return inventoryStack != null && !inventoryStack.isEmpty()
+                && Services.PLATFORM.getItemInventory(inventoryStack) != null;
     }
 
     @Override
