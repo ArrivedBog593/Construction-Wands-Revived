@@ -99,9 +99,16 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Nullable
     @Override
     public IItemInventory getItemInventory(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) return null;
         //? if >=1.21.9 {
-        var handler = net.neoforged.neoforge.transfer.access.ItemAccess.forStack(stack).getCapability(Capabilities.Item.ITEM);
-        return handler == null ? null : new NeoItemInventory(handler);
+        // ItemAccess.forStack hands the handler a copy that is thrown away afterwards, so everything the container
+        // extracts would be lost. Work on our own copy and write it back after each committed change.
+        var container = new net.minecraft.world.SimpleContainer(stack.copy());
+        var access = net.neoforged.neoforge.transfer.access.ItemAccess.forHandlerIndexStrict(
+                net.neoforged.neoforge.transfer.item.VanillaContainerWrapper.of(container), 0);
+        var handler = access.getCapability(Capabilities.Item.ITEM);
+        return handler == null ? null
+                : new NeoItemInventory(handler, () -> StackSync.copyInto(stack, container.getItem(0)));
         //?} else {
         /*IItemHandler handler = stack.getCapability(Capabilities.ItemHandler.ITEM);
         return handler == null ? null : new NeoItemInventory(handler);
