@@ -92,8 +92,14 @@ public class FabricPlatformHelper implements IPlatformHelper {
     @Nullable
     @Override
     public IItemInventory getItemInventory(ItemStack stack) {
-        Storage<ItemVariant> storage = ItemStorage.ITEM.find(stack, ContainerItemContext.withConstant(stack));
-        return storage == null ? null : new FabricItemInventory(storage);
+        if (stack == null || stack.isEmpty()) return null;
+        // withConstant never persists changes. Work on a copy in a container and write it back after each commit.
+        ItemStack copy = stack.copy();
+        net.minecraft.world.SimpleContainer container = new net.minecraft.world.SimpleContainer(copy);
+        var slot = net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage.of(container, null).getSlot(0);
+        Storage<ItemVariant> storage = ItemStorage.ITEM.find(copy, ContainerItemContext.ofSingleSlot(slot));
+        return storage == null ? null
+                : new FabricItemInventory(storage, () -> StackSync.copyInto(stack, container.getItem(0)));
     }
 
     @Nullable
