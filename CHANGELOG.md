@@ -1,5 +1,25 @@
 # Changelog
 
+## 4.0.11 — Minecraft 1.21.11 / NeoForge and Fabric
+
+### Fixes
+
+- **Undoing a destruction no longer duplicates the blocks.** The Destruction core hands the drops of every block it
+  breaks to your inventory, but undoing the destruction put the block back without taking them away, so every undo
+  left a free copy of each block. Undo now takes back from your inventory the items the destruction handed out, and
+  it can only be done while you still carry them. When the drops went to a Void Sack (or what the sack could not hold
+  fell in the world), they cannot be taken back and that destruction can no longer be undone.
+
+## 4.0.11 — Minecraft 1.21.11 / NeoForge and Fabric (Español)
+
+### Corregido
+
+- **Deshacer una destruccion ya no duplica los bloques.** El nucleo de Destruccion entrega a tu inventario los drops
+  de cada bloque que rompe, pero al deshacer se devolvia el bloque sin quitar esos objetos, asi que cada deshacer
+  dejaba una copia gratis de cada bloque. Ahora deshacer te quita del inventario lo que la destruccion habia entregado,
+  y solo se puede hacer mientras lo sigas llevando encima. Cuando los drops fueron a una Bolsa del Vacio (o lo que la
+  bolsa no pudo guardar cayo al suelo), no se pueden recuperar y esa destruccion ya no se puede deshacer.
+
 ## 4.0.10 — Minecraft 1.21.11 / NeoForge and Fabric
 
 ### Fixes
