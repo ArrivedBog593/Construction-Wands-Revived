@@ -16,12 +16,18 @@ import nadiendev.constructionwand.basics.WandUtil;
 import nadiendev.constructionwand.wand.action.ActionDestruction;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DestroySnapshot implements ISnapshot
 {
     private final BlockState block;
     private final BlockPos pos;
+
+    /** What the player was given for this block, taken back from the inventory when the destruction is undone. */
+    private final List<ItemStack> given = new ArrayList<>();
+    /** The drops ended up somewhere they cannot be taken back from: a Void Sack, or the world. */
+    private boolean dropsKept = false;
 
     public DestroySnapshot(BlockState block, BlockPos pos) {
         this.pos = pos;
@@ -63,7 +69,11 @@ public class DestroySnapshot implements ISnapshot
         // With a Void Sack in the inventory the drops are dropped in the world and the sack intercepts them
         // (see ActionDestruction.VoidSackCapturingSnapshot / VoidSackDropHandler).
         if(!ActionDestruction.findActiveSack(player).isEmpty()) {
-            return serverLevel.destroyBlock(pos, true, serverPlayer, 512);
+            boolean destroyed = serverLevel.destroyBlock(pos, true, serverPlayer, 512);
+            // The sack keeps what it caught, and what it could not hold falls in the world: undoing this
+            // destruction would hand the blocks out a second time
+            if(destroyed) dropsKept = true;
+            return destroyed;
         }
 
         BlockState broken = world.getBlockState(pos);
@@ -72,9 +82,14 @@ public class DestroySnapshot implements ISnapshot
 
         if(!serverLevel.destroyBlock(pos, false, serverPlayer, 512)) return false;
 
+        given.clear();
         for(ItemStack drop : drops) {
             if(drop.isEmpty()) continue;
+            ItemStack offered = drop.copy();
+            int before = drop.getCount();
             player.getInventory().add(drop);
+            offered.setCount(before - drop.getCount());
+            if(offered.getCount() > 0) remember(offered);
         }
 
         return true;
@@ -90,6 +105,8 @@ public class DestroySnapshot implements ISnapshot
 
         // Ignore blocks and entities when in creative
         if(player.isCreative()) return true;
+        // The blocks that were handed out have to be taken back, so they must still be in the inventory
+        if(dropsKept || !carriesGivenItems(player)) return false;
 
         // Is block empty or fluid?
         if(!world.isEmptyBlock(pos) && !world.getBlockState(pos).canBeReplaced(Fluids.EMPTY)) return false;
@@ -99,7 +116,58 @@ public class DestroySnapshot implements ISnapshot
 
     @Override
     public boolean restore(Level world, Player player) {
-        return WandUtil.placeBlock(world, player, block, pos, null);
+        boolean charge = !player.isCreative() && !given.isEmpty();
+        if(charge && !takeBackGivenItems(player)) return false;
+
+        if(WandUtil.placeBlock(world, player, block, pos, null)) return true;
+
+        if(charge) {
+            for(ItemStack stack : given) player.getInventory().add(stack.copy());
+            player.getInventory().setChanged();
+        }
+        return false;
+    }
+
+    private void remember(ItemStack offered) {
+        for(ItemStack stack : given) {
+            if(WandUtil.stackEquals(stack, offered)) {
+                stack.grow(offered.getCount());
+                return;
+            }
+        }
+        given.add(offered);
+    }
+
+    private static int carried(Player player, ItemStack template) {
+        int total = 0;
+        for(ItemStack stack : WandUtil.getFullInv(player)) {
+            if(!stack.isEmpty() && WandUtil.stackEquals(stack, template)) total += stack.getCount();
+        }
+        return total;
+    }
+
+    private boolean carriesGivenItems(Player player) {
+        for(ItemStack stack : given) {
+            if(carried(player, stack) < stack.getCount()) return false;
+        }
+        return true;
+    }
+
+    private boolean takeBackGivenItems(Player player) {
+        if(!carriesGivenItems(player)) return false;
+
+        for(ItemStack wanted : given) {
+            int remaining = wanted.getCount();
+            for(ItemStack stack : WandUtil.getFullInv(player)) {
+                if(remaining <= 0) break;
+                if(stack.isEmpty() || !WandUtil.stackEquals(stack, wanted)) continue;
+                int taken = Math.min(remaining, stack.getCount());
+                stack.shrink(taken);
+                remaining -= taken;
+            }
+        }
+        player.getInventory().setChanged();
+        return true;
     }
 
     @Override
