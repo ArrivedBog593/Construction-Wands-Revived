@@ -1,4 +1,3 @@
-//? if neoforge && sophisticatedbackpacks {
 package nadiendev.constructionwand.containers.handlers;
 
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -67,4 +66,3 @@ public class HandlerSophisticatedBackpack implements IContainerHandler {
         return count;
     }
 }
-//?}

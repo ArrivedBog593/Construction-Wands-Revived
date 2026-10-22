@@ -51,6 +51,15 @@ public record PacketExchangeSelect() implements CustomPacketPayload
                 ItemStack wand = WandUtil.holdingWand(player);
                 if(wand == null) return;
 
+                // Only the Exchange core uses the selected block: with another core active there is nothing to select
+                if(!(new nadiendev.constructionwand.basics.option.WandOptions(wand).cores.get()
+                        instanceof nadiendev.constructionwand.items.core.ItemCoreExchange)) {
+                    MessageCompat.overlay(player, 
+                            Component.translatable(MODID + ".message.exchange_wrong_core")
+                                    .withStyle(net.minecraft.ChatFormatting.RED), true);
+                    return;
+                }
+
                 // Raytrace del servidor hacia donde está mirando el jugador
                 double reach = player.blockInteractionRange();
                 HitResult hit = player.pick(reach, 1.0F, false);
