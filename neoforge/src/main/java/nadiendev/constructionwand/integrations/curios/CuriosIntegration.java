@@ -1,10 +1,7 @@
-//? if neoforge && curios {
 package nadiendev.constructionwand.integrations.curios;
 
-//? if ae2 {
 import appeng.menu.locator.ItemMenuHostLocator;
 import appeng.menu.locator.MenuLocators;
-//?}
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -38,7 +35,6 @@ public final class CuriosIntegration {
         }
     }
 
-    //? if ae2 {
     
     public static ItemMenuHostLocator resolveCurioSlot(ServerPlayer player, ItemStack item) {
         if (!LOADED) return null;
@@ -48,7 +44,6 @@ public final class CuriosIntegration {
             return null;
         }
     }
-    //?}
 
     
     private static final class Impl {
@@ -67,7 +62,6 @@ public final class CuriosIntegration {
             return result;
         }
 
-        //? if ae2 {
         static ItemMenuHostLocator resolveLocator(ServerPlayer player, ItemStack item) {
             var curiosInventory = top.theillusivec4.curios.api.CuriosApi.getCuriosInventory(player).orElse(null);
             if (curiosInventory == null) return null;
@@ -86,7 +80,5 @@ public final class CuriosIntegration {
             }
             return null;
         }
-        //?}
     }
 }
-//?}

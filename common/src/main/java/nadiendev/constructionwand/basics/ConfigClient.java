@@ -23,11 +23,7 @@ public class ConfigClient
 
         BUILDER.push("keys");
         BUILDER.comment("Key code of OPTKEY (Default: Left Control). Look up key codes under https://www.glfw.org/docs/3.3/group__keys.html (SDL scancodes from 26.3 on, Default: 224)");
-        //? if >=26.3 {
         OPT_KEY = BUILDER.defineInRange("OptKey", 224, 0, 511);
-        //?} else {
-        /*OPT_KEY = BUILDER.defineInRange("OptKey", 341, 0, 350);
-        *///?}
         BUILDER.comment("Press SNEAK+OPTKEY instead of SNEAK for changing wand mode/direction lock");
         SHIFTOPT_MODE = BUILDER.define("ShiftOpt", false);
         BUILDER.comment("Press SNEAK+OPTKEY instead of SNEAK for opening wand GUI");

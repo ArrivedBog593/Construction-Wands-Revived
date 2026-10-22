@@ -9,9 +9,5 @@ import nadiendev.constructionwand.platform.services.IPlatformHelper;
 public class Services {
 
     public static final IPlatformHelper PLATFORM =
-            //? if neoforge {
             new NeoForgePlatformHelper();
-            //?} else {
-            /*new FabricPlatformHelper();
-            *///?}
 }

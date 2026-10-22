@@ -1,4 +1,3 @@
-//? if neoforge && rei {
 package nadiendev.constructionwand.integrations.rei;
 
 import me.shedaniel.rei.forge.REIPluginClient;
@@ -7,4 +6,3 @@ import me.shedaniel.rei.forge.REIPluginClient;
 @REIPluginClient
 public class NeoForgeReiPlugin extends ConstructionWandReiPlugin {
 }
-//?}

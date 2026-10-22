@@ -14,8 +14,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-//? if <1.21.2
-//import net.minecraft.world.InteractionResultHolder;
 
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -254,7 +252,6 @@ public class ItemVoidSack extends Item
         return InteractionResult.PASS;
     }
 
-    //? if >=1.21.2 {
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
@@ -262,16 +259,6 @@ public class ItemVoidSack extends Item
         }
         return InteractionResult.SUCCESS;
     }
-    //?} else {
-    /*@Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack sack = player.getItemInHand(hand);
-        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
-            openGui(serverPlayer, hand);
-        }
-        return InteractionResultHolder.sidedSuccess(sack, level.isClientSide());
-    }
-    *///?}
 
     public static void openGui(ServerPlayer player, InteractionHand hand) {
         Services.PLATFORM.openMenu(player, new MenuProvider() {
@@ -289,7 +276,6 @@ public class ItemVoidSack extends Item
 
     // ─── Tooltip ──────────────────────────────────────────────────────────────
 
-    //? if >=1.21.5 {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
                                 java.util.function.Consumer<Component> consumer, TooltipFlag flag) {
@@ -297,14 +283,6 @@ public class ItemVoidSack extends Item
         collectTooltip(stack, lines);
         lines.forEach(consumer);
     }
-    //?} else {
-    /*@Override
-    public void appendHoverText(ItemStack stack, TooltipContext context,
-                                List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        collectTooltip(stack, tooltip);
-    }
-    *///?}
 
     private void collectTooltip(ItemStack stack, List<Component> tooltip) {
 

@@ -1,4 +1,3 @@
-//? if neoforge {
 package nadiendev.constructionwand.data;
 
 import net.minecraft.advancements.predicates.ItemPredicate;
@@ -33,16 +32,11 @@ public class Inp
     }
 
     public static Inp fromTag(HolderLookup.Provider registries, TagKey<Item> in) {
-        //? if >=1.21.2 {
         Ingredient ingredient = Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(in));
         return new Inp(in.location().getPath(), ingredient,
                 ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), in).build());
-        //?} else {
-        /*return new Inp(in.location().getPath(), Ingredient.of(in), ItemPredicate.Builder.item().of(in).build());
-        *///?}
     }
 
-    //? if >=26.3 {
     public static Inp fromItem(HolderGetter<Item> items, ItemLike in) {
         return new Inp(BuiltInRegistries.ITEM.getKey(in.asItem()).getPath(), Ingredient.of(in),
                 ItemPredicate.Builder.item().of(items, in).build());
@@ -57,13 +51,7 @@ public class Inp
                 ItemPredicate.Builder.item().of(items, in).build());
     }
 
-    //?}
     private static ItemPredicate predicate(HolderLookup.Provider registries, ItemLike... in) {
-        //? if >=1.21.2 {
         return ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), in).build();
-        //?} else {
-        /*return ItemPredicate.Builder.item().of(in).build();
-        *///?}
     }
 }
-//?}

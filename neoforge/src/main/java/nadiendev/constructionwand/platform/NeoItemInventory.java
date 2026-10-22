@@ -1,16 +1,10 @@
-//? if neoforge {
 package nadiendev.constructionwand.platform;
 
 import net.minecraft.world.item.ItemStack;
-//? if >=1.21.9 {
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
-//?} else {
-/*import net.neoforged.neoforge.items.IItemHandler;
-*///?}
 
-//? if >=1.21.9 {
 /**
  * Exposes a NeoForge item {@link ResourceHandler} as a common inventory.
  *
@@ -62,29 +56,3 @@ public record NeoItemInventory(ResourceHandler<ItemResource> handler, @org.jetbr
         }
     }
 }
-//?} else {
-/*/^* Exposes a NeoForge {@link IItemHandler} as a common inventory. ^/
-public record NeoItemInventory(IItemHandler handler) implements IItemInventory {
-
-    @Override
-    public int getSlots() {
-        return handler.getSlots();
-    }
-
-    @Override
-    public ItemStack getStack(int slot) {
-        return handler.getStackInSlot(slot);
-    }
-
-    @Override
-    public ItemStack extract(int slot, int amount, boolean simulate) {
-        return handler.extractItem(slot, amount, simulate);
-    }
-
-    @Override
-    public ItemStack insert(int slot, ItemStack stack, boolean simulate) {
-        return handler.insertItem(slot, stack, simulate);
-    }
-}
-*///?}
-//?}

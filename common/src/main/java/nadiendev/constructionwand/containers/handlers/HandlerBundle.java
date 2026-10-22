@@ -49,21 +49,13 @@ public class HandlerBundle implements IContainerHandler
             return Stream.empty();
         } else {
             BundleContents contents = bundleStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
-            //? if >=26.3 {
             return contents.itemCopies();
-            //?} else {
-            /*return contents.itemCopyStream();
-            *///?}
         }
     }
 
     private void setItemList(ItemStack itemStack, List<ItemStack> itemStacks) {
-        //? if >=26.1 {
         BundleContents contents = new BundleContents(itemStacks.stream()
                 .map(net.minecraft.world.item.ItemStackTemplate::fromNonEmptyStack).toList());
-        //?} else {
-        /*BundleContents contents = new BundleContents(itemStacks);
-        *///?}
         itemStack.set(DataComponents.BUNDLE_CONTENTS, contents);
     }
 }
