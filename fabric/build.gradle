@@ -24,6 +24,7 @@ java {
 }
 
 repositories {
+    maven { url = "https://maven.fabricmc.net/" }
     maven { url = "https://maven.blamejared.com" }
     maven { url = "https://maven.shedaniel.me" }
     maven { url = "https://maven.terraformersmc.com/" }
@@ -44,6 +45,10 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     // The full Fabric API
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+    // Team Reborn Energy, bundled in the mod (jar-in-jar) so wands can always be charged; the Fabric API provides the transfer API it needs
+    modImplementation "teamreborn:energy:${team_reborn_energy_version}"
+    include "teamreborn:energy:${team_reborn_energy_version}"
 
     // Nullability annotations used by the shared code
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
