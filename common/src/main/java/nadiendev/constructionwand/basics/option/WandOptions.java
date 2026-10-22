@@ -14,6 +14,8 @@ import nadiendev.constructionwand.api.IWandUpgrade;
 import nadiendev.constructionwand.basics.ReplacementRegistry;
 import nadiendev.constructionwand.component.ModDataComponents;
 import nadiendev.constructionwand.items.core.CoreDefault;
+import nadiendev.constructionwand.items.upgrade.ItemEnergyUpgrade;
+import nadiendev.constructionwand.wand.WandEnergy;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -110,7 +112,10 @@ public class WandOptions
 
     public final IOption<?>[] allOptions;
 
+    private final ItemStack wandStack;
+
     public WandOptions(ItemStack wandStack) {
+        this.wandStack = wandStack;
         cores = new WandUpgradesSelectable<>(wandStack, ModDataComponents.CORES.get(), "cores", new CoreDefault());
 
         lock = new OptionEnum<>(wandStack, ModDataComponents.LOCK.get(),"lock", LOCK.class, LOCK.NOLOCK);
@@ -149,11 +154,17 @@ public class WandOptions
 
     public boolean hasUpgrade(IWandUpgrade upgrade) {
         if(upgrade instanceof IWandCore) return cores.hasUpgrade((IWandCore) upgrade);
+        if(upgrade instanceof ItemEnergyUpgrade) return WandEnergy.isInstalled(wandStack);
         return false;
     }
 
     public boolean addUpgrade(IWandUpgrade upgrade) {
         if(upgrade instanceof IWandCore) return cores.addUpgrade((IWandCore) upgrade);
+        if(upgrade instanceof ItemEnergyUpgrade) {
+            if(hasUpgrade(upgrade)) return false;
+            wandStack.set(ModDataComponents.ENERGY_UPGRADE.get(), true);
+            return true;
+        }
         return false;
     }
 }

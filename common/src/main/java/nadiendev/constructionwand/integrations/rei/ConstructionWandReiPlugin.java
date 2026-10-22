@@ -1,4 +1,3 @@
-//? if rei {
 package nadiendev.constructionwand.integrations.rei;
 
 import com.mojang.blaze3d.platform.InputConstants;
@@ -67,4 +66,3 @@ public class ConstructionWandReiPlugin implements REIClientPlugin
                 .line(text));
     }
 }
-//?}
