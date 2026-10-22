@@ -1,4 +1,3 @@
-//? if neoforge {
 package nadiendev.constructionwand.platform;
 
 import net.minecraft.network.chat.Component;
@@ -25,4 +24,3 @@ public record NeoPayloadContext(net.neoforged.neoforge.network.handling.IPayload
         context.disconnect(reason);
     }
 }
-//?}

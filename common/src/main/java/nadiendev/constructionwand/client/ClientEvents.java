@@ -74,13 +74,7 @@ public class ClientEvents
     }
 
     private static boolean isKeyDown(int id) {
-        //? if >=26.3 {
-        /*return InputConstants.isKeyDown(id);
-        *///?} elif >=1.21.9 {
         return InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), id);
-        //?} else {
-        /*return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), id);
-        *///?}
     }
 
     public static boolean isOptKeyDown() {

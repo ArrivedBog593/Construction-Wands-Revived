@@ -1,4 +1,3 @@
-//? if neoforge {
 package nadiendev.constructionwand.platform;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -49,4 +48,3 @@ public class NeoConfigBuilder implements IConfigBuilder {
         return builder.build();
     }
 }
-//?}

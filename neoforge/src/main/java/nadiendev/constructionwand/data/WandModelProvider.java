@@ -1,4 +1,3 @@
-//? if neo_client_items {
 package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;
@@ -41,29 +40,24 @@ public class WandModelProvider extends ModelProvider {
         for (RegistryObject<Item> core : ModItems.CORES) {
             itemModels.generateFlatItem(core.get(), ModelTemplates.FLAT_ITEM);
         }
+        itemModels.generateFlatItem(ModItems.ENERGY_UPGRADE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.VOID_SACK.get(), ModelTemplates.FLAT_ITEM);
     }
 
     private void generateWandModel(ItemModelGenerators itemModels, Item wand) {
         Identifier location = ModelLocationUtils.getModelLocation(wand);
-        Identifier overlay = ConstructionWand.loc("item/overlay_core");
-
         ItemModel.Unbaked base = ItemModelUtils.plainModel(itemModels.createFlatItemModel(wand, ModelTemplates.FLAT_HANDHELD_ITEM));
 
         List<SelectItemModel.SwitchCase<String>> cases = new ArrayList<>();
-        for (String core : List.of("core_angel", "core_destruction", "core_exchange")) {
-            Identifier model = TWO_LAYERED_HANDHELD.create(location.withSuffix("_" + core),
-                    //? if >=26.1 {
+        for (String core : List.of("angel", "destruction", "exchange")) {
+            Identifier overlay = ConstructionWand.loc("item/overlay_" + core);
+            Identifier model = TWO_LAYERED_HANDHELD.create(location.withSuffix("_core_" + core),
                     TextureMapping.layered(new net.minecraft.client.resources.model.sprite.Material(location),
                             new net.minecraft.client.resources.model.sprite.Material(overlay))
-                    //?} else {
-                    /*TextureMapping.layered(location, overlay)
-                    *///?}
                     , itemModels.modelOutput);
-            cases.add(ItemModelUtils.when(core, ItemModelUtils.plainModel(model)));
+            cases.add(ItemModelUtils.when("core_" + core, ItemModelUtils.plainModel(model)));
         }
 
         itemModels.itemModelOutput.accept(wand, ItemModelUtils.select(new SelectWandCore(), base, cases));
     }
 }
-//?}
