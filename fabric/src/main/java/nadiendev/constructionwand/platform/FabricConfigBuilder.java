@@ -1,4 +1,3 @@
-//? if fabric {
 package nadiendev.constructionwand.platform;
 
 import java.util.ArrayList;
@@ -63,4 +62,3 @@ public class FabricConfigBuilder implements IConfigBuilder {
         return () -> (T) spec.get(entry.id());
     }
 }
-//?}

@@ -1,4 +1,3 @@
-//? if emi {
 package nadiendev.constructionwand.integrations.emi;
 
 import com.mojang.blaze3d.platform.InputConstants;
@@ -74,4 +73,3 @@ public class ConstructionWandEmiPlugin implements EmiPlugin
                 ConstructionWand.loc("info/" + itemId.getPath())));
     }
 }
-//?}

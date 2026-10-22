@@ -1,4 +1,3 @@
-//? if neoforge {
 package nadiendev.constructionwand.platform;
 
 import net.minecraft.core.BlockPos;
@@ -24,10 +23,9 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.common.util.BlockSnapshot;
 import net.neoforged.neoforge.event.level.BlockEvent;
-//? if <1.21.9
+
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
-//? if curios
 import nadiendev.constructionwand.integrations.curios.CuriosIntegration;
 import nadiendev.constructionwand.platform.services.IPlatformHelper;
 
@@ -48,19 +46,20 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public List<ItemStack> getCurioStacks(Player player) {
-        //? if curios {
-        return CuriosIntegration.getCurioStacks(player);
-        //?} else
-        //return List.of();
+    public Item newBasicWand(Item.Properties properties, nadiendev.constructionwand.items.wand.WandTier tier) {
+        if(isModLoaded("ae2")) return new nadiendev.constructionwand.integrations.ae2.ItemWandBasicAe2(properties, tier);
+        return IPlatformHelper.super.newBasicWand(properties, tier);
     }
 
-    //? if <1.21.4 {
+    @Override
+    public List<ItemStack> getCurioStacks(Player player) {
+        return CuriosIntegration.getCurioStacks(player);
+    }
+
     @Override
     public void registerItemProperty(Item item, ResourceLocation name, ItemPropertyFunction function) {
         NeoForgeClientHooks.registerItemProperty(item, name, function);
     }
-    //?}
 
     @Override
     public void requestModelDataUpdate(BlockEntity blockEntity) {
@@ -87,11 +86,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public boolean fireBreakEvent(Level level, Player player, BlockState state, BlockPos pos) {
-        //? if >=26.1.2 {
-        /*net.neoforged.neoforge.event.level.block.BreakBlockEvent event = new net.neoforged.neoforge.event.level.block.BreakBlockEvent(level, pos, state, player);
-        *///?} else {
         BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(level, pos, state, player);
-        //?}
         NeoForge.EVENT_BUS.post(event);
         return event.isCanceled();
     }
@@ -99,25 +94,15 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Nullable
     @Override
     public IItemInventory getItemInventory(ItemStack stack) {
-        //? if >=1.21.9 {
-        /*var handler = net.neoforged.neoforge.transfer.access.ItemAccess.forStack(stack).getCapability(Capabilities.Item.ITEM);
-        return handler == null ? null : new NeoItemInventory(handler);
-        *///?} else {
         IItemHandler handler = stack.getCapability(Capabilities.ItemHandler.ITEM);
         return handler == null ? null : new NeoItemInventory(handler);
-        //?}
     }
 
     @Nullable
     @Override
     public IItemInventory getBlockInventory(Level level, BlockPos pos, BlockEntity blockEntity) {
-        //? if >=1.21.9 {
-        /*var handler = level.getCapability(Capabilities.Item.BLOCK, pos, blockEntity.getBlockState(), blockEntity, null);
-        return handler == null ? null : new NeoItemInventory(handler);
-        *///?} else {
         IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, blockEntity.getBlockState(), blockEntity, null);
         return handler == null ? null : new NeoItemInventory(handler);
-        //?}
     }
 
     @Override
@@ -140,4 +125,3 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
         PacketDistributor.sendToPlayersTrackingChunk(level, chunk, payload);
     }
 }
-//?}

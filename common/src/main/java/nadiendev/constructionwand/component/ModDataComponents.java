@@ -52,6 +52,18 @@ public class ModDataComponents
                     .networkSynchronized(ByteBufCodecs.COMPOUND_TAG)
                     .build());
 
+    public static final Supplier<DataComponentType<Boolean>> ENERGY_UPGRADE = DATA_COMPONENT_TYPES.register("energy_upgrade", () ->
+            DataComponentType.<Boolean>builder()
+                    .persistent(Codec.BOOL)
+                    .networkSynchronized(ByteBufCodecs.BOOL)
+                    .build());
+
+    public static final Supplier<DataComponentType<Integer>> ENERGY = DATA_COMPONENT_TYPES.register("energy", () ->
+            DataComponentType.<Integer>builder()
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT)
+                    .build());
+
     // ── Void Sack ─────────────────────────────────────────────────────────────
     public static final Supplier<DataComponentType<CompoundTag>> VOID_SACK_DATA =
             DATA_COMPONENT_TYPES.register("void_sack_data", () ->

@@ -1,4 +1,3 @@
-//? if neoforge && emi {
 package nadiendev.constructionwand.integrations.emi;
 
 import dev.emi.emi.api.EmiEntrypoint;
@@ -7,4 +6,3 @@ import dev.emi.emi.api.EmiEntrypoint;
 @EmiEntrypoint
 public class NeoForgeEmiPlugin extends ConstructionWandEmiPlugin {
 }
-//?}

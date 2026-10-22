@@ -1,27 +1,20 @@
-//? if fabric {
 package nadiendev.constructionwand;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-//? if <1.21.9
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-//? if >=1.21.2 {
-/*import net.minecraft.world.InteractionResult;
-*///?} else {
 import net.minecraft.world.InteractionResultHolder;
-//?}
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import nadiendev.constructionwand.client.ClientEvents;
 import nadiendev.constructionwand.client.KeybindHandler;
 import nadiendev.constructionwand.client.RenderBlockPreview;
-//? if <1.21.4
 import nadiendev.constructionwand.client.property.SelectWandCore;
 import nadiendev.constructionwand.client.screen.ScreenVoidSack;
 import nadiendev.constructionwand.network.ClientRefresh;
@@ -44,7 +37,6 @@ public class ConstructionWandFabricClient implements ClientModInitializer {
         KeyBindingHelper.registerKeyBinding(KeybindHandler.KEY_EXCHANGE_SELECT);
 
         MenuScreens.register(ModMenuTypes.VOID_SACK.get(), ScreenVoidSack::new);
-        //? if <1.21.4
         SelectWandCore.register();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -56,21 +48,13 @@ public class ConstructionWandFabricClient implements ClientModInitializer {
         // Sneak+(OPT)+Right click wand to open the GUI
         UseItemCallback.EVENT.register((player, level, hand) -> {
             var stack = player.getItemInHand(hand);
-            //? if >=1.21.2 {
-            /*if (level.isClientSide() && ClientEvents.onRightClickItem(player, stack)) {
-                return InteractionResult.FAIL;
-            }
-            return InteractionResult.PASS;
-            *///?} else {
             if (level.isClientSide() && ClientEvents.onRightClickItem(player, stack)) {
                 return InteractionResultHolder.fail(stack);
             }
             return InteractionResultHolder.pass(stack);
-            //?}
         });
 
         // Placement preview instead of the vanilla block outline (LevelRendererMixin from 1.21.9 on)
-        //? if <1.21.9 {
         WorldRenderEvents.BLOCK_OUTLINE.register((context, outlineContext) -> {
             RenderBlockPreview preview = ConstructionWand.instance.renderBlockPreview;
             HitResult hit = Minecraft.getInstance().hitResult;
@@ -79,7 +63,6 @@ public class ConstructionWandFabricClient implements ClientModInitializer {
             return !preview.renderBlockHighlight(blockHit, context.camera(), context.matrixStack(),
                     context.consumers(), partialTicks);
         });
-        //?}
     }
 
     private static <T extends CustomPacketPayload> void registerClientPacket(ModMessages.Definition<T> definition) {
@@ -88,4 +71,3 @@ public class ConstructionWandFabricClient implements ClientModInitializer {
                         context.player(), context.client(), reason -> context.responseSender().disconnect(reason))));
     }
 }
-//?}
