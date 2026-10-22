@@ -1,4 +1,3 @@
-//? if neoforge {
 package nadiendev.constructionwand.platform;
 
 import net.minecraft.core.BlockPos;
@@ -24,10 +23,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.common.util.BlockSnapshot;
 import net.neoforged.neoforge.event.level.BlockEvent;
-//? if <1.21.9
-//import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
-//? if curios
 import nadiendev.constructionwand.integrations.curios.CuriosIntegration;
 import nadiendev.constructionwand.platform.services.IPlatformHelper;
 
@@ -49,18 +45,9 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public List<ItemStack> getCurioStacks(Player player) {
-        //? if curios {
         return CuriosIntegration.getCurioStacks(player);
-        //?} else
-        //return List.of();
     }
 
-    //? if <1.21.4 {
-    /*@Override
-    public void registerItemProperty(Item item, Identifier name, ItemPropertyFunction function) {
-        NeoForgeClientHooks.registerItemProperty(item, name, function);
-    }
-    *///?}
 
     @Override
     public void requestModelDataUpdate(BlockEntity blockEntity) {
@@ -87,11 +74,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public boolean fireBreakEvent(Level level, Player player, BlockState state, BlockPos pos) {
-        //? if >=26.1.2 {
-        /*net.neoforged.neoforge.event.level.block.BreakBlockEvent event = new net.neoforged.neoforge.event.level.block.BreakBlockEvent(level, pos, state, player);
-        *///?} else {
         BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(level, pos, state, player);
-        //?}
         NeoForge.EVENT_BUS.post(event);
         return event.isCanceled();
     }
@@ -100,7 +83,6 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Override
     public IItemInventory getItemInventory(ItemStack stack) {
         if (stack == null || stack.isEmpty()) return null;
-        //? if >=1.21.9 {
         // ItemAccess.forStack hands the handler a copy that is thrown away afterwards, so everything the container
         // extracts would be lost. Work on our own copy and write it back after each committed change.
         var container = new net.minecraft.world.SimpleContainer(stack.copy());
@@ -109,22 +91,13 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
         var handler = access.getCapability(Capabilities.Item.ITEM);
         return handler == null ? null
                 : new NeoItemInventory(handler, () -> StackSync.copyInto(stack, container.getItem(0)));
-        //?} else {
-        /*IItemHandler handler = stack.getCapability(Capabilities.ItemHandler.ITEM);
-        return handler == null ? null : new NeoItemInventory(handler);
-        *///?}
     }
 
     @Nullable
     @Override
     public IItemInventory getBlockInventory(Level level, BlockPos pos, BlockEntity blockEntity) {
-        //? if >=1.21.9 {
         var handler = level.getCapability(Capabilities.Item.BLOCK, pos, blockEntity.getBlockState(), blockEntity, null);
         return handler == null ? null : new NeoItemInventory(handler);
-        //?} else {
-        /*IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, blockEntity.getBlockState(), blockEntity, null);
-        return handler == null ? null : new NeoItemInventory(handler);
-        *///?}
     }
 
     @Override
@@ -147,4 +120,3 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
         PacketDistributor.sendToPlayersTrackingChunk(level, chunk, payload);
     }
 }
-//?}

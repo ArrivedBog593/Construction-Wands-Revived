@@ -1,4 +1,3 @@
-//? if neo_client_items {
 package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;
@@ -23,20 +22,6 @@ import net.minecraft.world.level.ItemLike;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-//? if >=26.3 {
-/*public class WandAdvancementSubProvider extends AdvancementSubProvider
-{
-    public WandAdvancementSubProvider(BootstrapContext<Advancement> output) {
-        super(output);
-    }
-
-    @Override
-    public void generate() {
-        build(output, output.lookup(Registries.ITEM));
-    }
-
-    private static void build(BootstrapContext<Advancement> consumer, HolderGetter<Item> items) {
-*///?} else {
 public class WandAdvancementSubProvider implements AdvancementSubProvider
 {
     @Override
@@ -45,7 +30,6 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
     }
 
     private static void build(Consumer<AdvancementHolder> consumer, HolderGetter<Item> items) {
-//?}
         AdvancementHolder root = Advancement.Builder.advancement()
                 .display(rootDisplay(
                         ModItems.WAND_STONE.get(),
@@ -58,6 +42,7 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
 
         onHasItem(consumer, ModItems.WAND_WOOD, AdvancementType.TASK, root);
         onHasItem(consumer, ModItems.WAND_STONE, AdvancementType.TASK, root);
+        onHasItem(consumer, ModItems.WAND_COPPER, AdvancementType.TASK, root);
         onHasItem(consumer, ModItems.WAND_IRON, AdvancementType.TASK, root);
         onHasItem(consumer, ModItems.WAND_GOLD, AdvancementType.TASK, root);
         onHasItem(consumer, ModItems.WAND_DIAMOND, AdvancementType.TASK, root);
@@ -66,16 +51,12 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
         onHasItem(consumer, ModItems.CORE_ANGEL, AdvancementType.TASK, root);
         onHasItem(consumer, ModItems.CORE_DESTRUCTION, AdvancementType.TASK, root);
         onHasItem(consumer, ModItems.CORE_EXCHANGE, AdvancementType.TASK, root);
+        onHasItem(consumer, ModItems.ENERGY_UPGRADE, AdvancementType.TASK, root);
         onHasItem(consumer, ModItems.VOID_SACK, AdvancementType.TASK, root);
     }
 
-    //? if >=26.3 {
-    /*private static void onHasItem(BootstrapContext<Advancement> consumer, RegistryObject<Item> item,
-                                  AdvancementType type, AdvancementHolder parent) {
-    *///?} else {
     private static void onHasItem(Consumer<AdvancementHolder> consumer, RegistryObject<Item> item,
                                   AdvancementType type, AdvancementHolder parent) {
-    //?}
         String path = item.getId().getPath();
         Advancement.Builder.advancement()
                 .display(simpleDisplay(item.get(), path, type))
@@ -94,18 +75,11 @@ public class WandAdvancementSubProvider implements AdvancementSubProvider
                 Component.translatable(advancementPrefix(name + ".desc")), Optional.empty(), type, true, true, false);
     }
 
-    //? if >=26.1 {
-    /*private static net.minecraft.world.item.ItemStackTemplate iconStack(ItemLike icon) {
-        return new net.minecraft.world.item.ItemStackTemplate(icon.asItem());
-    }
-    *///?} else {
     private static ItemStack iconStack(ItemLike icon) {
         return new ItemStack(icon);
     }
-    //?}
 
     private static String advancementPrefix(String name) {
         return "advancement." + ConstructionWand.MODID + "." + name;
     }
 }
-//?}

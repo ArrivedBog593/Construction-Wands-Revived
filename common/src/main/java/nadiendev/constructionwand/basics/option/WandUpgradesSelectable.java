@@ -13,7 +13,10 @@ public class WandUpgradesSelectable<T extends IWandUpgrade> extends WandUpgrades
     private byte selector;
 
     public WandUpgradesSelectable(ItemStack stack, DataComponentType<CompoundTag> componentType, String key, T dval) {
-        super(stack.getOrDefault(componentType, new CompoundTag()), key, dval);
+        // A copy: ItemStack#copy shares the component values with the original, so writing into the stack's own tag would
+        // also install the upgrade in the wand that is still in the crafting grid, and the recipe would no longer match
+        // when the result is taken (the ingredients then come back instead of being consumed)
+        super(stack.getOrDefault(componentType, new CompoundTag()).copy(), key, dval);
         this.stack = stack;
         this.componentType = componentType;
     }

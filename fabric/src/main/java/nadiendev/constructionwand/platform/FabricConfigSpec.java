@@ -1,4 +1,3 @@
-//? if fabric {
 package nadiendev.constructionwand.platform;
 
 import nadiendev.constructionwand.ConstructionWand;
@@ -172,4 +171,3 @@ public final class FabricConfigSpec {
         return new Object[]{out.toString(), i};
     }
 }
-//?}

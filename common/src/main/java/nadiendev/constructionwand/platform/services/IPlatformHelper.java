@@ -35,15 +35,16 @@ public interface IPlatformHelper {
 
     boolean isModLoaded(String modId);
 
+    /** Creates a basic wand. Loaders override this to give it the energy interfaces of the mods that are present. */
+    default Item newBasicWand(Item.Properties properties, nadiendev.constructionwand.items.wand.WandTier tier) {
+        return new nadiendev.constructionwand.items.wand.ItemWandBasic(properties, tier);
+    }
+
     /** Stacks equipped in Curios slots. Empty on loaders where Curios is not available. */
     List<ItemStack> getCurioStacks(Player player);
 
     // ── Client / rendering hooks ──────────────────────────────────────────────
 
-    //? if <1.21.4 {
-    /*/^* Registers an item model predicate (client only). ^/
-    void registerItemProperty(Item item, Identifier name, ItemPropertyFunction function);
-    *///?}
 
     /** Asks the renderer to refresh model data of a block entity (client only). No-op where unsupported. */
     void requestModelDataUpdate(BlockEntity blockEntity);

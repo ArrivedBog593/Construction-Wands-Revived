@@ -1,4 +1,3 @@
-//? if fabric_client_items {
 package nadiendev.constructionwand.mixin;
 
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
@@ -26,4 +25,3 @@ public abstract class SelectItemModelPropertiesMixin {
         ID_MAPPER.put(SelectWandCore.ID, SelectWandCore.TYPE);
     }
 }
-//?}
