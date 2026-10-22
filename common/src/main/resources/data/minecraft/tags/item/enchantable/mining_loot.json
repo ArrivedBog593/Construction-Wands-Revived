@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "constructionwand:wood_wand",
+    "constructionwand:stone_wand",
+    "constructionwand:copper_wand",
+    "constructionwand:iron_wand",
+    "constructionwand:gold_wand",
+    "constructionwand:diamond_wand",
+    "constructionwand:netherite_wand",
+    "constructionwand:infinity_wand"
+  ]
+}
