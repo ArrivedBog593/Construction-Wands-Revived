@@ -1,4 +1,3 @@
-//? if fabric {
 package nadiendev.constructionwand.platform;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -74,4 +73,3 @@ public record FabricItemInventory(Storage<ItemVariant> storage, @org.jetbrains.a
         }
     }
 }
-//?}

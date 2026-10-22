@@ -1,4 +1,3 @@
-//? if fabric {
 package nadiendev.constructionwand.platform;
 
 import net.minecraft.network.chat.Component;
@@ -31,4 +30,3 @@ public record FabricPayloadContext(Player player, BlockableEventLoop<?> loop, Co
         disconnector.accept(reason);
     }
 }
-//?}

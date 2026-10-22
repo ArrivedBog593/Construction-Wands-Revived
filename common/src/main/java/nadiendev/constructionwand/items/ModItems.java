@@ -13,9 +13,10 @@ import nadiendev.constructionwand.items.containeritems.ItemVoidSack;
 import nadiendev.constructionwand.items.core.ItemCoreAngel;
 import nadiendev.constructionwand.items.core.ItemCoreDestruction;
 import nadiendev.constructionwand.items.core.ItemCoreExchange;
-import nadiendev.constructionwand.items.wand.ItemWandBasic;
+import nadiendev.constructionwand.items.upgrade.ItemEnergyUpgrade;
 import nadiendev.constructionwand.items.wand.WandTier;
 import nadiendev.constructionwand.items.wand.ItemWandInfinity;
+import nadiendev.constructionwand.platform.Services;
 
 public class ModItems
 {
@@ -25,30 +26,32 @@ public class ModItems
     private static RegistryObject<Item> item(String name, Function<Item.Properties, Item> factory) {
         return ITEMS.register(name, () -> {
             Item.Properties properties = new Item.Properties();
-            //? if >=1.21.2
             properties.setId(ResourceKey.create(Registries.ITEM, ConstructionWand.loc(name)));
             return factory.apply(properties);
         });
     }
 
-    public static final RegistryObject<Item> WAND_WOOD      = item("wood_wand", props -> new ItemWandBasic(props.stacksTo(1), WandTier.WOOD));
-    public static final RegistryObject<Item> WAND_STONE     = item("stone_wand", props -> new ItemWandBasic(props.stacksTo(1), WandTier.STONE));
-    public static final RegistryObject<Item> WAND_IRON      = item("iron_wand", props -> new ItemWandBasic(props.stacksTo(1), WandTier.IRON));
-    public static final RegistryObject<Item> WAND_GOLD      = item("gold_wand", props -> new ItemWandBasic(props.stacksTo(1), WandTier.GOLD));
-    public static final RegistryObject<Item> WAND_DIAMOND   = item("diamond_wand", props -> new ItemWandBasic(props.stacksTo(1), WandTier.DIAMOND));
-    public static final RegistryObject<Item> WAND_NETHERITE = item("netherite_wand", props -> new ItemWandBasic(props.stacksTo(1).fireResistant(), WandTier.NETHERITE));
+    public static final RegistryObject<Item> WAND_WOOD      = item("wood_wand", props -> Services.PLATFORM.newBasicWand(props.stacksTo(1), WandTier.WOOD));
+    public static final RegistryObject<Item> WAND_STONE     = item("stone_wand", props -> Services.PLATFORM.newBasicWand(props.stacksTo(1), WandTier.STONE));
+    public static final RegistryObject<Item> WAND_COPPER    = item("copper_wand", props -> Services.PLATFORM.newBasicWand(props.stacksTo(1), WandTier.COPPER));
+    public static final RegistryObject<Item> WAND_IRON      = item("iron_wand", props -> Services.PLATFORM.newBasicWand(props.stacksTo(1), WandTier.IRON));
+    public static final RegistryObject<Item> WAND_GOLD      = item("gold_wand", props -> Services.PLATFORM.newBasicWand(props.stacksTo(1), WandTier.GOLD));
+    public static final RegistryObject<Item> WAND_DIAMOND   = item("diamond_wand", props -> Services.PLATFORM.newBasicWand(props.stacksTo(1), WandTier.DIAMOND));
+    public static final RegistryObject<Item> WAND_NETHERITE = item("netherite_wand", props -> Services.PLATFORM.newBasicWand(props.stacksTo(1).fireResistant(), WandTier.NETHERITE));
     public static final RegistryObject<Item> WAND_INFINITY  = item("infinity_wand", props -> new ItemWandInfinity(props.stacksTo(1)));
 
     public static final RegistryObject<Item> CORE_ANGEL       = item("core_angel", props -> new ItemCoreAngel(props.stacksTo(1)));
     public static final RegistryObject<Item> CORE_DESTRUCTION = item("core_destruction", props -> new ItemCoreDestruction(props.stacksTo(1)));
     public static final RegistryObject<Item> CORE_EXCHANGE    = item("core_exchange", props -> new ItemCoreExchange(props.stacksTo(1)));
 
+    public static final RegistryObject<Item> ENERGY_UPGRADE = item("energy_upgrade", props -> new ItemEnergyUpgrade(props.stacksTo(1)));
+
     public static final RegistryObject<Item> VOID_SACK = item("void_sack",
             props -> new ItemVoidSack(props.stacksTo(1).fireResistant(), 0));
 
     @SuppressWarnings("unchecked")
     public static final RegistryObject<Item>[] WANDS = new RegistryObject[]{
-            WAND_WOOD, WAND_STONE, WAND_IRON, WAND_GOLD, WAND_DIAMOND, WAND_NETHERITE, WAND_INFINITY};
+            WAND_WOOD, WAND_STONE, WAND_COPPER, WAND_IRON, WAND_GOLD, WAND_DIAMOND, WAND_NETHERITE, WAND_INFINITY};
 
     @SuppressWarnings("unchecked")
     public static final RegistryObject<Item>[] CORES = new RegistryObject[]{

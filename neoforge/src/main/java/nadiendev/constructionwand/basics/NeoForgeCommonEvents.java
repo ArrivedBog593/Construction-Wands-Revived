@@ -1,4 +1,3 @@
-//? if neoforge {
 package nadiendev.constructionwand.basics;
 
 import net.neoforged.bus.api.EventPriority;
@@ -31,4 +30,3 @@ public final class NeoForgeCommonEvents {
         }
     }
 }
-//?}

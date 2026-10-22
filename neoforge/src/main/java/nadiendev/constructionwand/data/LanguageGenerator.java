@@ -1,4 +1,3 @@
-//? if neoforge {
 package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;
@@ -31,6 +30,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(ModItems.CORE_ANGEL, "Angel Wand Core");
         addItem(ModItems.CORE_DESTRUCTION, "Destruction Wand Core");
         addItem(ModItems.CORE_EXCHANGE, "Exchange Wand Core");
+        addItem(ModItems.WAND_COPPER, "Copper Wand");
+        addItem(ModItems.ENERGY_UPGRADE, "Energy Wand Upgrade");
 
  add("advancement.constructionwand.root.title", "Construction Wands Revived");
 add("advancement.constructionwand.root.desc", "Get your first wand");
@@ -38,6 +39,10 @@ add("advancement.constructionwand.wood_wand.title", "Wooden Wand");
 add("advancement.constructionwand.stone_wand.title", "Stone Wand");
 add("advancement.constructionwand.wood_wand.desc", "Obtain a Wooden Wand");
 add("advancement.constructionwand.stone_wand.desc", "Obtain a Stone Wand");
+add("advancement.constructionwand.copper_wand.title", "Copper Wand");
+add("advancement.constructionwand.copper_wand.desc", "Obtain a Copper Wand");
+add("advancement.constructionwand.energy_upgrade.title", "Energy Upgrade");
+add("advancement.constructionwand.energy_upgrade.desc", "Obtain an Energy Wand Upgrade");
 add("advancement.constructionwand.iron_wand.title", "Iron Wand");
 add("advancement.constructionwand.gold_wand.title", "Golden Wand");
 add("advancement.constructionwand.iron_wand.desc", "Obtain an Iron Wand");
@@ -59,6 +64,7 @@ add("advancement.constructionwand.void_sack.title", "Void Sack");
 
 
         add("constructionwand.tooltip.blocks", "Max. %d blocks");
+        add("constructionwand.tooltip.energy", "Energy: %s / %s FE");
         add("constructionwand.tooltip.shift", "Press [SHIFT]");
         add("constructionwand.tooltip.cores", "Wand cores:");
         add("constructionwand.tooltip.core_tip", "Combine the core with your wand in a crafting grid");
@@ -141,6 +147,7 @@ add("advancement.constructionwand.void_sack.title", "Void Sack");
     add("constructionwand.message.exchange_selected", "Selected: %s");
 add("constructionwand.message.exchange_invalid", "That block can't be selected");
 add("constructionwand.message.exchange_none_selected", "No block selected — press Numpad 7 looking at a block");
+add("constructionwand.message.exchange_wrong_core", "Switch to the Exchange Core to select a block");
 add("constructionwand.message.exchange_no_target", "Look at a block first");
 add("key.constructionwand.exchange_select", "Select Exchange Block");
 add("constructionwand.option.cores.constructionwand:core_exchange", "§bExchange Core");
@@ -172,6 +179,8 @@ add("constructionwand.description.core_exchange", "The exchange core replaces bl
         addItem(ModItems.CORE_ANGEL, "Núcleo de Varita Angelical");
         addItem(ModItems.CORE_DESTRUCTION, "Núcleo de Varita de Destrucción");
         addItem(ModItems.CORE_EXCHANGE, "Núcleo de Varita de Intercambio");
+        addItem(ModItems.WAND_COPPER, "Varita de Cobre");
+        addItem(ModItems.ENERGY_UPGRADE, "Mejora de Energía de Varita");
        
          add("advancement.constructionwand.root.title", "Varitas de Construcción Revividas");
 add("advancement.constructionwand.root.desc", "Obtené tu primera varita");
@@ -179,6 +188,10 @@ add("advancement.constructionwand.wood_wand.title", "Varita de Madera");
 add("advancement.constructionwand.stone_wand.title", "Varita de Piedra");
 add("advancement.constructionwand.wood_wand.desc", "Obtené una Varita de Madera");
 add("advancement.constructionwand.stone_wand.desc", "Obtené una Varita de Piedra");
+add("advancement.constructionwand.copper_wand.title", "Varita de Cobre");
+add("advancement.constructionwand.copper_wand.desc", "Obtené una Varita de Cobre");
+add("advancement.constructionwand.energy_upgrade.title", "Mejora de Energía");
+add("advancement.constructionwand.energy_upgrade.desc", "Obtené una Mejora de Energía de Varita");
 add("advancement.constructionwand.iron_wand.title", "Varita de Hierro");
 add("advancement.constructionwand.gold_wand.title", "Varita de Oro");
 add("advancement.constructionwand.iron_wand.desc", "Obtené una Varita de Hierro");
@@ -197,6 +210,7 @@ add("advancement.constructionwand.core_exchange.title", "Núcleo de Intercambio"
 add("advancement.constructionwand.core_destruction.desc", "Obtené un Núcleo de Varita de Destrucción");
 
         add("constructionwand.tooltip.blocks", "Máx. %d bloques");
+        add("constructionwand.tooltip.energy", "Energía: %s / %s FE");
         add("constructionwand.tooltip.shift", "Presiona [MAYÚS]");
         add("constructionwand.tooltip.cores", "Núcleos de varita:");
         add("constructionwand.tooltip.core_tip", "Combina el núcleo con tu varita en una rejilla de crafteo");
@@ -276,6 +290,7 @@ add("advancement.constructionwand.core_destruction.desc", "Obtené un Núcleo de
        add("constructionwand.message.exchange_selected", "Seleccionado: %s");
 add("constructionwand.message.exchange_invalid", "Ese bloque no se puede seleccionar");
 add("constructionwand.message.exchange_none_selected", "No hay bloque seleccionado — presioná Numpad 7 mirando un bloque");
+add("constructionwand.message.exchange_wrong_core", "Activá el núcleo de Intercambio para seleccionar un bloque");
 add("constructionwand.message.exchange_no_target", "Primero mirá un bloque");
 add("key.constructionwand.exchange_select", "Seleccionar bloque de Intercambio");
 add("constructionwand.option.cores.constructionwand:core_exchange", "§bNúcleo de Intercambio");
@@ -303,6 +318,8 @@ add("constructionwand.description.core_exchange", "El núcleo de intercambio ree
         addItem(ModItems.CORE_ANGEL, "Núcleo de Varita Angelical");
         addItem(ModItems.CORE_DESTRUCTION, "Núcleo de Varita de Destrucción");
         addItem(ModItems.CORE_EXCHANGE, "Núcleo de Varita de Intercambio");
+        addItem(ModItems.WAND_COPPER, "Varita de Cobre");
+        addItem(ModItems.ENERGY_UPGRADE, "Mejora de Energía de Varita");
        
          add("advancement.constructionwand.root.title", "Varitas de Construcción Revividas");
 add("advancement.constructionwand.root.desc", "Obtené tu primera varita");
@@ -310,6 +327,10 @@ add("advancement.constructionwand.wood_wand.title", "Varita de Madera");
 add("advancement.constructionwand.stone_wand.title", "Varita de Piedra");
 add("advancement.constructionwand.wood_wand.desc", "Obtené una Varita de Madera");
 add("advancement.constructionwand.stone_wand.desc", "Obtené una Varita de Piedra");
+add("advancement.constructionwand.copper_wand.title", "Varita de Cobre");
+add("advancement.constructionwand.copper_wand.desc", "Obtené una Varita de Cobre");
+add("advancement.constructionwand.energy_upgrade.title", "Mejora de Energía");
+add("advancement.constructionwand.energy_upgrade.desc", "Obtené una Mejora de Energía de Varita");
 add("advancement.constructionwand.iron_wand.title", "Varita de Hierro");
 add("advancement.constructionwand.gold_wand.title", "Varita de Oro");
 add("advancement.constructionwand.iron_wand.desc", "Obtené una Varita de Hierro");
@@ -328,6 +349,7 @@ add("advancement.constructionwand.core_exchange.title", "Núcleo de Intercambio"
 add("advancement.constructionwand.core_destruction.desc", "Obtené un Núcleo de Varita de Destrucción");
 
         add("constructionwand.tooltip.blocks", "Máx. %d bloques");
+        add("constructionwand.tooltip.energy", "Energía: %s / %s FE");
         add("constructionwand.tooltip.shift", "Presiona [MAYÚS]");
         add("constructionwand.tooltip.cores", "Núcleos de varita:");
         add("constructionwand.tooltip.core_tip", "Combina el núcleo con tu varita en una rejilla de crafteo");
@@ -407,6 +429,7 @@ add("advancement.constructionwand.core_destruction.desc", "Obtené un Núcleo de
        add("constructionwand.message.exchange_selected", "Seleccionado: %s");
 add("constructionwand.message.exchange_invalid", "Ese bloque no se puede seleccionar");
 add("constructionwand.message.exchange_none_selected", "No hay bloque seleccionado — presioná Numpad 7 mirando un bloque");
+add("constructionwand.message.exchange_wrong_core", "Activá el núcleo de Intercambio para seleccionar un bloque");
 add("constructionwand.message.exchange_no_target", "Primero mirá un bloque");
 add("key.constructionwand.exchange_select", "Seleccionar bloque de Intercambio");
 add("constructionwand.option.cores.constructionwand:core_exchange", "§bNúcleo de Intercambio");
@@ -434,6 +457,8 @@ add("constructionwand.description.core_exchange", "El núcleo de intercambio ree
         addItem(ModItems.CORE_ANGEL, "Núcleo de Varita Angelical");
         addItem(ModItems.CORE_DESTRUCTION, "Núcleo de Varita de Destrucción");
         addItem(ModItems.CORE_EXCHANGE, "Núcleo de Varita de Intercambio");
+        addItem(ModItems.WAND_COPPER, "Varita de Cobre");
+        addItem(ModItems.ENERGY_UPGRADE, "Mejora de Energía de Varita");
        
          add("advancement.constructionwand.root.title", "Varitas de Construcción Revividas");
 add("advancement.constructionwand.root.desc", "Obtené tu primera varita");
@@ -441,6 +466,10 @@ add("advancement.constructionwand.wood_wand.title", "Varita de Madera");
 add("advancement.constructionwand.stone_wand.title", "Varita de Piedra");
 add("advancement.constructionwand.wood_wand.desc", "Obtené una Varita de Madera");
 add("advancement.constructionwand.stone_wand.desc", "Obtené una Varita de Piedra");
+add("advancement.constructionwand.copper_wand.title", "Varita de Cobre");
+add("advancement.constructionwand.copper_wand.desc", "Obtené una Varita de Cobre");
+add("advancement.constructionwand.energy_upgrade.title", "Mejora de Energía");
+add("advancement.constructionwand.energy_upgrade.desc", "Obtené una Mejora de Energía de Varita");
 add("advancement.constructionwand.iron_wand.title", "Varita de Hierro");
 add("advancement.constructionwand.gold_wand.title", "Varita de Oro");
 add("advancement.constructionwand.iron_wand.desc", "Obtené una Varita de Hierro");
@@ -459,6 +488,7 @@ add("advancement.constructionwand.core_exchange.title", "Núcleo de Intercambio"
 add("advancement.constructionwand.core_destruction.desc", "Obtené un Núcleo de Varita de Destrucción");
 
         add("constructionwand.tooltip.blocks", "Máx. %d bloques");
+        add("constructionwand.tooltip.energy", "Energía: %s / %s FE");
         add("constructionwand.tooltip.shift", "Presiona [MAYÚS]");
         add("constructionwand.tooltip.cores", "Núcleos de varita:");
         add("constructionwand.tooltip.core_tip", "Combina el núcleo con tu varita en una rejilla de crafteo");
@@ -538,6 +568,7 @@ add("advancement.constructionwand.core_destruction.desc", "Obtené un Núcleo de
        add("constructionwand.message.exchange_selected", "Seleccionado: %s");
 add("constructionwand.message.exchange_invalid", "Ese bloque no se puede seleccionar");
 add("constructionwand.message.exchange_none_selected", "No hay bloque seleccionado — presioná Numpad 7 mirando un bloque");
+add("constructionwand.message.exchange_wrong_core", "Activá el núcleo de Intercambio para seleccionar un bloque");
 add("constructionwand.message.exchange_no_target", "Primero mirá un bloque");
 add("key.constructionwand.exchange_select", "Seleccionar bloque de Intercambio");
 add("constructionwand.option.cores.constructionwand:core_exchange", "§bNúcleo de Intercambio");
@@ -565,6 +596,8 @@ add("constructionwand.description.core_exchange", "El núcleo de intercambio ree
         addItem(ModItems.CORE_ANGEL, "Núcleo de Varita Angelical");
         addItem(ModItems.CORE_DESTRUCTION, "Núcleo de Varita de Destrucción");
         addItem(ModItems.CORE_EXCHANGE, "Núcleo de Varita de Intercambio");
+        addItem(ModItems.WAND_COPPER, "Varita de Cobre");
+        addItem(ModItems.ENERGY_UPGRADE, "Mejora de Energía de Varita");
        
          add("advancement.constructionwand.root.title", "Varitas de Construcción Revividas");
 add("advancement.constructionwand.root.desc", "Obtené tu primera varita");
@@ -572,6 +605,10 @@ add("advancement.constructionwand.wood_wand.title", "Varita de Madera");
 add("advancement.constructionwand.stone_wand.title", "Varita de Piedra");
 add("advancement.constructionwand.wood_wand.desc", "Obtené una Varita de Madera");
 add("advancement.constructionwand.stone_wand.desc", "Obtené una Varita de Piedra");
+add("advancement.constructionwand.copper_wand.title", "Varita de Cobre");
+add("advancement.constructionwand.copper_wand.desc", "Obtené una Varita de Cobre");
+add("advancement.constructionwand.energy_upgrade.title", "Mejora de Energía");
+add("advancement.constructionwand.energy_upgrade.desc", "Obtené una Mejora de Energía de Varita");
 add("advancement.constructionwand.iron_wand.title", "Varita de Hierro");
 add("advancement.constructionwand.gold_wand.title", "Varita de Oro");
 add("advancement.constructionwand.iron_wand.desc", "Obtené una Varita de Hierro");
@@ -590,6 +627,7 @@ add("advancement.constructionwand.core_exchange.title", "Núcleo de Intercambio"
 add("advancement.constructionwand.core_destruction.desc", "Obtené un Núcleo de Varita de Destrucción");
 
         add("constructionwand.tooltip.blocks", "Máx. %d bloques");
+        add("constructionwand.tooltip.energy", "Energía: %s / %s FE");
         add("constructionwand.tooltip.shift", "Presiona [MAYÚS]");
         add("constructionwand.tooltip.cores", "Núcleos de varita:");
         add("constructionwand.tooltip.core_tip", "Combina el núcleo con tu varita en una rejilla de crafteo");
@@ -669,6 +707,7 @@ add("advancement.constructionwand.core_destruction.desc", "Obtené un Núcleo de
        add("constructionwand.message.exchange_selected", "Seleccionado: %s");
 add("constructionwand.message.exchange_invalid", "Ese bloque no se puede seleccionar");
 add("constructionwand.message.exchange_none_selected", "No hay bloque seleccionado — presioná Numpad 7 mirando un bloque");
+add("constructionwand.message.exchange_wrong_core", "Activá el núcleo de Intercambio para seleccionar un bloque");
 add("constructionwand.message.exchange_no_target", "Primero mirá un bloque");
 add("key.constructionwand.exchange_select", "Seleccionar bloque de Intercambio");
 add("constructionwand.option.cores.constructionwand:core_exchange", "§bNúcleo de Intercambio");
@@ -696,6 +735,8 @@ add("constructionwand.description.core_exchange", "El núcleo de intercambio ree
         addItem(ModItems.CORE_ANGEL, "Núcleo de Varita Angelical");
         addItem(ModItems.CORE_DESTRUCTION, "Núcleo de Varita de Destrucción");
         addItem(ModItems.CORE_EXCHANGE, "Núcleo de Varita de Intercambio");
+        addItem(ModItems.WAND_COPPER, "Varita de Cobre");
+        addItem(ModItems.ENERGY_UPGRADE, "Mejora de Energía de Varita");
        
          add("advancement.constructionwand.root.title", "Varitas de Construcción Revividas");
 add("advancement.constructionwand.root.desc", "Obtené tu primera varita");
@@ -703,6 +744,10 @@ add("advancement.constructionwand.wood_wand.title", "Varita de Madera");
 add("advancement.constructionwand.stone_wand.title", "Varita de Piedra");
 add("advancement.constructionwand.wood_wand.desc", "Obtené una Varita de Madera");
 add("advancement.constructionwand.stone_wand.desc", "Obtené una Varita de Piedra");
+add("advancement.constructionwand.copper_wand.title", "Varita de Cobre");
+add("advancement.constructionwand.copper_wand.desc", "Obtené una Varita de Cobre");
+add("advancement.constructionwand.energy_upgrade.title", "Mejora de Energía");
+add("advancement.constructionwand.energy_upgrade.desc", "Obtené una Mejora de Energía de Varita");
 add("advancement.constructionwand.iron_wand.title", "Varita de Hierro");
 add("advancement.constructionwand.gold_wand.title", "Varita de Oro");
 add("advancement.constructionwand.iron_wand.desc", "Obtené una Varita de Hierro");
@@ -721,6 +766,7 @@ add("advancement.constructionwand.core_exchange.title", "Núcleo de Intercambio"
 add("advancement.constructionwand.core_destruction.desc", "Obtené un Núcleo de Varita de Destrucción");
 
         add("constructionwand.tooltip.blocks", "Máx. %d bloques");
+        add("constructionwand.tooltip.energy", "Energía: %s / %s FE");
         add("constructionwand.tooltip.shift", "Presiona [MAYÚS]");
         add("constructionwand.tooltip.cores", "Núcleos de varita:");
         add("constructionwand.tooltip.core_tip", "Combina el núcleo con tu varita en una rejilla de crafteo");
@@ -800,6 +846,7 @@ add("advancement.constructionwand.core_destruction.desc", "Obtené un Núcleo de
        add("constructionwand.message.exchange_selected", "Seleccionado: %s");
 add("constructionwand.message.exchange_invalid", "Ese bloque no se puede seleccionar");
 add("constructionwand.message.exchange_none_selected", "No hay bloque seleccionado — presioná Numpad 7 mirando un bloque");
+add("constructionwand.message.exchange_wrong_core", "Activá el núcleo de Intercambio para seleccionar un bloque");
 add("constructionwand.message.exchange_no_target", "Primero mirá un bloque");
 add("key.constructionwand.exchange_select", "Seleccionar bloque de Intercambio");
 add("constructionwand.option.cores.constructionwand:core_exchange", "§bNúcleo de Intercambio");
@@ -827,6 +874,8 @@ add("constructionwand.description.core_exchange", "El núcleo de intercambio ree
         addItem(ModItems.CORE_ANGEL, "天使の杖のコア");
         addItem(ModItems.CORE_DESTRUCTION, "破壊の杖のコア");
         addItem(ModItems.CORE_EXCHANGE, "交換の杖のコア");
+        addItem(ModItems.WAND_COPPER, "銅の杖");
+        addItem(ModItems.ENERGY_UPGRADE, "エネルギー強化");
 
         add("advancement.constructionwand.root.title", "建築の杖リバイバル");
 add("advancement.constructionwand.root.desc", "最初の杖を手に入れよう");
@@ -852,6 +901,7 @@ add("advancement.constructionwand.core_exchange.title", "交換のコア");
 add("advancement.constructionwand.core_destruction.desc", "破壊の杖のコアを入手する");
 
         add("constructionwand.tooltip.blocks", "最大%dブロック");
+        add("constructionwand.tooltip.energy", "エネルギー: %s / %s FE");
         add("constructionwand.tooltip.shift", "Shiftを押す");
         add("constructionwand.tooltip.cores", "杖のコア:");
         add("constructionwand.tooltip.core_tip", "クラフト画面上で杖とコアを組み合わせてください。");
@@ -960,6 +1010,8 @@ add("key.constructionwand.exchange_select", "交換ブロックを選択");
         addItem(ModItems.CORE_ANGEL, "천사 완드 코어");
         addItem(ModItems.CORE_DESTRUCTION, "파괴 완드 코어");
         addItem(ModItems.CORE_EXCHANGE, "교환 완드 코어");
+        addItem(ModItems.WAND_COPPER, "구리 완드");
+        addItem(ModItems.ENERGY_UPGRADE, "에너지 업그레이드");
 
         add("advancement.constructionwand.root.title", "건설 지팡이 부활");
 add("advancement.constructionwand.root.desc", "첫 번째 지팡이를 획득하세요");
@@ -983,6 +1035,7 @@ add("advancement.constructionwand.core_destruction.title", "파괴 코어");
 add("advancement.constructionwand.core_destruction.desc", "파괴 지팡이 코어를 획득하세요");
 
         add("constructionwand.tooltip.blocks", "최대. %d 블록");
+        add("constructionwand.tooltip.energy", "에너지: %s / %s FE");
         add("constructionwand.tooltip.shift", "[SHIFT]를 누르세요.");
         add("constructionwand.tooltip.cores", "완드 코어:");
         add("constructionwand.tooltip.core_tip", "조합창에서 코어와 완드를 합치세요.");
@@ -1091,8 +1144,11 @@ add("key.constructionwand.exchange_select", "교환 블록 선택");
         addItem(ModItems.CORE_ANGEL, "Núcleo de Varita Angelical");
         addItem(ModItems.CORE_DESTRUCTION, "Núcleo de Varita de Destruição");
         addItem(ModItems.CORE_EXCHANGE, "Núcleo de Varita de Troca");
+        addItem(ModItems.WAND_COPPER, "Varinha de cobre");
+        addItem(ModItems.ENERGY_UPGRADE, "Melhoria de energia");
 
         add("constructionwand.tooltip.blocks", "Max. %d blocos");
+        add("constructionwand.tooltip.energy", "Energia: %s / %s FE");
         add("constructionwand.tooltip.shift", "Pressione Shift]");
         add("constructionwand.tooltip.cores", "Núcleos de varinhas:");
         add("constructionwand.tooltip.core_tip", "Combine o núcleo com sua varinha em uma grade de criação");
@@ -1202,6 +1258,8 @@ add("key.constructionwand.exchange_select", "Selecionar Bloco de Troca");
         addItem(ModItems.CORE_ANGEL, "Ангельское ядро для жезла");
         addItem(ModItems.CORE_DESTRUCTION, "Ядро разрушения для жезла");
         addItem(ModItems.CORE_EXCHANGE, "Обменное ядро для жезла");
+        addItem(ModItems.WAND_COPPER, "Медный жезл");
+        addItem(ModItems.ENERGY_UPGRADE, "Улучшение энергии");
 
           add("advancement.constructionwand.root.title", "Строительные Жезлы Возрождены");
 add("advancement.constructionwand.root.desc", "Получите свой первый жезл");
@@ -1225,6 +1283,7 @@ add("advancement.constructionwand.core_destruction.title", "Ядро разру�
 add("advancement.constructionwand.core_destruction.desc", "Получите ядро разрушения жезла");
 
         add("constructionwand.tooltip.blocks", "Максимум %d блоков");
+        add("constructionwand.tooltip.energy", "Энергия: %s / %s FE");
         add("constructionwand.tooltip.shift", "Нажмите [SHIFT]");
         add("constructionwand.tooltip.cores", "Ядер жезла:");
         add("constructionwand.tooltip.core_tip", "Объедините ядро со своим жезлом в сетке создания.");
@@ -1334,6 +1393,8 @@ add("key.constructionwand.exchange_select", "Выбрать блок для об
         addItem(ModItems.CORE_ANGEL, "Änglastavskärna");
         addItem(ModItems.CORE_DESTRUCTION, "Rivningsstavskärna");
         addItem(ModItems.CORE_EXCHANGE, "Utbytesstavskärna");
+        addItem(ModItems.WAND_COPPER, "Kopparstav");
+        addItem(ModItems.ENERGY_UPGRADE, "Energiuppgradering");
 
            add("advancement.constructionwand.root.title", "Byggstavar Återupplivade");
 add("advancement.constructionwand.root.desc", "Skaffa din första stav");
@@ -1357,6 +1418,7 @@ add("advancement.constructionwand.core_destruction.title", "Rivningskärna");
 add("advancement.constructionwand.core_destruction.desc", "Skaffa en rivningsstavskärna");
 
         add("constructionwand.tooltip.blocks", "Max. %d block");
+        add("constructionwand.tooltip.energy", "Energi: %s / %s FE");
         add("constructionwand.tooltip.shift", "Håll ned [SHIFT]");
         add("constructionwand.tooltip.cores", "Stavkärnor:");
         add("constructionwand.tooltip.core_tip", "Kombinera kärnan med din stav i ett tillverkningsrutnät");
@@ -1466,6 +1528,8 @@ add("key.constructionwand.exchange_select", "Välj utbytesblock");
         addItem(ModItems.CORE_ANGEL, "Melek Asa Çekirdeği");
         addItem(ModItems.CORE_DESTRUCTION, "Yıkım Asa Çekirdeği");
         addItem(ModItems.CORE_EXCHANGE, "Değişim Asa Çekirdeği");
+        addItem(ModItems.WAND_COPPER, "Bakır Asa");
+        addItem(ModItems.ENERGY_UPGRADE, "Enerji Yükseltmesi");
   
 add("advancement.constructionwand.root.title", "Yeniden Canlandırılmış İnşaat Asaları");
 add("advancement.constructionwand.root.desc", "İlk asanı edin");
@@ -1491,6 +1555,7 @@ add("advancement.constructionwand.core_exchange.title", "Değişim Çekirdeği")
 add("advancement.constructionwand.core_destruction.desc", "Bir Yıkım Asa Çekirdeği edin");
 
         add("constructionwand.tooltip.blocks", "Maks. %d blok");
+        add("constructionwand.tooltip.energy", "Enerji: %s / %s FE");
         add("constructionwand.tooltip.shift", "[SHIFT] bas");
         add("constructionwand.tooltip.cores", "Asa çekirdekleri:");
         add("constructionwand.tooltip.core_tip", "Çekirdeği asanızla birlikte üretim ızgarasında birleştirin");
@@ -1599,6 +1664,8 @@ add("key.constructionwand.exchange_select", "Değişim Bloğu Seç");
         addItem(ModItems.CORE_ANGEL, "天使手杖核心");
         addItem(ModItems.CORE_DESTRUCTION, "破坏手杖核心");
         addItem(ModItems.CORE_EXCHANGE, "交换手杖核心");
+        addItem(ModItems.WAND_COPPER, "铜制手杖");
+        addItem(ModItems.ENERGY_UPGRADE, "能量升级");
 
 add("advancement.constructionwand.root.title", "建筑手杖复兴版");
 add("advancement.constructionwand.root.desc", "获得你的第一根手杖");
@@ -1624,6 +1691,7 @@ add("advancement.constructionwand.core_exchange.title", "交换核心");
 add("advancement.constructionwand.core_destruction.desc", "获得一个破坏手杖核心");
 
         add("constructionwand.tooltip.blocks", "最多放置%d个方块");
+        add("constructionwand.tooltip.energy", "能量：%s / %s FE");
         add("constructionwand.tooltip.shift", "按 [SHIFT]");
         add("constructionwand.tooltip.cores", "手杖核心:");
         add("constructionwand.tooltip.core_tip", "将手杖核心与手杖组合在一起");
@@ -1729,6 +1797,8 @@ add("key.constructionwand.exchange_select", "选择交换方块");
         addItem(ModItems.CORE_ANGEL, "Kristall der Engel");
         addItem(ModItems.CORE_DESTRUCTION, "Kristall der Zerstörung");
         addItem(ModItems.CORE_EXCHANGE, "Kristall des Austauschs");
+        addItem(ModItems.WAND_COPPER, "Kupferner Stab");
+        addItem(ModItems.ENERGY_UPGRADE, "Energie-Aufwertung");
 
 add("advancement.constructionwand.root.title", "Baustäbe Wiederbelebt");
 add("advancement.constructionwand.root.desc", "Erhalte deinen ersten Stab");
@@ -1754,6 +1824,7 @@ add("advancement.constructionwand.core_exchange.title", "Kristall des Austauschs
 add("advancement.constructionwand.core_destruction.desc", "Erhalte einen Kristall der Zerstörung");
 
         add("constructionwand.tooltip.blocks", "Max. %d Blöcke");
+        add("constructionwand.tooltip.energy", "Energie: %s / %s FE");
         add("constructionwand.tooltip.shift", "Drücke [SHIFT]");
         add("constructionwand.tooltip.cores", "Kristalle im Stab:");
         add("constructionwand.tooltip.core_tip", "Kombiniere den Kristall mit deinem Stab im Craftingfeld");
@@ -1841,4 +1912,3 @@ add("key.constructionwand.exchange_select", "Austauschblock auswählen");
     }
 
 }
-//?}

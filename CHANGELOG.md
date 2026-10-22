@@ -1,5 +1,56 @@
 # Changelog
 
+## 4.0.12 — Minecraft 1.21.7 / NeoForge and Fabric
+
+### Additions
+
+- **Copper Wand.** A new wand between the stone and the iron one. It has the durability of the copper tools, is
+  repaired with copper ingots, places up to 18 blocks and takes the Angel, Destruction and Exchange cores.
+- **Energy Upgrade.** Put it on a wand in a crafting grid, like a core (it is crafted with 8 copper ingots around a
+  block of redstone). A wand with the upgrade runs on energy instead of durability: it stores up to 100000 FE, every
+  block costs 100 FE (both can be changed in the server config) and the item bar shows the charge. It can be charged
+  with any charger or cable that speaks FE on the NeoForge and Forge builds, and Team Reborn Energy (built into the mod) on the Fabric builds. The Infinity Wand does not take it.
+- **Silk Touch on the wands.** The wands can be enchanted with Silk Touch (enchanting table, anvil or creative). The
+  Destruction core then breaks the blocks as a Silk Touch tool would, also when the drops go to a Void Sack. Fortune belongs to the same enchantment group, so it can be put on the wand too and the core respects it.
+- **Each core has its own overlay** on the wand (a golden plus for Angel, a cross for Destruction, a double arrow for
+  Exchange) instead of the same dot for all of them.
+
+### Fixes
+
+- **Crafting a core into a wand now consumes the core.** In any crafting table, in the inventory grid and in the AE2
+  crafting terminal the core stayed in the grid after taking the upgraded wand. The recipe was also installing the core
+  in the wand that was still in the grid, so the recipe stopped matching and the ingredients came back.
+- **The Exchange core block can only be selected with the Exchange core active.** The selection key (Numpad 7) now
+  shows a warning with any other core instead of selecting a block, and the "no block selected" warning of the block
+  preview no longer covers the confirmation of the selection.
+
+## 4.0.12 — Minecraft 1.21.7 / NeoForge and Fabric (Español)
+
+### Anadido
+
+- **Varita de Cobre.** Una varita nueva entre la de piedra y la de hierro. Tiene la durabilidad de las herramientas de
+  cobre, se repara con lingotes de cobre, coloca hasta 18 bloques y admite los nucleos de Angel, Destruccion e
+  Intercambio.
+- **Mejora de Energia.** Se pone en una varita en una mesa de crafteo, como un nucleo (se fabrica con 8 lingotes de
+  cobre alrededor de un bloque de redstone). Una varita con la mejora funciona con energia en vez de durabilidad:
+  guarda hasta 100000 FE, cada bloque cuesta 100 FE (ambos se cambian en la config del servidor) y la barra del objeto
+  muestra la carga. Se carga con cualquier cargador o cable de FE en las versiones de NeoForge y Forge, y con Team Reborn Energy (incluido en el mod) en las de Fabric. La Varita Infinita no la admite.
+- **Toque de seda en las varitas.** Las varitas se pueden encantar con Toque de seda (mesa de encantamientos, yunque o
+  creativo). El nucleo de Destruccion rompe entonces los bloques como lo haria una herramienta con Toque de seda,
+  tambien cuando los drops van a una Bolsa del Vacio. Fortuna es del mismo grupo de encantamientos, asi que tambien se puede poner en la varita y el nucleo la respeta.
+- **Cada nucleo tiene su propio overlay** en la varita (un signo mas dorado para Angel, una cruz para Destruccion, una
+  flecha doble para Intercambio) en vez del mismo punto para todos.
+
+### Corregido
+
+- **Craftear un nucleo en una varita ahora consume el nucleo.** En cualquier mesa de crafteo, en la cuadricula del
+  inventario y en la terminal de crafteo de AE2 el nucleo se quedaba en la cuadricula al coger la varita mejorada. La
+  receta tambien instalaba el nucleo en la varita que seguia en la cuadricula, asi que la receta dejaba de coincidir y
+  los ingredientes volvian.
+- **El bloque del nucleo de Intercambio solo se puede seleccionar con ese nucleo activo.** La tecla de seleccion
+  (Numpad 7) muestra un aviso con cualquier otro nucleo en vez de seleccionar un bloque, y el aviso de "ningun bloque
+  seleccionado" de la vista previa ya no tapa la confirmacion de la seleccion.
+
 ## 4.0.11 — Minecraft 1.21.7 / NeoForge and Fabric
 
 ### Fixes

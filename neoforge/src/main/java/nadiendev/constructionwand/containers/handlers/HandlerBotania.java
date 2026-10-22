@@ -1,4 +1,3 @@
-//? if neoforge {
 package nadiendev.constructionwand.containers.handlers;
 
 import net.minecraft.world.entity.player.Player;
@@ -73,4 +72,3 @@ public class HandlerBotania implements IContainerHandler
         return remaining;
     }
 }
-//?}
