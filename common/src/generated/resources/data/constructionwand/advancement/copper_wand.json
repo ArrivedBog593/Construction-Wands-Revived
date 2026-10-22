@@ -1,0 +1,32 @@
+{
+  "parent": "constructionwand:root",
+  "criteria": {
+    "copper_wand": {
+      "conditions": {
+        "items": [
+          {
+            "items": "constructionwand:copper_wand"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.constructionwand.copper_wand.desc"
+    },
+    "icon": {
+      "id": "constructionwand:copper_wand"
+    },
+    "title": {
+      "translate": "advancement.constructionwand.copper_wand.title"
+    }
+  },
+  "requirements": [
+    [
+      "copper_wand"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

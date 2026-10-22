@@ -1,4 +1,3 @@
-//? if neoforge {
 package nadiendev.constructionwand;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -6,7 +5,10 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.minecraft.world.item.Item;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadHandler;
@@ -16,8 +18,12 @@ import nadiendev.constructionwand.basics.ConfigClient;
 import nadiendev.constructionwand.basics.ConfigServer;
 import nadiendev.constructionwand.containers.ContainerRegistrar;
 import nadiendev.constructionwand.network.ModMessages;
+import nadiendev.constructionwand.energy.WandEnergyStorage;
+import nadiendev.constructionwand.items.ModItems;
 import nadiendev.constructionwand.platform.NeoPayloadContext;
 import nadiendev.constructionwand.registry.ModRegistries;
+import nadiendev.constructionwand.registry.RegistryObject;
+import nadiendev.constructionwand.wand.WandEnergy;
 import nadiendev.constructionwand.registry.Registrar;
 
 @Mod(ConstructionWand.MODID)
@@ -29,18 +35,23 @@ public class ConstructionWandNeoForge {
         modBus.addListener(this::commonSetup);
         modBus.addListener(this::registerPayloads);
         modBus.addListener(this::register);
+        modBus.addListener(this::registerCapabilities);
 
-        //? if >=26.3 {
-        /*container.registerConfig(ModConfig.Type.SYNCED, (ModConfigSpec) ConfigServer.SPEC);
-        *///?} else {
         container.registerConfig(ModConfig.Type.SERVER, (ModConfigSpec) ConfigServer.SPEC);
-        //?}
         container.registerConfig(ModConfig.Type.CLIENT, (ModConfigSpec) ConfigClient.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         ConstructionWand.commonSetup();
         ContainerRegistrar.register();
+    }
+
+    private void registerCapabilities(final RegisterCapabilitiesEvent event) {
+        for (RegistryObject<Item> wand : ModItems.WANDS) {
+            // From 1.21.9 the energy capability is an EnergyHandler on top of an ItemAccess
+            event.registerItem(Capabilities.Energy.ITEM,
+                    (stack, access) -> WandEnergy.isInstalled(stack) ? new WandEnergyStorage(access) : null, wand.get());
+        }
     }
 
     private void register(final RegisterEvent event) {
@@ -70,4 +81,3 @@ public class ConstructionWandNeoForge {
         }
     }
 }
-//?}

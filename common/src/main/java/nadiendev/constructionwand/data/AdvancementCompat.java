@@ -10,17 +10,7 @@ public final class AdvancementCompat {
     private AdvancementCompat() {
     }
 
-    //? if >=1.21.9 {
     public static Optional<net.minecraft.core.ClientAsset.ResourceTexture> background(Identifier texture) {
         return Optional.of(new net.minecraft.core.ClientAsset.ResourceTexture(texture));
     }
-    //?} elif >=1.21.5 {
-    /*public static Optional<net.minecraft.core.ClientAsset> background(Identifier texture) {
-        return Optional.of(new net.minecraft.core.ClientAsset(texture));
-    }
-    *///?} else {
-    /*public static Optional<Identifier> background(Identifier texture) {
-        return Optional.of(texture);
-    }
-    *///?}
 }

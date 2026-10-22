@@ -16,15 +16,9 @@ import javax.annotation.Nonnull;
 
 public class RecipeWandUpgrade extends CustomRecipe
 {
-    //? if >=26.1 {
     public RecipeWandUpgrade() {
         super();
     }
-    //?} else {
-    /*public RecipeWandUpgrade(CraftingBookCategory category) {
-        super(category);
-    }
-    *///?}
 
     @Override
     public boolean matches(@Nonnull CraftingInput inv, @Nonnull Level worldIn) {
@@ -42,16 +36,14 @@ public class RecipeWandUpgrade extends CustomRecipe
         }
 
         if(wand == null || upgrade == null) return false;
+        if(upgrade instanceof nadiendev.constructionwand.items.upgrade.ItemEnergyUpgrade
+                && !(wand.getItem() instanceof nadiendev.constructionwand.items.wand.ItemWandBasic)) return false;
         return !new WandOptions(wand).hasUpgrade(upgrade) && ConfigServer.getWandProperties(wand.getItem()).isUpgradeable();
     }
 
     @Nonnull
     @Override
-    //? if >=26.1 {
     public ItemStack assemble(@Nonnull CraftingInput input) {
-    //?} else {
-    /*public ItemStack assemble(@Nonnull CraftingInput input, HolderLookup.Provider registries) {
-    *///?}
         ItemStack wand = null;
         IWandUpgrade upgrade = null;
 
@@ -70,20 +62,10 @@ public class RecipeWandUpgrade extends CustomRecipe
         return newWand;
     }
 
-    //? if <1.21.2 {
-    /*@Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return width * height >= 2;
-    }
-    *///?}
 
     @Nonnull
     @Override
-    //? if >=1.21.2 {
     public RecipeSerializer<? extends CustomRecipe> getSerializer() {
-    //?} else {
-    /*public RecipeSerializer<?> getSerializer() {
-    *///?}
         return ModRecipes.WAND_UPGRADE.get();
     }
 

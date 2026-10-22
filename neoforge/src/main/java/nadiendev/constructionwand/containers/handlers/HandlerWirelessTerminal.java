@@ -1,4 +1,3 @@
-//? if neoforge && ae2 {
 package nadiendev.constructionwand.containers.handlers;
 
 import appeng.api.config.Actionable;
@@ -115,4 +114,3 @@ public class HandlerWirelessTerminal implements IContainerHandler {
         return CuriosIntegration.resolveCurioSlot(player, item);
     }
 }
-//?}

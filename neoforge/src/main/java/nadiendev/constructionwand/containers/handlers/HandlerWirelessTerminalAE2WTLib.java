@@ -1,4 +1,3 @@
-//? if neoforge && ae2wtlib {
 package nadiendev.constructionwand.containers.handlers;
 
 import appeng.api.config.Actionable;
@@ -116,4 +115,3 @@ public class HandlerWirelessTerminalAE2WTLib implements IContainerHandler {
         return null;
     }
 }
-//?}
