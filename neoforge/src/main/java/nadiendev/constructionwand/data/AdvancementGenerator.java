@@ -1,4 +1,3 @@
-//? if neo_legacy_items {
 package nadiendev.constructionwand.data;
 
 import nadiendev.constructionwand.ConstructionWand;
@@ -49,6 +48,7 @@ public class AdvancementGenerator extends AdvancementProvider {
 
             onHasItem(consumer, ModItems.WAND_WOOD,     AdvancementType.TASK, root);
             onHasItem(consumer, ModItems.WAND_STONE,    AdvancementType.TASK, root);
+            onHasItem(consumer, ModItems.WAND_COPPER,   AdvancementType.TASK, root);
             onHasItem(consumer, ModItems.WAND_IRON,     AdvancementType.TASK, root);
             onHasItem(consumer, ModItems.WAND_GOLD,     AdvancementType.TASK, root);
             onHasItem(consumer, ModItems.WAND_DIAMOND,  AdvancementType.TASK, root);
@@ -57,6 +57,7 @@ public class AdvancementGenerator extends AdvancementProvider {
             onHasItem(consumer, ModItems.CORE_ANGEL,     AdvancementType.TASK, root);
             onHasItem(consumer, ModItems.CORE_DESTRUCTION, AdvancementType.TASK, root);
             onHasItem(consumer, ModItems.CORE_EXCHANGE, AdvancementType.TASK, root);
+            onHasItem(consumer, ModItems.ENERGY_UPGRADE, AdvancementType.TASK, root);
             onHasItem(consumer, ModItems.VOID_SACK,        AdvancementType.TASK, root);
         }
 
@@ -105,4 +106,3 @@ public class AdvancementGenerator extends AdvancementProvider {
         }
     }
 }
-//?}
