@@ -2,6 +2,6 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "constructionwand:item/gold_wand",
-    "layer1": "constructionwand:item/overlay_core"
+    "layer1": "constructionwand:item/overlay_exchange"
   }
 }

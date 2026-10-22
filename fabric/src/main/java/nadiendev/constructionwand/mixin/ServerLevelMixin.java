@@ -1,4 +1,3 @@
-//? if fabric {
 package nadiendev.constructionwand.mixin;
 
 import net.minecraft.server.level.ServerLevel;
@@ -20,4 +19,3 @@ public abstract class ServerLevelMixin {
         }
     }
 }
-//?}
