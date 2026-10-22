@@ -8,6 +8,8 @@ import nadiendev.constructionwand.api.IWandCore;
 import nadiendev.constructionwand.api.IWandUpgrade;
 import nadiendev.constructionwand.basics.ReplacementRegistry;
 import nadiendev.constructionwand.items.core.CoreDefault;
+import nadiendev.constructionwand.items.upgrade.ItemEnergyUpgrade;
+import nadiendev.constructionwand.wand.WandEnergy;
 
 import javax.annotation.Nullable;
 
@@ -49,7 +51,10 @@ public class WandOptions
 
     public final IOption<?>[] allOptions;
 
+    private final ItemStack wandStack;
+
     public WandOptions(ItemStack wandStack) {
+        this.wandStack = wandStack;
         tag = wandStack.getOrCreateTagElement(TAG_ROOT);
 
         cores = new WandUpgradesSelectable<>(tag, "cores", new CoreDefault());
@@ -90,11 +95,17 @@ public class WandOptions
 
     public boolean hasUpgrade(IWandUpgrade upgrade) {
         if(upgrade instanceof IWandCore) return cores.hasUpgrade((IWandCore) upgrade);
+        if(upgrade instanceof ItemEnergyUpgrade) return WandEnergy.isInstalled(wandStack);
         return false;
     }
 
     public boolean addUpgrade(IWandUpgrade upgrade) {
         if(upgrade instanceof IWandCore) return cores.addUpgrade((IWandCore) upgrade);
+        if(upgrade instanceof ItemEnergyUpgrade) {
+            if(hasUpgrade(upgrade)) return false;
+            WandEnergy.install(wandStack);
+            return true;
+        }
         return false;
     }
 }

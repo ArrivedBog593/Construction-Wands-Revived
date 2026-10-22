@@ -6,6 +6,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -66,10 +68,21 @@ public class DestroySnapshot implements ISnapshot
 
         ServerPlayer serverPlayer = player instanceof ServerPlayer sp ? sp : null;
 
+        // A wand enchanted with Silk Touch breaks the blocks as that tool would: the loot context gets the wand
+        ItemStack tool = silkTouchWand(player);
+
         // With a Void Sack in the inventory the drops are dropped in the world and the sack intercepts them
         // (see ActionDestruction.VoidSackCapturingSnapshot / VoidSackDropHandler).
         if(!ActionDestruction.findActiveSack(player).isEmpty()) {
-            boolean destroyed = serverLevel.destroyBlock(pos, true, serverPlayer, 512);
+            boolean destroyed;
+            if(tool.isEmpty()) destroyed = serverLevel.destroyBlock(pos, true, serverPlayer, 512);
+            else {
+                // destroyBlock always drops as if broken by hand, so the drops of the enchanted wand are spawned here
+                List<ItemStack> silkDrops = Block.getDrops(world.getBlockState(pos), serverLevel, pos,
+                        world.getBlockEntity(pos), player, tool);
+                destroyed = serverLevel.destroyBlock(pos, false, serverPlayer, 512);
+                if(destroyed) for(ItemStack drop : silkDrops) Block.popResource(serverLevel, pos, drop);
+            }
             // The sack keeps what it caught, and what it could not hold falls in the world: undoing this
             // destruction would hand the blocks out a second time
             if(destroyed) dropsKept = true;
@@ -78,7 +91,7 @@ public class DestroySnapshot implements ISnapshot
 
         BlockState broken = world.getBlockState(pos);
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        List<ItemStack> drops = Block.getDrops(broken, serverLevel, pos, blockEntity, player, ItemStack.EMPTY);
+        List<ItemStack> drops = Block.getDrops(broken, serverLevel, pos, blockEntity, player, tool);
 
         if(!serverLevel.destroyBlock(pos, false, serverPlayer, 512)) return false;
 
@@ -93,6 +106,13 @@ public class DestroySnapshot implements ISnapshot
         }
 
         return true;
+    }
+
+    /** The wand in the player's hands when it is enchanted with Silk Touch, otherwise an empty stack. */
+    private static ItemStack silkTouchWand(Player player) {
+        ItemStack wand = WandUtil.holdingWand(player);
+        if(wand == null) return ItemStack.EMPTY;
+        return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, wand) > 0 ? wand : ItemStack.EMPTY;
     }
 
     @Override

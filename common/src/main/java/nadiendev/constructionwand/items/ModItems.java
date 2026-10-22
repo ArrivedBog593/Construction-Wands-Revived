@@ -7,8 +7,10 @@ import nadiendev.constructionwand.items.containeritems.ItemVoidSack;
 import nadiendev.constructionwand.items.core.ItemCoreAngel;
 import nadiendev.constructionwand.items.core.ItemCoreDestruction;
 import nadiendev.constructionwand.items.core.ItemCoreExchange;
-import nadiendev.constructionwand.items.wand.ItemWandBasic;
+import nadiendev.constructionwand.items.upgrade.ItemEnergyUpgrade;
 import nadiendev.constructionwand.items.wand.ItemWandInfinity;
+import nadiendev.constructionwand.items.wand.WandTiers;
+import nadiendev.constructionwand.platform.Services;
 import nadiendev.constructionwand.registry.Registrar;
 import nadiendev.constructionwand.registry.RegistryObject;
 
@@ -17,12 +19,13 @@ public class ModItems
     public static final Registrar<Item> ITEMS = new Registrar<>(BuiltInRegistries.ITEM);
 
     // Wands
-    public static final RegistryObject<Item> WAND_WOOD = ITEMS.register("wood_wand", () -> new ItemWandBasic(propWand(), Tiers.WOOD));
-    public static final RegistryObject<Item> WAND_STONE = ITEMS.register("stone_wand", () -> new ItemWandBasic(propWand(), Tiers.STONE));
-    public static final RegistryObject<Item> WAND_IRON = ITEMS.register("iron_wand", () -> new ItemWandBasic(propWand(), Tiers.IRON));
-    public static final RegistryObject<Item> WAND_GOLD = ITEMS.register("gold_wand", () -> new ItemWandBasic(propWand(), Tiers.GOLD));
-    public static final RegistryObject<Item> WAND_DIAMOND = ITEMS.register("diamond_wand", () -> new ItemWandBasic(propWand(), Tiers.DIAMOND));
-    public static final RegistryObject<Item> WAND_NETHERITE = ITEMS.register("netherite_wand", () -> new ItemWandBasic(propWand().fireResistant(), Tiers.NETHERITE));
+    public static final RegistryObject<Item> WAND_WOOD = ITEMS.register("wood_wand", () -> Services.PLATFORM.newBasicWand(propWand(), Tiers.WOOD));
+    public static final RegistryObject<Item> WAND_STONE = ITEMS.register("stone_wand", () -> Services.PLATFORM.newBasicWand(propWand(), Tiers.STONE));
+    public static final RegistryObject<Item> WAND_COPPER = ITEMS.register("copper_wand", () -> Services.PLATFORM.newBasicWand(propWand(), WandTiers.COPPER));
+    public static final RegistryObject<Item> WAND_IRON = ITEMS.register("iron_wand", () -> Services.PLATFORM.newBasicWand(propWand(), Tiers.IRON));
+    public static final RegistryObject<Item> WAND_GOLD = ITEMS.register("gold_wand", () -> Services.PLATFORM.newBasicWand(propWand(), Tiers.GOLD));
+    public static final RegistryObject<Item> WAND_DIAMOND = ITEMS.register("diamond_wand", () -> Services.PLATFORM.newBasicWand(propWand(), Tiers.DIAMOND));
+    public static final RegistryObject<Item> WAND_NETHERITE = ITEMS.register("netherite_wand", () -> Services.PLATFORM.newBasicWand(propWand().fireResistant(), Tiers.NETHERITE));
     public static final RegistryObject<Item> WAND_INFINITY = ITEMS.register("infinity_wand", () -> new ItemWandInfinity(propWand()));
 
     // Cores
@@ -30,12 +33,15 @@ public class ModItems
     public static final RegistryObject<Item> CORE_DESTRUCTION = ITEMS.register("core_destruction", () -> new ItemCoreDestruction(propUpgrade()));
     public static final RegistryObject<Item> CORE_EXCHANGE = ITEMS.register("core_exchange", () -> new ItemCoreExchange(propUpgrade()));
 
+    // Upgrades
+    public static final RegistryObject<Item> ENERGY_UPGRADE = ITEMS.register("energy_upgrade", () -> new ItemEnergyUpgrade(propUpgrade()));
+
     public static final RegistryObject<Item> VOID_SACK = ITEMS.register("void_sack",
             () -> new ItemVoidSack(new Item.Properties().stacksTo(1).fireResistant(), 0));
 
     // Collections
     @SuppressWarnings("unchecked")
-    public static final RegistryObject<Item>[] WANDS = new RegistryObject[] {WAND_WOOD, WAND_STONE, WAND_IRON, WAND_GOLD, WAND_DIAMOND, WAND_NETHERITE, WAND_INFINITY};
+    public static final RegistryObject<Item>[] WANDS = new RegistryObject[] {WAND_WOOD, WAND_STONE, WAND_COPPER, WAND_IRON, WAND_GOLD, WAND_DIAMOND, WAND_NETHERITE, WAND_INFINITY};
     @SuppressWarnings("unchecked")
     public static final RegistryObject<Item>[] CORES = new RegistryObject[] {CORE_ANGEL, CORE_DESTRUCTION, CORE_EXCHANGE};
     @SuppressWarnings("unchecked")

@@ -30,6 +30,7 @@ public class RecipeGenerator extends RecipeProvider
     protected void buildRecipes(@Nonnull Consumer<FinishedRecipe> consumer) {
         wandRecipe(consumer, ModItems.WAND_WOOD.get(), Inp.fromItems("wood_planks", Items.CHERRY_PLANKS, Items.BIRCH_PLANKS));
         wandRecipe(consumer, ModItems.WAND_STONE.get(), Inp.fromTag(ItemTags.STONE_TOOL_MATERIALS));
+        wandRecipe(consumer, ModItems.WAND_COPPER.get(), Inp.fromTag(Tags.Items.INGOTS_COPPER));
         wandRecipe(consumer, ModItems.WAND_IRON.get(), Inp.fromTag(Tags.Items.INGOTS_IRON));
         wandRecipe(consumer, ModItems.WAND_GOLD.get(), Inp.fromTag(Tags.Items.INGOTS_GOLD));
         wandRecipe(consumer, ModItems.WAND_DIAMOND.get(), Inp.fromTag(Tags.Items.GEMS_DIAMOND));
@@ -40,9 +41,22 @@ public class RecipeGenerator extends RecipeProvider
         coreRecipe(consumer, ModItems.CORE_DESTRUCTION.get(), Inp.fromTag(Tags.Items.STORAGE_BLOCKS_DIAMOND), Inp.fromItem(Items.DIAMOND_PICKAXE));
         coreRecipe(consumer, ModItems.CORE_EXCHANGE.get(), Inp.fromTag(Tags.Items.STORAGE_BLOCKS_EMERALD), Inp.fromItem(Items.DIAMOND_SHOVEL));
 
+        energyUpgradeRecipe(consumer);
         voidSackRecipe(consumer);
 
         specialRecipe(consumer, ModRecipes.WAND_UPGRADE.get());
+    }
+
+    private void energyUpgradeRecipe(Consumer<FinishedRecipe> consumer) {
+        Inp copper = Inp.fromTag(Tags.Items.INGOTS_COPPER);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ENERGY_UPGRADE.get())
+                .define('C', copper.ingredient)
+                .define('R', Items.REDSTONE_BLOCK)
+                .pattern("CCC")
+                .pattern("CRC")
+                .pattern("CCC")
+                .unlockedBy("has_item", inventoryTrigger(copper.predicate))
+                .save(consumer);
     }
 
     private void voidSackRecipe(Consumer<FinishedRecipe> consumer) {

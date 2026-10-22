@@ -37,6 +37,8 @@ public class RecipeWandUpgrade extends CustomRecipe
         }
 
         if(wand == null || upgrade == null) return false;
+        if(upgrade instanceof nadiendev.constructionwand.items.upgrade.ItemEnergyUpgrade
+                && !(wand.getItem() instanceof nadiendev.constructionwand.items.wand.ItemWandBasic)) return false;
         return !new WandOptions(wand).hasUpgrade(upgrade) && ConfigServer.getWandProperties(wand.getItem()).isUpgradeable();
     }
 

@@ -31,6 +31,11 @@ public interface IPlatformHelper {
 
     boolean isModLoaded(String modId);
 
+    /** Creates a basic wand. Loaders override this to give it the energy interfaces of the mods that are present. */
+    default Item newBasicWand(Item.Properties properties, net.minecraft.world.item.Tier tier) {
+        return new nadiendev.constructionwand.items.wand.ItemWandBasic(properties, tier);
+    }
+
     // ── Client / rendering hooks ──────────────────────────────────────────────
 
     /** Registers an item model predicate (client only). */

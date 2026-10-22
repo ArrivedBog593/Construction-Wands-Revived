@@ -102,7 +102,8 @@ public class WandJob
                     // If the item cant be taken, undo the placement
                     if(wandSupplier.takeItemStack(snapshot.getRequiredItems()) == 0) {
                         executed.add(snapshot);
-                        wand.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+                        if(WandEnergy.isInstalled(wand)) WandEnergy.spendBlock(wand);
+                        else wand.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(InteractionHand.MAIN_HAND));
                     }
                     else {
                         ConstructionWand.LOGGER.info("Item could not be taken. Remove block: " +

@@ -19,6 +19,7 @@ public class LanguageGenerator extends LanguageProvider
          add("item.constructionwand.core_angel", "Angel Wand Core");
          add("item.constructionwand.core_destruction", "Destruction Wand Core");
          add("constructionwand.tooltip.blocks", "Max. %d blocks");
+         add("constructionwand.tooltip.energy", "Energy: %s / %s FE");
          add("constructionwand.tooltip.shift", "Press [SHIFT]");
          add("constructionwand.tooltip.cores", "Wand cores:");
          add("constructionwand.tooltip.core_tip", "Combine the core with your wand in a crafting grid");
@@ -75,6 +76,8 @@ public class LanguageGenerator extends LanguageProvider
          add("item.constructionwand.gold_wand", "Golden Wand");
          add("item.constructionwand.netherite_wand", "Netherite Wand");
          add("item.constructionwand.core_exchange", "Exchange Wand Core");
+         add("item.constructionwand.copper_wand", "Copper Wand");
+         add("item.constructionwand.energy_upgrade", "Energy Wand Upgrade");
          add("item.constructionwand.void_sack", "Void Sack");
          add("item.constructionwand.void_sack.active", "§aActive §7(press §6%1$s§7 to toggle)");
          add("item.constructionwand.void_sack.inactive", "§7Inactive §7(press §6%1$s§7 to toggle)");
@@ -101,6 +104,7 @@ public class LanguageGenerator extends LanguageProvider
          add("constructionwand.message.exchange_selected", "Selected: %s");
          add("constructionwand.message.exchange_invalid", "That block can't be selected");
          add("constructionwand.message.exchange_none_selected", "No block selected — press Numpad 7 looking at a block");
+add("constructionwand.message.exchange_wrong_core", "Switch to the Exchange Core to select a block");
          add("constructionwand.undo.success", "Wand action undone");
          add("constructionwand.undo.nothing", "Nothing to undo");
          add("key.constructionwand.wand_undo", "Undo Wand Action");
@@ -110,6 +114,10 @@ public class LanguageGenerator extends LanguageProvider
          add("advancement.constructionwand.wood_wand.desc", "Obtain a Wooden Wand");
          add("advancement.constructionwand.stone_wand.title", "Stone Wand");
          add("advancement.constructionwand.stone_wand.desc", "Obtain a Stone Wand");
+         add("advancement.constructionwand.copper_wand.title", "Copper Wand");
+         add("advancement.constructionwand.copper_wand.desc", "Obtain a Copper Wand");
+         add("advancement.constructionwand.energy_upgrade.title", "Energy Upgrade");
+         add("advancement.constructionwand.energy_upgrade.desc", "Obtain an Energy Wand Upgrade");
          add("advancement.constructionwand.iron_wand.title", "Iron Wand");
          add("advancement.constructionwand.iron_wand.desc", "Obtain an Iron Wand");
          add("advancement.constructionwand.gold_wand.title", "Golden Wand");
@@ -143,6 +151,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "Núcleo de Varita Angelical");
              add("item.constructionwand.core_destruction", "Núcleo de Varita de Destrucción");
              add("constructionwand.tooltip.blocks", "Máx. %d bloques");
+             add("constructionwand.tooltip.energy", "Energía: %s / %s FE");
              add("constructionwand.tooltip.shift", "Presiona [MAYÚS]");
              add("constructionwand.tooltip.cores", "Núcleos de varita:");
              add("constructionwand.tooltip.core_tip", "Combina el núcleo con tu varita en una rejilla de crafteo");
@@ -199,6 +208,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "Varita de Oro");
              add("item.constructionwand.netherite_wand", "Varita de netherita");
              add("item.constructionwand.core_exchange", "Núcleo de Varita de Intercambio");
+             add("item.constructionwand.copper_wand", "Varita de Cobre");
+             add("item.constructionwand.energy_upgrade", "Mejora de Energía de Varita");
              add("item.constructionwand.void_sack", "Bolsa del Vacío");
              add("item.constructionwand.void_sack.active", "§aActiva §7(presioná §6%1$s§7 para cambiar)");
              add("item.constructionwand.void_sack.inactive", "§7Inactiva §7(presioná §6%1$s§7 para cambiar)");
@@ -225,6 +236,7 @@ public class LanguageGenerator extends LanguageProvider
              add("constructionwand.message.exchange_selected", "Seleccionado: %s");
              add("constructionwand.message.exchange_invalid", "Ese bloque no se puede seleccionar");
              add("constructionwand.message.exchange_none_selected", "No hay bloque seleccionado — presioná Numpad 7 mirando un bloque");
+add("constructionwand.message.exchange_wrong_core", "Activá el núcleo de Intercambio para seleccionar un bloque");
              add("constructionwand.undo.success", "Acción de varita deshecha");
              add("constructionwand.undo.nothing", "Nada para deshacer");
              add("key.constructionwand.wand_undo", "Deshacer acción de varita");
@@ -234,6 +246,10 @@ public class LanguageGenerator extends LanguageProvider
              add("advancement.constructionwand.wood_wand.desc", "Obtené una Varita de Madera");
              add("advancement.constructionwand.stone_wand.title", "Varita de Piedra");
              add("advancement.constructionwand.stone_wand.desc", "Obtené una Varita de Piedra");
+             add("advancement.constructionwand.copper_wand.title", "Varita de Cobre");
+             add("advancement.constructionwand.copper_wand.desc", "Obtené una Varita de Cobre");
+             add("advancement.constructionwand.energy_upgrade.title", "Mejora de Energía");
+             add("advancement.constructionwand.energy_upgrade.desc", "Obtené una Mejora de Energía de Varita");
              add("advancement.constructionwand.iron_wand.title", "Varita de Hierro");
              add("advancement.constructionwand.iron_wand.desc", "Obtené una Varita de Hierro");
              add("advancement.constructionwand.gold_wand.title", "Varita de Oro");
@@ -268,6 +284,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "Núcleo de Varita Angelical");
              add("item.constructionwand.core_destruction", "Núcleo de Varita de Destrucción");
              add("constructionwand.tooltip.blocks", "Máx. %d bloques");
+             add("constructionwand.tooltip.energy", "Energía: %s / %s FE");
              add("constructionwand.tooltip.shift", "Presiona [MAYÚS]");
              add("constructionwand.tooltip.cores", "Núcleos de varita:");
              add("constructionwand.tooltip.core_tip", "Combina el núcleo con tu varita en una rejilla de crafteo");
@@ -324,6 +341,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "Varita de Oro");
              add("item.constructionwand.netherite_wand", "Varita de netherita");
              add("item.constructionwand.core_exchange", "Núcleo de Varita de Intercambio");
+             add("item.constructionwand.copper_wand", "Varita de Cobre");
+             add("item.constructionwand.energy_upgrade", "Mejora de Energía de Varita");
              add("item.constructionwand.void_sack", "Bolsa del Vacío");
              add("item.constructionwand.void_sack.active", "§aActiva §7(presioná §6%1$s§7 para cambiar)");
              add("item.constructionwand.void_sack.inactive", "§7Inactiva §7(presioná §6%1$s§7 para cambiar)");
@@ -350,6 +369,7 @@ public class LanguageGenerator extends LanguageProvider
              add("constructionwand.message.exchange_selected", "Seleccionado: %s");
              add("constructionwand.message.exchange_invalid", "Ese bloque no se puede seleccionar");
              add("constructionwand.message.exchange_none_selected", "No hay bloque seleccionado — presioná Numpad 7 mirando un bloque");
+add("constructionwand.message.exchange_wrong_core", "Activá el núcleo de Intercambio para seleccionar un bloque");
              add("constructionwand.undo.success", "Acción de varita deshecha");
              add("constructionwand.undo.nothing", "Nada para deshacer");
              add("key.constructionwand.wand_undo", "Deshacer acción de varita");
@@ -359,6 +379,10 @@ public class LanguageGenerator extends LanguageProvider
              add("advancement.constructionwand.wood_wand.desc", "Obtené una Varita de Madera");
              add("advancement.constructionwand.stone_wand.title", "Varita de Piedra");
              add("advancement.constructionwand.stone_wand.desc", "Obtené una Varita de Piedra");
+             add("advancement.constructionwand.copper_wand.title", "Varita de Cobre");
+             add("advancement.constructionwand.copper_wand.desc", "Obtené una Varita de Cobre");
+             add("advancement.constructionwand.energy_upgrade.title", "Mejora de Energía");
+             add("advancement.constructionwand.energy_upgrade.desc", "Obtené una Mejora de Energía de Varita");
              add("advancement.constructionwand.iron_wand.title", "Varita de Hierro");
              add("advancement.constructionwand.iron_wand.desc", "Obtené una Varita de Hierro");
              add("advancement.constructionwand.gold_wand.title", "Varita de Oro");
@@ -393,6 +417,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "Núcleo de Varita Angelical");
              add("item.constructionwand.core_destruction", "Núcleo de Varita de Destrucción");
              add("constructionwand.tooltip.blocks", "Máx. %d bloques");
+             add("constructionwand.tooltip.energy", "Energía: %s / %s FE");
              add("constructionwand.tooltip.shift", "Presiona [MAYÚS]");
              add("constructionwand.tooltip.cores", "Núcleos de varita:");
              add("constructionwand.tooltip.core_tip", "Combina el núcleo con tu varita en una rejilla de crafteo");
@@ -449,6 +474,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "Varita de Oro");
              add("item.constructionwand.netherite_wand", "Varita de netherita");
              add("item.constructionwand.core_exchange", "Núcleo de Varita de Intercambio");
+             add("item.constructionwand.copper_wand", "Varita de Cobre");
+             add("item.constructionwand.energy_upgrade", "Mejora de Energía de Varita");
              add("item.constructionwand.void_sack", "Bolsa del Vacío");
              add("item.constructionwand.void_sack.active", "§aActiva §7(presioná §6%1$s§7 para cambiar)");
              add("item.constructionwand.void_sack.inactive", "§7Inactiva §7(presioná §6%1$s§7 para cambiar)");
@@ -475,6 +502,7 @@ public class LanguageGenerator extends LanguageProvider
              add("constructionwand.message.exchange_selected", "Seleccionado: %s");
              add("constructionwand.message.exchange_invalid", "Ese bloque no se puede seleccionar");
              add("constructionwand.message.exchange_none_selected", "No hay bloque seleccionado — presioná Numpad 7 mirando un bloque");
+add("constructionwand.message.exchange_wrong_core", "Activá el núcleo de Intercambio para seleccionar un bloque");
              add("constructionwand.undo.success", "Acción de varita deshecha");
              add("constructionwand.undo.nothing", "Nada para deshacer");
              add("key.constructionwand.wand_undo", "Deshacer acción de varita");
@@ -484,6 +512,10 @@ public class LanguageGenerator extends LanguageProvider
              add("advancement.constructionwand.wood_wand.desc", "Obtené una Varita de Madera");
              add("advancement.constructionwand.stone_wand.title", "Varita de Piedra");
              add("advancement.constructionwand.stone_wand.desc", "Obtené una Varita de Piedra");
+             add("advancement.constructionwand.copper_wand.title", "Varita de Cobre");
+             add("advancement.constructionwand.copper_wand.desc", "Obtené una Varita de Cobre");
+             add("advancement.constructionwand.energy_upgrade.title", "Mejora de Energía");
+             add("advancement.constructionwand.energy_upgrade.desc", "Obtené una Mejora de Energía de Varita");
              add("advancement.constructionwand.iron_wand.title", "Varita de Hierro");
              add("advancement.constructionwand.iron_wand.desc", "Obtené una Varita de Hierro");
              add("advancement.constructionwand.gold_wand.title", "Varita de Oro");
@@ -518,6 +550,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "Núcleo de Varita Angelical");
              add("item.constructionwand.core_destruction", "Núcleo de Varita de Destrucción");
              add("constructionwand.tooltip.blocks", "Máx. %d bloques");
+             add("constructionwand.tooltip.energy", "Energía: %s / %s FE");
              add("constructionwand.tooltip.shift", "Presiona [MAYÚS]");
              add("constructionwand.tooltip.cores", "Núcleos de varita:");
              add("constructionwand.tooltip.core_tip", "Combina el núcleo con tu varita en una rejilla de crafteo");
@@ -574,6 +607,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "Varita de Oro");
              add("item.constructionwand.netherite_wand", "Varita de netherita");
              add("item.constructionwand.core_exchange", "Núcleo de Varita de Intercambio");
+             add("item.constructionwand.copper_wand", "Varita de Cobre");
+             add("item.constructionwand.energy_upgrade", "Mejora de Energía de Varita");
              add("item.constructionwand.void_sack", "Bolsa del Vacío");
              add("item.constructionwand.void_sack.active", "§aActiva §7(presioná §6%1$s§7 para cambiar)");
              add("item.constructionwand.void_sack.inactive", "§7Inactiva §7(presioná §6%1$s§7 para cambiar)");
@@ -600,6 +635,7 @@ public class LanguageGenerator extends LanguageProvider
              add("constructionwand.message.exchange_selected", "Seleccionado: %s");
              add("constructionwand.message.exchange_invalid", "Ese bloque no se puede seleccionar");
              add("constructionwand.message.exchange_none_selected", "No hay bloque seleccionado — presioná Numpad 7 mirando un bloque");
+add("constructionwand.message.exchange_wrong_core", "Activá el núcleo de Intercambio para seleccionar un bloque");
              add("constructionwand.undo.success", "Acción de varita deshecha");
              add("constructionwand.undo.nothing", "Nada para deshacer");
              add("key.constructionwand.wand_undo", "Deshacer acción de varita");
@@ -609,6 +645,10 @@ public class LanguageGenerator extends LanguageProvider
              add("advancement.constructionwand.wood_wand.desc", "Obtené una Varita de Madera");
              add("advancement.constructionwand.stone_wand.title", "Varita de Piedra");
              add("advancement.constructionwand.stone_wand.desc", "Obtené una Varita de Piedra");
+             add("advancement.constructionwand.copper_wand.title", "Varita de Cobre");
+             add("advancement.constructionwand.copper_wand.desc", "Obtené una Varita de Cobre");
+             add("advancement.constructionwand.energy_upgrade.title", "Mejora de Energía");
+             add("advancement.constructionwand.energy_upgrade.desc", "Obtené una Mejora de Energía de Varita");
              add("advancement.constructionwand.iron_wand.title", "Varita de Hierro");
              add("advancement.constructionwand.iron_wand.desc", "Obtené una Varita de Hierro");
              add("advancement.constructionwand.gold_wand.title", "Varita de Oro");
@@ -643,6 +683,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "Núcleo de Varita Angelical");
              add("item.constructionwand.core_destruction", "Núcleo de Varita de Destrucción");
              add("constructionwand.tooltip.blocks", "Máx. %d bloques");
+             add("constructionwand.tooltip.energy", "Energía: %s / %s FE");
              add("constructionwand.tooltip.shift", "Presiona [MAYÚS]");
              add("constructionwand.tooltip.cores", "Núcleos de varita:");
              add("constructionwand.tooltip.core_tip", "Combina el núcleo con tu varita en una rejilla de crafteo");
@@ -699,6 +740,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "Varita de Oro");
              add("item.constructionwand.netherite_wand", "Varita de netherita");
              add("item.constructionwand.core_exchange", "Núcleo de Varita de Intercambio");
+             add("item.constructionwand.copper_wand", "Varita de Cobre");
+             add("item.constructionwand.energy_upgrade", "Mejora de Energía de Varita");
              add("item.constructionwand.void_sack", "Bolsa del Vacío");
              add("item.constructionwand.void_sack.active", "§aActiva §7(presioná §6%1$s§7 para cambiar)");
              add("item.constructionwand.void_sack.inactive", "§7Inactiva §7(presioná §6%1$s§7 para cambiar)");
@@ -725,6 +768,7 @@ public class LanguageGenerator extends LanguageProvider
              add("constructionwand.message.exchange_selected", "Seleccionado: %s");
              add("constructionwand.message.exchange_invalid", "Ese bloque no se puede seleccionar");
              add("constructionwand.message.exchange_none_selected", "No hay bloque seleccionado — presioná Numpad 7 mirando un bloque");
+add("constructionwand.message.exchange_wrong_core", "Activá el núcleo de Intercambio para seleccionar un bloque");
              add("constructionwand.undo.success", "Acción de varita deshecha");
              add("constructionwand.undo.nothing", "Nada para deshacer");
              add("key.constructionwand.wand_undo", "Deshacer acción de varita");
@@ -734,6 +778,10 @@ public class LanguageGenerator extends LanguageProvider
              add("advancement.constructionwand.wood_wand.desc", "Obtené una Varita de Madera");
              add("advancement.constructionwand.stone_wand.title", "Varita de Piedra");
              add("advancement.constructionwand.stone_wand.desc", "Obtené una Varita de Piedra");
+             add("advancement.constructionwand.copper_wand.title", "Varita de Cobre");
+             add("advancement.constructionwand.copper_wand.desc", "Obtené una Varita de Cobre");
+             add("advancement.constructionwand.energy_upgrade.title", "Mejora de Energía");
+             add("advancement.constructionwand.energy_upgrade.desc", "Obtené una Mejora de Energía de Varita");
              add("advancement.constructionwand.iron_wand.title", "Varita de Hierro");
              add("advancement.constructionwand.iron_wand.desc", "Obtené una Varita de Hierro");
              add("advancement.constructionwand.gold_wand.title", "Varita de Oro");
@@ -768,6 +816,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "天使の杖のコア");
              add("item.constructionwand.core_destruction", "破壊の杖のコア");
              add("constructionwand.tooltip.blocks", "最大%dブロック");
+             add("constructionwand.tooltip.energy", "エネルギー: %s / %s FE");
              add("constructionwand.tooltip.shift", "Shiftを押す");
              add("constructionwand.tooltip.cores", "杖のコア:");
              add("constructionwand.tooltip.core_tip", "クラフト画面上で杖とコアを組み合わせてください。");
@@ -824,6 +873,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "金の杖");
              add("item.constructionwand.netherite_wand", "ネザライトの杖");
              add("item.constructionwand.core_exchange", "交換の杖のコア");
+             add("item.constructionwand.copper_wand", "銅の杖");
+             add("item.constructionwand.energy_upgrade", "エネルギー強化");
              add("item.constructionwand.void_sack", "ボイドサック");
              add("item.constructionwand.void_sack.active", "§a有効 §7(§6%1$s§7で切り替え)");
              add("item.constructionwand.void_sack.inactive", "§7無効 §7(§6%1$s§7で切り替え)");
@@ -892,6 +943,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "천사 완드 코어");
              add("item.constructionwand.core_destruction", "파괴 완드 코어");
              add("constructionwand.tooltip.blocks", "최대. %d 블록");
+             add("constructionwand.tooltip.energy", "에너지: %s / %s FE");
              add("constructionwand.tooltip.shift", "[SHIFT]를 누르세요.");
              add("constructionwand.tooltip.cores", "완드 코어:");
              add("constructionwand.tooltip.core_tip", "조합창에서 코어와 완드를 합치세요.");
@@ -948,6 +1000,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "금 완드");
              add("item.constructionwand.netherite_wand", "네더라이트 지팡이");
              add("item.constructionwand.core_exchange", "교환 완드 코어");
+             add("item.constructionwand.copper_wand", "구리 완드");
+             add("item.constructionwand.energy_upgrade", "에너지 업그레이드");
              add("item.constructionwand.void_sack", "공허 자루");
              add("item.constructionwand.void_sack.active", "§a활성화됨 §7(§6%1$s§7 키로 전환)");
              add("item.constructionwand.void_sack.inactive", "§7비활성화됨 §7(§6%1$s§7 키로 전환)");
@@ -1016,6 +1070,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "Angel Wand Core");
              add("item.constructionwand.core_destruction", "Destruction Wand Core");
              add("constructionwand.tooltip.blocks", "Max. %d blocos");
+             add("constructionwand.tooltip.energy", "Energia: %s / %s FE");
              add("constructionwand.tooltip.shift", "Pressione Shift]");
              add("constructionwand.tooltip.cores", "Núcleos de varinhas:");
              add("constructionwand.tooltip.core_tip", "Combine o núcleo com sua varinha em uma grade de criação");
@@ -1072,6 +1127,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "Varinha de ouro");
              add("item.constructionwand.netherite_wand", "Varinha de Netjerita");
              add("item.constructionwand.core_exchange", "Núcleo de Varita de Troca");
+             add("item.constructionwand.copper_wand", "Varinha de cobre");
+             add("item.constructionwand.energy_upgrade", "Melhoria de energia");
              add("item.constructionwand.void_sack", "Saco do Vazio");
              add("item.constructionwand.void_sack.active", "§aAtivo §7(pressione §6%1$s§7 para alternar)");
              add("item.constructionwand.void_sack.inactive", "§7Inativo §7(pressione §6%1$s§7 para alternar)");
@@ -1140,6 +1197,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "Ангельское ядро для жезла");
              add("item.constructionwand.core_destruction", "Ядро разрушения для жезла");
              add("constructionwand.tooltip.blocks", "Максимум %d блоков");
+             add("constructionwand.tooltip.energy", "Энергия: %s / %s FE");
              add("constructionwand.tooltip.shift", "Нажмите [SHIFT]");
              add("constructionwand.tooltip.cores", "Ядер жезла:");
              add("constructionwand.tooltip.core_tip", "Объедините ядро со своим жезлом в сетке создания.");
@@ -1196,6 +1254,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "Золотой жезл");
              add("item.constructionwand.netherite_wand", "Незеритовый жезл");
              add("item.constructionwand.core_exchange", "Обменное ядро для жезла");
+             add("item.constructionwand.copper_wand", "Медный жезл");
+             add("item.constructionwand.energy_upgrade", "Улучшение энергии");
              add("item.constructionwand.void_sack", "Мешок Пустоты");
              add("item.constructionwand.void_sack.active", "§aАктивен §7(нажмите §6%1$s§7 для переключения)");
              add("item.constructionwand.void_sack.inactive", "§7Неактивен §7(нажмите §6%1$s§7 для переключения)");
@@ -1264,6 +1324,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "Änglastavskärna");
              add("item.constructionwand.core_destruction", "Rivningsstavskärna");
              add("constructionwand.tooltip.blocks", "Max. %d block");
+             add("constructionwand.tooltip.energy", "Energi: %s / %s FE");
              add("constructionwand.tooltip.shift", "Håll ned [SHIFT]");
              add("constructionwand.tooltip.cores", "Stavkärnor:");
              add("constructionwand.tooltip.core_tip", "Kombinera kärnan med din stav i ett tillverkningsrutnät");
@@ -1320,6 +1381,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "Guldstav");
              add("item.constructionwand.netherite_wand", "Netheritstav");
              add("item.constructionwand.core_exchange", "Utbytesstavskärna");
+             add("item.constructionwand.copper_wand", "Kopparstav");
+             add("item.constructionwand.energy_upgrade", "Energiuppgradering");
              add("item.constructionwand.void_sack", "Tomhetspåse");
              add("item.constructionwand.void_sack.active", "§aAktiv §7(tryck §6%1$s§7 för att växla)");
              add("item.constructionwand.void_sack.inactive", "§7Inaktiv §7(tryck §6%1$s§7 för att växla)");
@@ -1389,6 +1452,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "Melek Asa Çekirdeği");
              add("item.constructionwand.core_destruction", "Yıkım Asa Çekirdeği");
              add("constructionwand.tooltip.blocks", "Maks. %d blok");
+             add("constructionwand.tooltip.energy", "Enerji: %s / %s FE");
              add("constructionwand.tooltip.shift", "[SHIFT] bas");
              add("constructionwand.tooltip.cores", "Asa çekirdekleri:");
              add("constructionwand.tooltip.core_tip", "Çekirdeği asanızla birlikte üretim ızgarasında birleştirin");
@@ -1445,6 +1509,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "Altın Asa");
              add("item.constructionwand.netherite_wand", "Netherite Asa");
              add("item.constructionwand.core_exchange", "Değişim Asa Çekirdeği");
+             add("item.constructionwand.copper_wand", "Bakır Asa");
+             add("item.constructionwand.energy_upgrade", "Enerji Yükseltmesi");
              add("item.constructionwand.void_sack", "Boşluk Çantası");
              add("item.constructionwand.void_sack.active", "§aEtkin §7(geçiş yapmak için §6%1$s§7 tuşuna basın)");
              add("item.constructionwand.void_sack.inactive", "§7Devre Dışı §7(geçiş yapmak için §6%1$s§7 tuşuna basın)");
@@ -1514,6 +1580,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "天使手杖核心");
              add("item.constructionwand.core_destruction", "破坏手杖核心");
              add("constructionwand.tooltip.blocks", "最多放置%d个方块");
+             add("constructionwand.tooltip.energy", "能量：%s / %s FE");
              add("constructionwand.tooltip.shift", "按 [SHIFT]");
              add("constructionwand.tooltip.cores", "手杖核心:");
              add("constructionwand.tooltip.core_tip", "将手杖核心与手杖组合在一起");
@@ -1570,6 +1637,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "金制手杖");
              add("item.constructionwand.netherite_wand", "下界合金建筑杖");
              add("item.constructionwand.core_exchange", "交换手杖核心");
+             add("item.constructionwand.copper_wand", "铜制手杖");
+             add("item.constructionwand.energy_upgrade", "能量升级");
              add("item.constructionwand.void_sack", "虚空袋");
              add("item.constructionwand.void_sack.active", "§a已启用 §7(按 §6%1$s§7 切换)");
              add("item.constructionwand.void_sack.inactive", "§7已禁用 §7(按 §6%1$s§7 切换)");
@@ -1638,6 +1707,7 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.core_angel", "Kristall der Engel");
              add("item.constructionwand.core_destruction", "Kristall der Zerstörung");
              add("constructionwand.tooltip.blocks", "Max. %d Blöcke");
+             add("constructionwand.tooltip.energy", "Energie: %s / %s FE");
              add("constructionwand.tooltip.shift", "Drücke [SHIFT]");
              add("constructionwand.tooltip.cores", "Kristalle im Stab:");
              add("constructionwand.tooltip.core_tip", "Kombiniere den Kristall mit deinem Stab im Craftingfeld");
@@ -1694,6 +1764,8 @@ public class LanguageGenerator extends LanguageProvider
              add("item.constructionwand.gold_wand", "Goldener Stab");
              add("item.constructionwand.netherite_wand", "Netherit Stab");
              add("item.constructionwand.core_exchange", "Kristall des Austauschs");
+             add("item.constructionwand.copper_wand", "Kupferner Stab");
+             add("item.constructionwand.energy_upgrade", "Energie-Aufwertung");
              add("item.constructionwand.void_sack", "Leerenbeutel");
              add("item.constructionwand.void_sack.active", "§aAktiv §7(drücke §6%1$s§7 zum Umschalten)");
              add("item.constructionwand.void_sack.inactive", "§7Inaktiv §7(drücke §6%1$s§7 zum Umschalten)");

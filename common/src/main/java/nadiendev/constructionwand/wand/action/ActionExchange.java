@@ -78,9 +78,13 @@ public class ActionExchange implements IWandAction
         // Bloque seleccionado con Shift+Click. Sin selección no hay nada para intercambiar.
         BlockItem selected = ConstructionWand.instance.undoHistory.getExchangeSelection(player);
         if(selected == null) {
-            player.displayClientMessage(
-                    Component.translatable(ConstructionWand.MODID + ".message.exchange_none_selected")
-                            .withStyle(ChatFormatting.RED), true);
+            // The block preview runs this on the client every frame, and the client does not know the selection
+            // made on the server: only the server may warn, or the warning covers the "block selected" message
+            if(!world.isClientSide()) {
+                player.displayClientMessage(
+                        Component.translatable(ConstructionWand.MODID + ".message.exchange_none_selected")
+                                .withStyle(ChatFormatting.RED), true);
+            }
             return exchangeSnapshots;
         }
 

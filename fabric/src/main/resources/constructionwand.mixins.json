@@ -4,6 +4,7 @@
   "package": "nadiendev.constructionwand.mixin",
   "compatibilityLevel": "${java}",
   "mixins": [
+    "EnchantmentMixin",
     "ItemEntityMixin",
     "ItemStackMixin",
     "ServerLevelMixin"

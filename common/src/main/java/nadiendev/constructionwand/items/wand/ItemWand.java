@@ -11,6 +11,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -20,6 +22,7 @@ import nadiendev.constructionwand.basics.WandUtil;
 import nadiendev.constructionwand.basics.option.IOption;
 import nadiendev.constructionwand.basics.option.WandOptions;
 import nadiendev.constructionwand.wand.WandJob;
+import nadiendev.constructionwand.wand.WandEnergy;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -88,6 +91,39 @@ public abstract class ItemWand extends Item
         return Integer.MAX_VALUE;
     }
 
+    // The wands take the Silk Touch enchantment: Silk Touch makes the Destruction core break the blocks as that tool.
+    // Vanilla only enchants damageable items, and the Infinity Wand is not.
+    @Override
+    public boolean isEnchantable(@Nonnull ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public int getEnchantmentValue() {
+        return 15;
+    }
+
+    /**
+     * Forge calls this through its item extension (enchanting table, books). Silk Touch is the only enchantment of the
+     * digger category the wands take, Fortune is not; Unbreaking and Mending come with the durability.
+     * On Fabric a mixin on Enchantment#canEnchant does the same.
+     */
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return enchantment == Enchantments.SILK_TOUCH || enchantment.category.canEnchant(this);
+    }
+
+    /**
+     * Changing the NBT of the held wand (energy, options, durability) must not play the re-equip animation.
+     * Forge calls this; on Fabric it is the Fabric API item hook.
+     */
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged || oldStack.getItem() != newStack.getItem();
+    }
+
+    public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
+        return false;
+    }
+
     @Override
     public void appendHoverText(@Nonnull ItemStack itemstack, Level worldIn, @Nonnull List<Component> lines, @Nonnull TooltipFlag extraInfo) {
         WandOptions options = new WandOptions(itemstack);
@@ -116,6 +152,10 @@ public abstract class ItemWand extends Item
         else {
             IOption<?> opt = options.allOptions[0];
             lines.add(Component.translatable(langTooltip + "blocks", limit).withStyle(ChatFormatting.GRAY));
+            if(WandEnergy.isInstalled(itemstack)) {
+                lines.add(Component.translatable(langTooltip + "energy", WandEnergy.get(itemstack), WandEnergy.capacity())
+                        .withStyle(ChatFormatting.YELLOW));
+            }
             lines.add(Component.translatable(opt.getKeyTranslation()).withStyle(ChatFormatting.AQUA)
                     .append(Component.translatable(opt.getValueTranslation()).withStyle(ChatFormatting.WHITE)));
             lines.add(Component.translatable(langTooltip + "shift").withStyle(ChatFormatting.AQUA));

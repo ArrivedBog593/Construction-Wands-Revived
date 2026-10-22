@@ -4,26 +4,21 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import nadiendev.constructionwand.client.ClientEvents;
 import nadiendev.constructionwand.client.KeybindHandler;
 import nadiendev.constructionwand.client.RenderBlockPreview;
-import nadiendev.constructionwand.client.WandItemColor;
 import nadiendev.constructionwand.client.property.SelectWandCore;
 import nadiendev.constructionwand.client.screen.ScreenVoidSack;
-import nadiendev.constructionwand.items.ModItems;
 import nadiendev.constructionwand.network.ModMessages;
 import nadiendev.constructionwand.platform.FabricPayloadContext;
 import nadiendev.constructionwand.registry.ModMenuTypes;
-import nadiendev.constructionwand.registry.RegistryObject;
 
 public class ConstructionWandFabricClient implements ClientModInitializer
 {
@@ -41,11 +36,6 @@ public class ConstructionWandFabricClient implements ClientModInitializer
 
         MenuScreens.register(ModMenuTypes.VOID_SACK.get(), ScreenVoidSack::new);
         SelectWandCore.register();
-
-        WandItemColor color = new WandItemColor();
-        for(RegistryObject<Item> wand : ModItems.WANDS) {
-            ColorProviderRegistry.ITEM.register(color, wand.get());
-        }
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             ClientEvents.onKey();

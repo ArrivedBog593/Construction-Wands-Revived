@@ -6,14 +6,19 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
+import net.minecraft.world.item.Item;
 import nadiendev.constructionwand.basics.ConfigClient;
 import nadiendev.constructionwand.basics.ConfigServer;
 import nadiendev.constructionwand.basics.ReplacementRegistry;
+import nadiendev.constructionwand.energy.WandEnergyStorage;
+import nadiendev.constructionwand.items.ModItems;
 import nadiendev.constructionwand.network.ModMessages;
 import nadiendev.constructionwand.platform.FabricConfigSpec;
 import nadiendev.constructionwand.platform.FabricPayloadContext;
 import nadiendev.constructionwand.registry.ModRegistries;
 import nadiendev.constructionwand.registry.Registrar;
+import nadiendev.constructionwand.registry.RegistryObject;
+import team.reborn.energy.api.EnergyStorage;
 
 public class ConstructionWandFabric implements ModInitializer
 {
@@ -23,6 +28,11 @@ public class ConstructionWandFabric implements ModInitializer
 
         for(Registrar<?> registrar : ModRegistries.all()) {
             registerAll(registrar);
+        }
+
+        // Wands with the Energy Upgrade can be charged through Team Reborn Energy
+        for(RegistryObject<Item> wand : ModItems.WANDS) {
+            EnergyStorage.ITEM.registerForItems(WandEnergyStorage::find, wand.get());
         }
 
         // Fabric has no config system, so both configs are plain files in the config folder

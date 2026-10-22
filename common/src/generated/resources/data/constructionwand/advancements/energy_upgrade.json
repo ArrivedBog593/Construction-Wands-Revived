@@ -1,0 +1,38 @@
+{
+  "parent": "constructionwand:root",
+  "criteria": {
+    "energy_upgrade": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "constructionwand:energy_upgrade"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.constructionwand.energy_upgrade.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "constructionwand:energy_upgrade"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.constructionwand.energy_upgrade.title"
+    }
+  },
+  "requirements": [
+    [
+      "energy_upgrade"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

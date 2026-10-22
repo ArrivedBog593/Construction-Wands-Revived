@@ -33,6 +33,15 @@ public class PacketExchangeSelect
                 ItemStack wand = WandUtil.holdingWand(player);
                 if(wand == null) return;
 
+                // Only the Exchange core uses the selected block: with another core active there is nothing to select
+                if(!(new nadiendev.constructionwand.basics.option.WandOptions(wand).cores.get()
+                        instanceof nadiendev.constructionwand.items.core.ItemCoreExchange)) {
+                    player.displayClientMessage(
+                            Component.translatable(MODID + ".message.exchange_wrong_core")
+                                    .withStyle(net.minecraft.ChatFormatting.RED), true);
+                    return;
+                }
+
                 HitResult hit = player.pick(Services.PLATFORM.getBlockReach(player), 1.0F, false);
 
                 if(!(hit instanceof BlockHitResult blockHit) || hit.getType() != HitResult.Type.BLOCK) {

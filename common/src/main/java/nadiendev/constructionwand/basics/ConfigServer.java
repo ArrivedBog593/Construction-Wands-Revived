@@ -4,6 +4,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
+import nadiendev.constructionwand.items.wand.WandTiers;
 import nadiendev.constructionwand.platform.IConfigBuilder;
 import nadiendev.constructionwand.platform.Services;
 import nadiendev.constructionwand.registry.RegistryObject;
@@ -23,6 +24,8 @@ public class ConfigServer
     public static final Supplier<Integer> MAX_RANGE;
     public static final Supplier<Integer> UNDO_HISTORY;
     public static final Supplier<Boolean> ANGEL_FALLING;
+    public static final Supplier<Integer> ENERGY_CAPACITY;
+    public static final Supplier<Integer> ENERGY_PER_BLOCK;
 
     public static final Supplier<List<?>> SIMILAR_BLOCKS;
     private static final String[] SIMILAR_BLOCKS_DEFAULT = {
@@ -123,6 +126,7 @@ public class ConfigServer
 
         new WandProperties(builder, ModItems.WAND_WOOD, Tiers.WOOD.getUses(), 5, 0, 0, 0, false);
         new WandProperties(builder, ModItems.WAND_STONE, Tiers.STONE.getUses(), 9, 0, 0, 0, false);
+        new WandProperties(builder, ModItems.WAND_COPPER, WandTiers.COPPER.getUses(), 18, 1, 5, 5, true);
         new WandProperties(builder, ModItems.WAND_IRON, Tiers.IRON.getUses(), 27, 2, 9, 9, true);
         new WandProperties(builder, ModItems.WAND_GOLD, Tiers.GOLD.getUses(), 60, 5, 15, 15, true);
         new WandProperties(builder, ModItems.WAND_DIAMOND, Tiers.DIAMOND.getUses(), 128, 8, 25, 25, true);
@@ -138,6 +142,10 @@ public class ConfigServer
         UNDO_HISTORY = builder.defineInRange("UndoHistory", 3, 0, Integer.MAX_VALUE);
         builder.comment("Place blocks below you while falling > 10 blocks with angel core (Can be used to save you from drops/the void)");
         ANGEL_FALLING = builder.define("AngelFalling", false);
+        builder.comment("Energy a wand with the Energy Upgrade can store (FE)");
+        ENERGY_CAPACITY = builder.defineInRange("EnergyCapacity", 100000, 1, Integer.MAX_VALUE);
+        builder.comment("Energy a wand with the Energy Upgrade uses for every block it places or exchanges (FE)");
+        ENERGY_PER_BLOCK = builder.defineInRange("EnergyPerBlock", 100, 0, Integer.MAX_VALUE);
         builder.comment("Blocks to treat equally when in Similar mode. Enter block IDs seperated by ;");
         SIMILAR_BLOCKS = builder.defineList("SimilarBlocks", Arrays.asList(SIMILAR_BLOCKS_DEFAULT));
         builder.pop();

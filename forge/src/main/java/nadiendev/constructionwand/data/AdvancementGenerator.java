@@ -46,6 +46,7 @@ public class AdvancementGenerator extends ForgeAdvancementProvider
 
             onHasItem(consumer, existingFileHelper, ModItems.WAND_WOOD,        FrameType.TASK, root);
             onHasItem(consumer, existingFileHelper, ModItems.WAND_STONE,       FrameType.TASK, root);
+            onHasItem(consumer, existingFileHelper, ModItems.WAND_COPPER,      FrameType.TASK, root);
             onHasItem(consumer, existingFileHelper, ModItems.WAND_IRON,        FrameType.TASK, root);
             onHasItem(consumer, existingFileHelper, ModItems.WAND_GOLD,        FrameType.TASK, root);
             onHasItem(consumer, existingFileHelper, ModItems.WAND_DIAMOND,     FrameType.TASK, root);
@@ -54,6 +55,7 @@ public class AdvancementGenerator extends ForgeAdvancementProvider
             onHasItem(consumer, existingFileHelper, ModItems.CORE_ANGEL,       FrameType.TASK, root);
             onHasItem(consumer, existingFileHelper, ModItems.CORE_DESTRUCTION, FrameType.TASK, root);
             onHasItem(consumer, existingFileHelper, ModItems.CORE_EXCHANGE,    FrameType.TASK, root);
+            onHasItem(consumer, existingFileHelper, ModItems.ENERGY_UPGRADE,   FrameType.TASK, root);
             onHasItem(consumer, existingFileHelper, ModItems.VOID_SACK,        FrameType.TASK, root);
         }
 
