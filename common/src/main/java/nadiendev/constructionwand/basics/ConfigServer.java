@@ -23,6 +23,8 @@ public class ConfigServer
     public static final Supplier<Integer> MAX_RANGE;
     public static final Supplier<Integer> UNDO_HISTORY;
     public static final Supplier<Boolean> ANGEL_FALLING;
+    public static final Supplier<Integer> ENERGY_CAPACITY;
+    public static final Supplier<Integer> ENERGY_PER_BLOCK;
 
     public static final Supplier<List<?>> SIMILAR_BLOCKS;
     private static final String[] SIMILAR_BLOCKS_DEFAULT = {
@@ -126,6 +128,7 @@ public class ConfigServer
         // ever accepting ANY core (Angel/Destruction included), not just Exchange. Added below.
         new WandProperties(builder, ModItems.WAND_WOOD, WandTier.WOOD.durability(), 5, 0, 0, 0, false);
         new WandProperties(builder, ModItems.WAND_STONE, WandTier.STONE.durability(), 9, 0, 0, 0, false);
+        new WandProperties(builder, ModItems.WAND_COPPER, WandTier.COPPER.durability(), 18, 1, 5, 5, true);
         new WandProperties(builder, ModItems.WAND_IRON, WandTier.IRON.durability(), 27, 2, 9, 9, true);
         new WandProperties(builder, ModItems.WAND_GOLD, WandTier.GOLD.durability(), 60, 5, 15, 15, true);
         new WandProperties(builder, ModItems.WAND_DIAMOND, WandTier.DIAMOND.durability(), 128, 8, 25, 25, true);
@@ -141,6 +144,10 @@ public class ConfigServer
         UNDO_HISTORY = builder.defineInRange("UndoHistory", 3, 0, Integer.MAX_VALUE);
         builder.comment("Place blocks below you while falling > 10 blocks with angel core (Can be used to save you from drops/the void)");
         ANGEL_FALLING = builder.define("AngelFalling", false);
+        builder.comment("Energy a wand with the Energy Upgrade can store (FE)");
+        ENERGY_CAPACITY = builder.defineInRange("EnergyCapacity", 100000, 1, Integer.MAX_VALUE);
+        builder.comment("Energy a wand with the Energy Upgrade uses for every block it places or exchanges (FE)");
+        ENERGY_PER_BLOCK = builder.defineInRange("EnergyPerBlock", 100, 0, Integer.MAX_VALUE);
         builder.comment("Blocks to treat equally when in Similar mode. Enter block IDs seperated by ;");
         SIMILAR_BLOCKS = builder.defineList("SimilarBlocks", Arrays.asList(SIMILAR_BLOCKS_DEFAULT));
         builder.pop();

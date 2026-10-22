@@ -54,11 +54,7 @@ public class HandlerShulkerbox implements IContainerHandler
 
     private NonNullList<ItemStack> getItemList(ItemStack itemStack) {
         ItemContainerContents contents = itemStack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
-        //? if >=26.1 {
-        /*List<ItemStack> contentList = contents.nonEmptyItemCopyStream().toList();
-        *///?} else {
         List<ItemStack> contentList = contents.stream().toList();
-        //?}
 
         NonNullList<ItemStack> itemStacks = NonNullList.withSize(SLOTS, ItemStack.EMPTY);
         for (int i = 0; i < Math.min(contentList.size(), SLOTS); i++) {

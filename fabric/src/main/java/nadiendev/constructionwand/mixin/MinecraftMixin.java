@@ -1,4 +1,3 @@
-//? if fabric {
 package nadiendev.constructionwand.mixin;
 
 import net.minecraft.client.Minecraft;
@@ -31,4 +30,3 @@ public abstract class MinecraftMixin {
         ClientEvents.onLeftClickEmpty(player, player.getMainHandItem());
     }
 }
-//?}
