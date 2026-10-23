@@ -47,7 +47,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public Item newBasicWand(Item.Properties properties, nadiendev.constructionwand.items.wand.WandTier tier) {
-        if(isModLoaded("ae2")) return new nadiendev.constructionwand.integrations.ae2.ItemWandBasicAe2(properties, tier);
+        if(isModLoaded("ae2")) return nadiendev.constructionwand.integrations.ae2.Ae2Wands.create(properties, tier);
         return IPlatformHelper.super.newBasicWand(properties, tier);
     }
 
