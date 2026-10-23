@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.0.13 — Minecraft 26.3 / NeoForge and Fabric
+
+### Fixes
+
+- **The game no longer crashes on startup when Applied Energistics 2 is not installed.** Version 4.0.12 loaded a
+  class that depends on AE2 while the mod was starting, so any modpack without AE2 failed with a missing class error
+  (IAEItemPowerStorage). That class is now only loaded when AE2 is present.
+
+## 4.0.13 — Minecraft 26.3 / NeoForge and Fabric (Español)
+
+### Corregido
+
+- **El juego ya no se cierra al iniciar cuando Applied Energistics 2 no esta instalado.** La version 4.0.12 cargaba al
+  arrancar una clase que depende de AE2, asi que cualquier modpack sin AE2 fallaba con un error de clase no
+  encontrada (IAEItemPowerStorage). Ahora esa clase solo se carga cuando AE2 esta presente.
+
 ## 4.0.12 — Minecraft 26.3 / NeoForge and Fabric
 
 ### Additions
