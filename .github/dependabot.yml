@@ -1,5 +1,6 @@
 # Keeps the workflow actions current on its own. Without this, action versions
 # silently rot until a runtime deprecation breaks a release.
+# To add new branches you just copy the format and put the branch name in "target-branch"
 version: 2
 updates:
   # multiloader/1.20.1
